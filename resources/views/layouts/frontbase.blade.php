@@ -128,7 +128,7 @@
                                                 position: absolute;
                                                 top: 100%;
                                                 left: 0;
-                                                min-width: 320px;
+                                                min-width: 220px;
                                                 background: #fff;
                                                 border: 1px solid #b87333;
                                                 box-shadow: 0 1px 4px rgba(0,0,0,0.1);
@@ -164,7 +164,7 @@
                                                                 @foreach($program->activities as $project)
                                                                     <li>
                                                                         <a href="{{ route('project', $project->slug ?? $project->id) }}"
-                                                                        style="display: block; padding: 10px 16px; text-decoration: none; color: #333;">
+                                                                        style="display: block; padding: 10px 16px; text-decoration: none; color: #333;  align-items: left;">
                                                                             {{ $project->title }}
                                                                         </a>
                                                                     </li>
