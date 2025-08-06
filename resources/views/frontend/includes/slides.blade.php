@@ -19,7 +19,7 @@
                                     <div class="row">
                                         <div class="col-xl-12">
                                             <div class="tp-slider-3__content text-center">
-                                                <span class="tp-slider-3-subtitle">Life Impact Mission</span>
+                                                <span class="tp-slider-3-subtitle">Impact Life Mission</span>
                                                 <h2 class="tp-slider-3-title pb-30">{{ $slide->heading }}</h2>
                                                 <a class="tp-btn theme-1-bg" href="{{ route('backgroundDetails') }}">Discover More</a>
                                             </div>
