@@ -75,7 +75,7 @@ class HomeController extends Controller
         $mission = About::first();
         $homeGallery = Gallery::latest()->get();
         $events = Event::latest()->get();
-        $slides = Slide::orderBY('id','asc')->latest()->get();
+        $slides = Slide::oldest()->get();
         $testimonials = Testimony::latest()->paginate(3);
         $news = News::latest()->get();
         $partners = Partner::latest()->get();
