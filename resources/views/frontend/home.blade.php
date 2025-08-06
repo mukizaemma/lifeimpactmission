@@ -3,7 +3,7 @@
 @section('content')
 
     <!-- slider-area-start -->
-    @include('frontend.includes.slides')
+    {{-- @include('frontend.includes.slides') --}}
     <!-- slider-area-end -->
     
     <!-- about-area-start -->
@@ -91,7 +91,7 @@
         </div>
     </div>
     <!-- cta-area-end -->
-    
+
         <!-- event-area-start -->
         <div class="tp-event__area pt-115 pb-90">
             <div class="container">
