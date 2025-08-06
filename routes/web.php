@@ -28,7 +28,6 @@ Route::get('/Gallery',[App\Http\Controllers\HomeController::class,'gallery'])->n
 Route::get('/sponsorship',[App\Http\Controllers\HomeController::class,'Sponsorship'])->name('Sponsorship');
 Route::get('/sponsorship/{id}',[App\Http\Controllers\HomeController::class,'childDetail'])->name('childDetail');
 Route::get('/contacts',[App\Http\Controllers\HomeController::class,'contacts'])->name('contacts');
-Route::get('/impacts',[App\Http\Controllers\HomeController::class,'impacts'])->name('impacts');
 Route::get('/testimonials',[App\Http\Controllers\HomeController::class,'testimonials'])->name('testimonials');
 Route::get('/testimonials/{id}',[App\Http\Controllers\HomeController::class,'testimony'])->name('testimony');
 Route::get('/updates',[App\Http\Controllers\HomeController::class,'posts'])->name('posts');

@@ -194,11 +194,6 @@ class HomeController extends Controller
         return view('frontend.gallery',['gallery'=>$gallery,'programs'=>$programs]);
     }
 
-    public function impacts(){
-        $impacts = Impact::latest()->get();
-        $programs = Program::latest()->get();
-        return view('home.impacts',['impacts'=>$impacts,'programs'=>$programs]);
-    }
     public function contacts(){
         $contact = Setting::all()->first();
         $programs = Program::latest()->get();
