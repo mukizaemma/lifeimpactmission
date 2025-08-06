@@ -18,13 +18,13 @@
                     <h3 class="postbox__title">{{ $activity->title }}</h3>
                     <div class="postbox__text">
                         <p>
-                            {!! $activity->description !!}
+                            {{ $activity->description }}
                         </p>
                     </div>
                 </div>
             </article>
 
-                    <div class="tp-gallery-3__area pt-120 pb-120">
+        <div class="tp-gallery-3__area pt-120 pb-120">
             <div class="container">
                 {{-- <div class="row">
                     @foreach ($gallery as $image)

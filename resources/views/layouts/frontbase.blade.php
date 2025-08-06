@@ -51,7 +51,7 @@
             </div>
             <div class="tpoffcanvas__logo">
                 <a href="{{ route('home') }}">
-                    <img src="{{ asset('storage/images') . ($setting->logo ?? '') }}" alt="">
+                    <img src="{{asset('storage\images').$setting->logo}}" alt="" width="120px">
                 </a>
             </div>
             <div class="tpoffcanvas__title">
@@ -105,7 +105,7 @@
                     <div class="col-xl-1 col-lg-6 col-md-4 col-7">
                         <div class="tp-header-3__logo">
                             <a href="{{route('home')}}">
-                                <img src="{{asset('storage\images').$setting->logo}}" alt="" width="90px">
+                                <img src="{{asset('storage\images').$setting->logo}}" alt="" width="120px">
                             </a>
                         </div>
                     </div>
@@ -117,13 +117,82 @@
                                     </li>
                                     <li><a href="{{route('backgroundDetails')}}">Who We Are</a>
                                     </li>
-                                    <li class="has-dropdown"><a href="{{ route('showPrograms') }}">Our Programs</a>
-                                        <ul class="submenu tp-submenu">
-                                            @foreach($programs as $rs)
-                                                <li><a href="{{route('singleProgram',$rs->slug)}}">{{$rs->title}}</a></li>
-                                            @endforeach
-                                        </ul>
-                                    </li>
+                                        <li class="has-dropdown" style="position: relative;">
+                                            <a href="{{ route('showPrograms') }}" style="display: block; position: relative;">
+                                                Our Programs
+                                            </a>
+                                            <ul style="
+                                                list-style: none;
+                                                margin: 0;
+                                                padding: 0;
+                                                position: absolute;
+                                                top: 100%;
+                                                left: 0;
+                                                min-width: 320px;
+                                                background: #fff;
+                                                border: 1px solid #b87333;
+                                                box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+                                                display: none;
+                                                z-index: 1000;
+                                            ">
+
+                                                @foreach($programs as $program)
+                                                    <li class="has-dropdown" style="position: relative;">
+                                                        <a href="{{ route('singleProgram', $program->slug) }}"
+                                                        style="display: flex; justify-content: space-between; align-items: left; padding: 10px 16px; text-decoration: none; color: #000;">
+                                                            {{ $program->title }}
+                                                            @if($program->activities->count())
+                                                                <span style="margin-left: 8px;">&#9654;</span>
+                                                            @endif
+                                                        </a>
+
+                                                        @if($program->activities->count())
+                                                            <ul style="
+                                                                list-style: none;
+                                                                margin: 0;
+                                                                padding: 0;
+                                                                position: absolute;
+                                                                top: 0;
+                                                                left: 100%;
+                                                                min-width: 300px;
+                                                                background: #fff;
+                                                                border: 1px solid #ccc;
+                                                                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                                                                display: none;
+                                                                z-index: 1000;
+                                                            ">
+                                                                @foreach($program->activities as $project)
+                                                                    <li>
+                                                                        <a href="{{ route('project', $project->slug ?? $project->id) }}"
+                                                                        style="display: block; padding: 10px 16px; text-decoration: none; color: #333;">
+                                                                            {{ $project->title }}
+                                                                        </a>
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        @endif
+                                                    </li>
+                                                @endforeach
+
+                                            </ul>
+                                        </li>
+
+                                        <!-- Hover styling to enable dropdowns -->
+                                        <style>
+                                            li.has-dropdown:hover > ul {
+                                                display: block !important;
+                                            }
+
+                                            li.has-dropdown > a:hover {
+                                                color: #007bff;
+                                            }
+
+                                            li.has-dropdown ul li a:hover {
+                                                background-color: #f8f9fa;
+                                                color: #007bff;
+                                            }
+                                        </style>
+
                                     <li><a href="{{ route('upcomingEvents') }}">Upcoming Events</a>
 
                                     </li>

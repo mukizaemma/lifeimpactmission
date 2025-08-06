@@ -23,6 +23,7 @@ Route::get('/project/{slug}',[App\Http\Controllers\HomeController::class,'projec
 Route::get('/campaigns',[App\Http\Controllers\HomeController::class,'campaigns'])->name('campaigns');
 Route::get('/campaigns/{slug}',[App\Http\Controllers\HomeController::class,'campaign'])->name('campaign');
 Route::get('/upcoming-events',[App\Http\Controllers\HomeController::class,'upcomingEvents'])->name('upcomingEvents');
+Route::get('/upcoming-events/{slug}',[App\Http\Controllers\HomeController::class,'event'])->name('event');
 Route::get('/Messages',[App\Http\Controllers\HomeController::class,'messages'])->name('Messages');
 Route::get('/Gallery',[App\Http\Controllers\HomeController::class,'gallery'])->name('gallery');
 Route::get('/sponsorship',[App\Http\Controllers\HomeController::class,'Sponsorship'])->name('Sponsorship');

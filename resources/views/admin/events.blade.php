@@ -43,9 +43,9 @@
                                 <tr>
                                     <th>Event Banner</th>
                                     <th>Event Title</th>
-                                    <th>Date</th>
-                                    <th>Time</th>
+                                    <th>Date/Time</th>
                                     <th>Location</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -55,9 +55,9 @@
                                 <tr>
                                     <td><img src="{{asset('storage/images/events').$rs->image}}" alt="" width="150px"></td>
                                     <td>{{$rs->title}}</td>
-                                    <td>{{$rs->date}}</td>
-                                    <td>From: {{$rs->timeStart}} to: {{$rs->timeEnd}}</td>
+                                    <td>{{$rs->date}} <br>{{$rs->timeStart}} - {{$rs->timeEnd}}</td>
                                     <td>{{$rs->location}}</td>
+                                    <td>{{$rs->status}}</td>
 
                                     <td>
                                         <div class="btn-btn-group ">

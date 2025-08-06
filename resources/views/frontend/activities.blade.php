@@ -30,6 +30,16 @@
     
     <div class="tp-blog-2__area pt-20 pb-90">
         <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="postbox__text">
+                        <p style="font-size: 20px; font-wight:700; text-align:justify">
+                            {{ $program->description }}
+                        </p>
+                    </div>
+                    </div> 
+                </div>
+
             <div class="row">
                 @foreach ($program->activities as $rs)
                 <div class="col-xl-4 col-lg-4 col-md-6 mb-30 wow tpfadeUp" data-wow-duration=".9s"

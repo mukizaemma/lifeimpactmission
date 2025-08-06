@@ -74,7 +74,7 @@ class HomeController extends Controller
         $about = background::first();
         $mission = About::first();
         $homeGallery = Gallery::latest()->get();
-        $events = Event::latest()->get();
+        $events = Event::where('status','Active')->latest()->get();
         $slides = Slide::oldest()->get();
         $testimonials = Testimony::latest()->paginate(3);
         $news = News::latest()->get();
@@ -169,8 +169,13 @@ class HomeController extends Controller
         return view('frontend.sponsorshipDetails',['data'=>$data]);
     }
     public function upcomingEvents(){
-        $events = Event::latest()->get();
+        $events = Event::where('status','Active')->latest()->get();
         return view('frontend.events',['events'=>$events]);
+    }
+    
+    public function event($slug){
+        $event = Event::where('slug', $slug)->firstOrFail();
+        return view('frontend.event',['event'=>$event]);
     }
     public function posts(){
         $news = News::latest()->paginate(20);
@@ -200,6 +205,7 @@ class HomeController extends Controller
         $about = background::first();
         return view('frontend.contact',['programs'=>$programs,'contact'=>$contact, 'about'=>$about]);
     }
+
 
     public function sendMessage(Request $request){
 

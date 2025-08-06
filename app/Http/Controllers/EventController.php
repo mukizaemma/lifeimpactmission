@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use App\Models\Event;
 class EventController extends Controller
 {
@@ -38,6 +39,8 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+        $slug = Str::of($request->input('title'))->slug();
+
         $data = new Event();
         $data ->title = $request->title;
         $data ->description = $request->description;
@@ -47,6 +50,8 @@ class EventController extends Controller
         $data ->timeEnd = $request->timeEnd;
         $data ->registerLink = $request->registerLink;
         $data ->registerContact = $request->registerContact;
+        $data ->slug = $slug;
+        
 
         // Uploading image
         if ($request->hasFile('image')) {
@@ -105,6 +110,7 @@ class EventController extends Controller
         $data->timeEnd = $request->input('timeEnd');
         $data->registerLink = $request->input('registerLink');
         $data->registerContact = $request->input('registerContact');
+        $data->status = $request->input('status');
 
         if(!$data){
             return back()->with('Error','Event Not Found');
@@ -135,6 +141,8 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Event::find($id);
+        $data->delete($id);
+        return redirect()->back()->with('success', 'Item has been deleted');
     }
 }

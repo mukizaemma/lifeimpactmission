@@ -13,7 +13,7 @@
                     </div>
                     <div class="col-xl-5 col-lg-5 col-md-5">
                         <div class="tp-cta__button text-md-end text-start">
-                            <a class="tp-btn" href="{{ route('campaigns') }}">Discover More</a>
+                            <a class="tp-btn" href="{{ route('contacts') }}">Get Involved</a>
                         </div>
                     </div>
                 </div>

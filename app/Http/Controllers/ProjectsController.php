@@ -24,33 +24,23 @@ class ProjectsController extends Controller
 
     public function store(Request $request)
     {
-        $rules = [
-        'title' => 'required',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ];
-    
-        $validate = Validator::make($request->all(), $rules);
-        
-        if ($validate->fails()) {
-            return back()->withErrors($validate)->withInput();
-        } 
-    
-        $fileName = '';
-        if($request->hasFile('image')){
-            $file = $request->file('image');
-            $path = $file->store('public/images/projects');
-            $fileName = basename($path);
-        }
     
         $slug = Str::of($request->input('title'))->slug();
+
+        $activity = new Activity();
+        $activity->title = $request->input('title');
+        $activity->description = $request->input('description');
+        $activity->program_id = $request->input('program_id');
+        $activity->slug = $slug;
     
-        $category = new Activity();
-        $category->title = $request->input('title');
-        $category->description = $request->input('description');
-        $category->program_id = $request->input('program_id');
-        $category->slug = $slug;
-        $category->image = $fileName;
-        $saved = $category->save();
+        if ($request->hasFile('image')) {
+            $dir = 'public/images/projects';
+            $path = $request->file('image')->store($dir);
+            $fileName = str_replace($dir . '/', '', $path);
+            $activity->image = $fileName;
+        }
+
+        $saved = $activity->save();
         
         if($saved){
             return redirect()->route('getProjects')->with('success', 'Program created successfully.');

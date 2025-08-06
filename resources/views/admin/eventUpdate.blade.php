@@ -16,7 +16,7 @@
     </div>
     <div id="layoutSidenav_content">
         <div class="card-header">
-            <a href="{{route('ministries')}}" class="btn btn-primary">Back</a>
+            <a href="{{route('events')}}" class="btn btn-primary">Back</a>
             @if(session()->has('success'))
             <div class="arlert alert-success">
                 <button class="close" type="button" data-dismiss="alert">X</button>
@@ -94,13 +94,12 @@
                                 </div>
 
                                 <div class="col-lg-4 col-sm-12">
-                                        <label for="projectinput1">Branch</label>
-                                        <select class="form-control select2" name="branch_id"
+                                        <label for="projectinput1">Status</label>
+                                        <select class="form-control select2" name="status"
                                             style="...">
-                                            <option value="{{ $data->id }}">{{$data->name}}</option>
-                                            {{-- @foreach($branches as $rs)
-                                                <option value="{{ $rs->id }}">{{$rs->name}}</option>
-                                            @endforeach --}}
+                                            <option value="" disabled selected>{{ $data->stsus }}</option>
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">Inactive</option>
                                         </select>
                                 </div>
 
