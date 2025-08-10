@@ -191,10 +191,12 @@ class HomeController extends Controller
     public function postSingle($slug){
         $blogs = News::latest()->get();
         $blog = News::where('slug',$slug)->first();
+        $images = $blog->images ?? collect();
         $relatedBlogs = News::where('id','!=',$blog->id)->latest()->take(9);
         $programs = Program::latest()->get();
         $about = background::first();
-        return view('frontend.blog',['blog'=>$blog,'blogs'=>$blogs,'relatedBlogs'=>$relatedBlogs,'programs'=>$programs,'about'=>$about]);
+        return view('frontend.blog',['blog'=>$blog,'blogs'=>$blogs,'relatedBlogs'=>$relatedBlogs,
+        'programs'=>$programs,'about'=>$about,'images'=>$images]);
     }
 
 public function gallery(){

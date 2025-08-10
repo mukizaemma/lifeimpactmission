@@ -12,13 +12,13 @@
             <div class="postbox__wrapper">
             <article class="postbox__item format-image mb-50 transition-3">
                 <div class="postbox__thumb p-relative m-img">
-                    <img src="{{ asset('storage/images/projects/' . $activity->image) }}" alt="">
+                    <img src="{{ asset('storage/images/news/' . $blog->image) }}" alt="">
                 </div>
                 <div class="postbox__content">
-                    <h3 class="postbox__title">{{ $activity->title }} {{ $images->count() }}</h3>
+                    <h3 class="postbox__title">{{ $blog->title }} {{ $images->count() }}</h3>
                     <div class="postbox__text">
                         <p>
-                            {{ $activity->description }}
+                            {{ $blog->description }}
                         </p>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                     @if($images->count() == 0)
                             <p class="text-muted">No images yet.</p>
                         @else
-                        <h3 class="postbox__title">Program Gallery</h3>
+                        <h3 class="postbox__title">Blog Gallery</h3>
                         @foreach ($images as $image)
                         <div class="col-xl-6 col-lg-6 col-md-6 mb-30 wow tpfadeUp" data-wow-duration=".9s"
 
@@ -38,7 +38,7 @@
                             <div class="tp-gallery-3__item p-relative">
                                 <img src="{{ asset('storage/images/projects/' . $image->image) }}" alt="">
                                 <div class="tp-gallery-3__icon">
-                                    <a class="popup-image" href="{{ asset('storage/images/projects/' . $image->image) }}">
+                                    <a class="popup-image" href="{{ asset('storage/images/news/' . $image->image) }}">
                                         <svg id="body" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="49" height="51" viewBox="0 0 49 51">
                                             <g id="gallery">
                                             </g>
@@ -63,10 +63,10 @@
                 <div class="sidebar__widget-content">
                     <div class="sidebar__post">
 
-                        @foreach ($relatedActivities as $rs)
+                        @foreach ($relatedBlogs as $rs)
                         <div class="rc__post mb-10 d-flex align-items-center">
                         <div class="rc__post-thumb mr-20">
-                            <a href="{{route('project',$rs->slug)}}"><img src="{{ asset('storage/images/projects/' . $rs->image) }}" alt="" width="90px"></a>
+                            <a href="{{route('postSingle',$rs->slug)}}"><img src="{{ asset('storage/images/news/' . $rs->image) }}" alt="" width="90px"></a>
                         </div>
                         <div class="rc__post-content">
                             {{-- <div class="rc__meta">
@@ -74,7 +74,7 @@
                                 02 Comments</span>
                             </div> --}}
                             <h3 class="rc__post-title">
-                                <a href="{{route('project',$rs->slug)}}">{{ $rs->title }}</a>
+                                <a href="{{route('postSingle',$rs->slug)}}">{{ $rs->title }}</a>
                             </h3>
                         </div>
                         </div>
