@@ -15,7 +15,7 @@
                     <img src="{{ asset('storage/images/news/' . $blog->image) }}" alt="">
                 </div>
                 <div class="postbox__content">
-                    <h3 class="postbox__title">{{ $blog->title }} {{ $images->count() }}</h3>
+                    <h3 class="postbox__title">{{ $blog->title }}</h3>
                     <div class="postbox__text">
                         <p>
                             {{ $blog->description }}
