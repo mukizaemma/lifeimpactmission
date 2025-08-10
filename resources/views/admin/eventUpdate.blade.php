@@ -77,6 +77,10 @@
 
                                 </div>
 
+                            <div class="form-group">
+                                <label for="projectinput8">Event Description</label>
+                                <textarea id="ProgramDescription" rows="5" class="form-control" name="description" >{{$data->description}}</textarea>
+                            </div>
 
                             <div class="row">
                                 <div class="col-lg-4 col-sm-12">
@@ -93,11 +97,12 @@
                                         </label>
                                 </div>
 
+
                                 <div class="col-lg-4 col-sm-12">
                                         <label for="projectinput1">Status</label>
                                         <select class="form-control select2" name="status"
                                             style="...">
-                                            <option value="" disabled selected>{{ $data->stsus }}</option>
+                                            <option value="" disabled selected>{{ $data->status }}</option>
                                             <option value="Active">Active</option>
                                             <option value="Inactive">Inactive</option>
                                         </select>

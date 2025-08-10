@@ -152,6 +152,13 @@
 
                                                 </div>
 
+                                                <div class="row mt-5">
+                                                <div class="form-group">
+                                                    <label for="projectinput8">Event Description</label>
+                                                    <textarea id="ProgramDescription" rows="5" class="form-control" name="description" placeholder="Event Description"></textarea>
+                                                </div>
+                                                </div>
+
                                             </div>
 
                                             <div class="form-actions mt-5">

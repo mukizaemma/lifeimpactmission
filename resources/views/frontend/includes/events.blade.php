@@ -15,13 +15,13 @@
                             <div class="tp-event__item">
                                 <div class="tp-event__thumb p-relative">
                                     <img src="{{asset('storage/images/events').$event->image}}" alt="">
-                                    <div class="tp-event__thumb-text">
+                                    {{-- <div class="tp-event__thumb-text">
                                         <h4 class="tp-event__thumb-date">
                                             {{ \Carbon\Carbon::parse($event->date)->format('d') }} <br>
                                             <span>{{ \Carbon\Carbon::parse($event->date)->format('M') }}</span>
                                         </h4>
 
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="tp-event__content">
                                     <div class="tp-event__meta">

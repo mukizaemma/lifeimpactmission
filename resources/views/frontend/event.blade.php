@@ -12,9 +12,9 @@
                         <div class="tp-event-details__left-box">
                             <div class="tp-event-details__thumb p-relative pb-25">                   
                                 <img src="{{asset('storage/images/events').$event->image}}" alt="">
-                                <div class="tp-event-details__thumb-text d-none d-md-block">
+                                {{-- <div class="tp-event-details__thumb-text d-none d-md-block">
                                     <span>{{ \Carbon\Carbon::parse($event->date)->format('d M') }}</span>
-                                </div>
+                                </div> --}}
                             </div>
                             <h4 class="tp-event-details__title">{{ $event->title }}</h4>
                             <div class="tp-event-details__text pb-25">                   
@@ -59,7 +59,7 @@
                                             </div>
                                         </div>
                                     </li>
-                                                                        <li>
+                                    <li>
                                         <div class="tp-event-details__contact-item d-flex align-items-start">
                                             <div class="tp-event-details__contact-icon">
                                                 <span><i class="flaticon-location"></i></span>
