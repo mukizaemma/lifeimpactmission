@@ -25,6 +25,7 @@ use App\Models\Volunteer;
 use App\Mail\ReplyMessage;
 use App\Models\Background;
 use App\Models\Sponsorship;
+use App\Models\Projectimage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -140,12 +141,15 @@ class HomeController extends Controller
     }
 
     public function project($slug){
-        $activity = Activity::where('slug',$slug)->firstOrFail();
+        $activity = Activity::with('images')->where('slug',$slug)->firstOrFail();
+        $images = $activity->images;
         $relatedActivities = Activity::where('id' ,'!=',$activity->id)->oldest()->get();
         $about = background::first();
         $gallery = Gallery::latest()->get();
         $news = News::latest()->paginate(9);
-        return view('frontend.activity',['activity'=>$activity, 'relatedActivities'=>$relatedActivities, 'about'=>$about, 'gallery'=>$gallery,'news'=>$news]);
+
+        return view('frontend.activity',['activity'=>$activity, 'relatedActivities'=>$relatedActivities, 
+        'about'=>$about, 'gallery'=>$gallery,'images'=>$images]);
     }
     public function campaigns(){
         $programs = Program::oldest()->get();
@@ -193,11 +197,16 @@ class HomeController extends Controller
         return view('frontend.blog',['blog'=>$blog,'blogs'=>$blogs,'relatedBlogs'=>$relatedBlogs,'programs'=>$programs,'about'=>$about]);
     }
 
-    public function gallery(){
-        $gallery = Image::with('program')->latest()->get();
-        $programs = Program::with('images')->get();
-        return view('frontend.gallery',['gallery'=>$gallery,'programs'=>$programs]);
-    }
+public function gallery(){
+    $gallery = Projectimage::latest()->take(9)->get();
+    $programs = Program::with('activities.images')->get();
+
+    return view('frontend.gallery', [
+        'gallery' => $gallery,
+        'programs' => $programs
+    ]);
+}
+
 
     public function contacts(){
         $contact = Setting::all()->first();

@@ -105,6 +105,8 @@ Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verifi
     Route::get('/editProject/{id}', [App\Http\Controllers\ProjectsController::class, 'edit'])->name('editProject');
     Route::post('/updateProject/{id}', [App\Http\Controllers\ProjectsController::class, 'update'])->name('updateProject');
     Route::get('/destroyProject/{id}', [App\Http\Controllers\ProjectsController::class, 'destroy'])->name('destroyProject');
+        Route::post('/addProjectImage', [App\Http\Controllers\ProjectsController::class, 'addProjectImage'])->name('addProjectImage');
+    Route::get('/deleteProjectImage/{id}', [App\Http\Controllers\ProjectsController::class, 'deleteProjectImage'])->name('deleteProjectImage');
 
     // Gallery
     Route::get('/images', [App\Http\Controllers\GalleryController::class, 'index'])->name('images');

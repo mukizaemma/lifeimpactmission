@@ -20,4 +20,8 @@ class Activity extends Model
     public function program(){
         return $this->BelongsTo(Program::class);
     }
+
+    public function images(){
+        return $this->hasMany(Projectimage::class);
+    }
 }

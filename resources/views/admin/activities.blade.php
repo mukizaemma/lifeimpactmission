@@ -57,12 +57,13 @@
                                     <td>{{$rs->program->title ?? ''}}</td>
                                     <td>{!!$rs->description!!}</td>
                                     <td><img src="{{ asset('storage/images/projects') . $rs->image }}" alt="" width="150px"></td>
-                                    <td>                                                <div class="btn-btn-group ">
-                                        <a type="button" href="{{ route('editProject', $rs->id) }}"
-                                            class="btn btn-primary text-black">Edit</a>
-                                        <a type="button" href="{{ route('destroyProject', $rs->id) }}"
-                                            class="btn btn-danger text-black" onclick="return confirm('Are you sure to delete this item?')">Delete</a>
-                                    </div>
+                                    <td>   
+                                        <div class="bg-light rounded ">
+                                            <div class="btn-group" role="group">
+                                                <a href="{{ route('editProject',['id'=>$rs->id]) }}" class="btn btn-info"><i class="fa fa-images"></i></a>
+                                                <a href="{{ route('destroyProject',['id'=>$rs->id]) }}" class="btn btn-warning"  onclick="return confirm('Are you sure to delete this Project?')"><i class="fa fa-trash"></i></a>
+                                            </div>
+                                        </div>
                                 </td>
                                 </tr>
                                 @endforeach

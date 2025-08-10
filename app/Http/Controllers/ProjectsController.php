@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Program;
 use App\Models\Activity;
+use App\Models\Projectimage;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -59,8 +60,10 @@ class ProjectsController extends Controller
     public function edit($id)
     {
         $data = Activity::find($id);
+        $images = $data->images;
+        $totalImages = $images->count();
         $programs = Program::all();
-        return view('admin.activityUpdate', ['data'=>$data,'programs'=>$programs]);
+        return view('admin.activityUpdate', ['data'=>$data,'programs'=>$programs, 'images'=>$images,'totalImages'=>$totalImages]);
     }
 
 
@@ -99,4 +102,46 @@ class ProjectsController extends Controller
         $data->delete($id);
         return redirect()->back()->with('success', 'Item has been deleted');
     }
+
+    
+    public function addProjectImage(Request $request)
+        {
+            $request->validate([
+                'image.*'           => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validate each image
+                'activity_id' => 'required|exists:activities,id', // Ensure the wedding gallery exists
+            ]);
+
+            if ($request->hasFile('image')) {
+                foreach ($request->file('image') as $image) {
+                    $dir = 'public/images/projects';
+                    $path = $image->store($dir);
+                    $fileName = str_replace($dir . '/', '', $path);
+
+                    Projectimage::create([
+                        'image'             => $fileName,
+                        'activity_id' => $request->activity_id, 
+                        'added_by' => $request->user()->id
+                    ]);
+                }
+
+                return redirect()->back()->with('success', 'Images uploaded successfully!');
+            }
+
+            return redirect()->back()->with('error', 'No images were uploaded.');
+        }
+
+    public function deleteProjectImage($id){
+        $image = Projectimage::findOrFail($id);
+
+        $imagePath = 'public/images/projects/' . $image->filename;
+
+        if (Storage::exists($imagePath)) {
+            Storage::delete($imagePath);
+        }
+
+        $image->delete();
+
+        return redirect()->back()->with('warning', 'Image has been deleted');
+    }
+
 }
