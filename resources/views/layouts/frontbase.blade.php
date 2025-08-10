@@ -193,8 +193,13 @@
                                             }
                                         </style>
 
-                                    <li><a href="{{ route('upcomingEvents') }}">Upcoming Events</a>
-
+                                    <li class="has-dropdown"><a href="#">Updates</a>
+                                        <ul class="submenu tp-submenu">
+                                            <li><a href="{{ route('upcomingEvents') }}">Upcoming Events</a></li>
+                                            <li><a href="{{ route('posts') }}">Recent Updates</a></li>
+                                            <li><a href="{{ route('testimonials') }}">Testimonials</a></li>
+                                        </ul>
+                                    </li>
                                     </li>
                                     <li><a href="{{route('gallery')}}">Gallery</a></li>
                                     <li><a href="{{route('contacts')}}">Contact</a></li>
