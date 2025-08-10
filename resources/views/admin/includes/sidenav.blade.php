@@ -34,28 +34,8 @@
 
     <a class="nav-link" href="{{ route('getTestimonials') }}">
         <div class="sb-nav-link-icon"><i class="fa fa-comment-dots"></i></div>
-        Events
+        Testimonials
     </a>
-
-    {{-- <a class="nav-link" href="{{ route('impact') }}">
-        <div class="sb-nav-link-icon"><i class="fa fa-chart-line"></i></div>
-        Our Impacts
-    </a> --}}
-
-    <a class="nav-link" href="{{ route('partner') }}">
-        <div class="sb-nav-link-icon"><i class="fa fa-handshake"></i></div>
-        Partners
-    </a>
-
-    <a class="nav-link" href="{{ route('staff') }}">
-        <div class="sb-nav-link-icon"><i class="fa fa-users"></i></div>
-        Staff Members
-    </a>
-
-    {{-- <a class="nav-link" href="{{ route('students') }}">
-        <div class="sb-nav-link-icon"><i class="fa fa-user-graduate"></i></div>
-        Students
-    </a> --}}
 
     <hr>
 
@@ -77,6 +57,15 @@
     <a class="nav-link" href="{{ route('slides') }}">
         <div class="sb-nav-link-icon"><i class="fa fa-images"></i></div>
         Home Slide Images
+    </a>
+        <a class="nav-link" href="{{ route('partner') }}">
+        <div class="sb-nav-link-icon"><i class="fa fa-handshake"></i></div>
+        Partners
+    </a>
+    
+        <a class="nav-link" href="{{ route('staff') }}">
+        <div class="sb-nav-link-icon"><i class="fa fa-users"></i></div>
+        Staff Members
     </a>
 
 </div>
