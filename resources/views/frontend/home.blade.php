@@ -150,8 +150,8 @@
                     @foreach($news->slice(1, 3) as $blog)
                         <div class="tp-blog-2__item d-flex mb-4" style="align-items: center; gap: 15px;">
                             <a href="{{ route('postSingle', $blog->slug) }}">
-                                <div class="tp-blog-2__thumb p-relative" style="width: 120px; height: 80px; overflow: hidden; flex-shrink: 0;">
-                                    <img src="{{ asset('storage/images/news/' . $blog->image) }}" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+                                <div class="tp-blog-2__thumb p-relative" >
+                                    <img src="{{ asset('storage/images/news/' . $blog->image) }}" alt="" style="width: 100%;object-fit: cover;">
                                 </div>
                             </a>
                             <div class="tp-blog-2__content" style="flex: 1;">
