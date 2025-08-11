@@ -9,34 +9,18 @@ use Illuminate\Support\Str;
 use App\Models\Event;
 class EventController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-
         $events = DB::table('events')->latest()->get();
         return view('admin.events', ['events'=>$events]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $slug = Str::of($request->input('title'))->slug();
@@ -111,6 +95,7 @@ class EventController extends Controller
         $data->registerLink = $request->input('registerLink');
         $data->registerContact = $request->input('registerContact');
         $data->status = $request->input('status');
+        $data->description = $request->input('description');
 
         if(!$data){
             return back()->with('Error','Event Not Found');

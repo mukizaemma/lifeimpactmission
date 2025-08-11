@@ -93,7 +93,49 @@
     <!-- cta-area-end -->
     
         <!-- event-area-start -->
-            @include('frontend.includes.events')
+{{-- @if($event)
+<div class="tp-about-4__area tp-about-4__space p-relative fix grey-bg">
+<div class="row">
+    <div class="col-xl-12">
+        <div class="tp-event__section-title text-center">
+            <h4 class="tp-section-title">Upcoming Events </h4>
+        </div>
+    </div>
+</div>
+    <div class="tp-about-4__shape d-none d-xxl-block">
+        <img src="{{asset('storage/images/events') .$event->image}}" alt="">
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="offset-xl-6 offset-lg-6 col-xl-6 col-lg-6 wow tpfadeRight" data-wow-duration=".9s"
+            data-wow-delay=".5s">
+                <div class="tp-about-4__left-side">
+                    <div class="tp-about-4__section-title">
+                        <h4 class="tp-section-title">About the Event</h4>
+                    </div>
+                    <div class="tp-about-4__content">
+                        <div class="tp-about-4__text">
+                            <p>{{ $event->description }}</p>
+                        </div>
+                        <div class="tp-about-4__btn">
+                            <a class="tp-btn" href="{{ $event->registerLink }}">Discover More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@else
+<div class="row">
+    <div class="col-xl-12">
+        <div class="tp-event__section-title text-center">
+            <h4 class="tp-section-title">Not Active Event Yet </h4>
+        </div>
+    </div>
+</div>
+@endif --}}
+
         <!-- event-area-end -->
 
 

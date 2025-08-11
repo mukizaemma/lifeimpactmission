@@ -27,6 +27,7 @@ use App\Models\Background;
 use App\Models\Sponsorship;
 use App\Models\Projectimage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -75,18 +76,24 @@ class HomeController extends Controller
         $about = background::first();
         $mission = About::first();
         $homeGallery = Gallery::latest()->get();
-        $events = Event::where('status','Active')->latest()->get();
         $slides = Slide::oldest()->get();
         $testimonials = Testimony::latest()->paginate(3);
         $news = News::latest()->paginate(3);
         $partners = Partner::latest()->get();
         $staff = Team::latest()->get();
 
+        $today = Carbon::today()->toDateString();
+
+        $event = Event::where('status', 'Active')
+            ->where('date', '>=', $today)
+            ->orderBy('date', 'asc') // earliest upcoming
+            ->first();
+
         return view('frontend.home', [
             'background' =>$background,
             'programs' =>$programs,
             'homeGallery' =>$homeGallery,
-            'events' =>$events,
+            'event' =>$event,
             'slides' =>$slides,
             'testimonials' =>$testimonials,
             'news' =>$news,
