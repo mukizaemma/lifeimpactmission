@@ -18,7 +18,7 @@
                             </div>
                             <h4 class="tp-event-details__title">{{ $event->title }}</h4>
                             <div class="tp-event-details__text pb-25">                   
-                                <p>{{ $event->description }}</p>
+                                <p style="font-size: 20px; font-wight:700; text-align:left">{{ $event->description }}</p>
                             </div>
 
                             <a class="tp-btn" href="#">Register Now</a>

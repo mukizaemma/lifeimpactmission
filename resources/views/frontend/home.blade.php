@@ -24,7 +24,7 @@
                                 $words = Str::limit($about->description, 400, '...');
                                 @endphp
 
-                                <p style="font-size: 20px; font-wight:700; text-align:justify" > {{ $words }} </p>
+                                <p style="font-size: 20px; font-wight:700; text-align:left" > {{ $words }} </p>
 
                                 @if(strlen($about->description) > 400)
                                 

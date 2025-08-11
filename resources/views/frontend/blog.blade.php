@@ -17,7 +17,7 @@
                 <div class="postbox__content">
                     <h3 class="postbox__title">{{ $blog->title }}</h3>
                     <div class="postbox__text">
-                        <p>
+                        <p style="font-size: 20px; font-wight:700; text-align:left">
                             {{ $blog->body }}
                         </p>
                     </div>

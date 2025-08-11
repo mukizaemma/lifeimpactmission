@@ -28,7 +28,7 @@
                                 $words = Str::limit($rs->description, 100, '...');
                                 @endphp
 
-                                <p style="font-size: 20px; font-wight:700; text-align:justify" > {{ $words }} </p>
+                                <p style="font-size: 20px; font-wight:700; text-align:left" > {{ $words }} </p>
 
                                 @if(strlen($rs->description) > 100)
                                 <a href="{{route('singleProgram',['slug'=>$rs->slug])}}">
