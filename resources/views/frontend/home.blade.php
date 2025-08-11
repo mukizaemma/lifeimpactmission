@@ -105,13 +105,13 @@
     <!-- blog-area-start -->
     <div class="tp-blog-2__area pt-120 pb-90">
         <div class="container">
-            {{-- <div class="row">
+            <div class="row">
                 <div class="col-xl-12">
                     <div class="tp-blog-2__section-title pb-50 text-center">
-                        <h4 class="tp-section-title">Recent Updates</h4>
+                        <h4 class="tp-section-title">Our Latest Updates</h4>
                     </div>
                 </div>
-            </div> --}}
+            </div>
             <div class="row">
                 @foreach ($news as $blog)
                 <div class="col-xl-4 col-lg-4 col-md-6 mb-30 wow tpfadeUp" data-wow-duration=".9s"
