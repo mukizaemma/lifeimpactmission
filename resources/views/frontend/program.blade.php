@@ -8,6 +8,12 @@
 <section class="postbox__area pt-120 pb-80">
 <div class="container">
     <div class="row">
+
+    <div class="col-xl-12">
+        <div class="tp-blog-2__section-title pb-50 text-center">
+            <h4 class="tp-section-title">Description</h4>
+        </div>
+    </div>
         <div class="col-xxl-8 col-xl-8 col-lg-8">
             <div class="postbox__wrapper">
             <article class="postbox__item format-image mb-50 transition-3">

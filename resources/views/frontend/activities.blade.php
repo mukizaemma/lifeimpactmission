@@ -30,6 +30,13 @@
     
     <div class="tp-blog-2__area pt-20 pb-90">
         <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="tp-blog-2__section-title pb-50 text-center">
+                        <h4 class="tp-section-title">Description</h4>
+                    </div>
+                </div>
+            </div>
                 <div class="row">
                     <div class="col-12">
                         <div class="postbox__text">
@@ -41,6 +48,13 @@
                 </div>
 
             <div class="row">
+
+                <div class="col-xl-12">
+                    <div class="tp-blog-2__section-title pb-50 text-center">
+                        <h4 class="tp-section-title">Projects</h4>
+                    </div>
+                </div>
+
                 @foreach ($program->activities as $rs)
                 <div class="col-xl-4 col-lg-4 col-md-6 mb-30 wow tpfadeUp" data-wow-duration=".9s"
                 data-wow-delay=".3s">

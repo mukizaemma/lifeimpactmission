@@ -21,6 +21,6 @@ class AppServiceProvider extends ServiceProvider
     {
         View::share('setting', Setting::first());
         View::share('about', Background::first());
-        View::share('programs', Program::with('activities')->oldest()->get());
+        View::share('ourPrograms', Program::with('activities')->oldest()->get());
     }
 }

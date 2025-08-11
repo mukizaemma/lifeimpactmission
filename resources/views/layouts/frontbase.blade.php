@@ -136,7 +136,7 @@
                                                 z-index: 1000;
                                             ">
 
-                                                @foreach($programs as $program)
+                                                @foreach($ourPrograms as $program)
                                                     <li class="has-dropdown" style="position: relative;">
                                                         <a href="{{ route('singleProgram', $program->slug) }}"
                                                         style="display: flex; justify-content: space-between; align-items: left; padding: 10px 16px; text-decoration: none; color: #000;">
@@ -307,7 +307,7 @@
                                 <h4 class="tp-footer__widget-title-3">Our Programs</h4>
                                 <div class="tp-footer__list">
                                     <ul>
-                                        @foreach ($programs as $rs)
+                                        @foreach ($ourPrograms as $rs)
                                             <li><a href="{{ route('singleProgram',['slug'=>$rs->slug]) }}" style="color:#fff">{{ $rs->title }}</a></li>
                                         @endforeach
                                     </ul>
