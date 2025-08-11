@@ -6074,6 +6074,7 @@ input[type=text], input[type=email], input[type=tel], input[type=number], input[
 .tp-about-4__title-sm {
   font-size: 18px;
   font-weight: 800;
+  text-align: left;
 }
 .tp-about-4__list-content p {
   line-height: 30px;
