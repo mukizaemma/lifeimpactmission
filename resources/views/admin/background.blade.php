@@ -46,7 +46,7 @@
                                             </div>
                                             <div class="col-12">
                                                 <div class="form-group">
-                                                    <label for="projectinput1">About Donations at Life Impact</label>
+                                                    <label for="projectinput1">About Donations at Impact Life Mission</label>
                                                     <textarea id="background" rows="10" class="form-control" name="donations">{!!$data->donations!!}</textarea>
                                                 </div>
                                             </div>

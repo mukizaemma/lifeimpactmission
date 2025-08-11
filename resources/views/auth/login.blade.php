@@ -13,7 +13,7 @@
         <div class="w-full md:w-1/2 flex items-center justify-center p-6" >
             <x-jet-authentication-card>
                 <x-slot name="logo">
-                    <h1 class="text-2xl font-bold text-gray-800 mb-4">Welcome to Life Impact Admin Panel</h1>
+                    <h1 class="text-2xl font-bold text-gray-800 mb-4">Welcome to Impact Life Mission Admin Panel</h1>
                 </x-slot>
 
                 <x-jet-validation-errors class="mb-4" />

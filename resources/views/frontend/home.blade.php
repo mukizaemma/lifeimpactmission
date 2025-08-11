@@ -16,7 +16,7 @@
                 data-wow-delay=".5s">
                     <div class="tp-about-4__left-side">
                         <div class="tp-about-4__section-title">
-                            <h4 class="tp-section-title">About Life Impact </h4>
+                            <h4 class="tp-section-title">About Impact Life Mission </h4>
                         </div>
                         <div class="tp-about-4__content">
                             <div class="tp-about-4__text">
@@ -131,7 +131,7 @@
                                 <p style="font-size: 20px; font-wight:700; text-align:justify" > {{ $words }} </p>
 
                                 @if(strlen($latest->body) > 150)
-                                <a href="blog-details.html">
+                                <a href="{{route('postSingle',$latest->slug)}}">
                                     <div class="tp-blog-2__link text-center">
                                         <span>Read More<i class="flaticon-arrow-right"></i><span>
                                     </span></span></div>

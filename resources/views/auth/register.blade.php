@@ -1,6 +1,6 @@
 <x-guest-layout>
     <x-jet-authentication-card>
-        <h1>Register to Life Impact  System</h1>
+        <h1>Register to Impact Life Mission  System</h1>
 
         <x-jet-validation-errors class="mb-4" />
 

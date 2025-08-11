@@ -336,7 +336,7 @@
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="tp-copyright__text text-center text-sm-start">
                             <span style="color: #fff !important">
-                            &copy; Life Impact 
+                            &copy; Impact Life Mission 
                             <script>
                                 document.write(new Date().getFullYear());
                             </script>

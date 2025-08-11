@@ -35,7 +35,7 @@ class SlidesController extends Controller
     {
         $data = new Slide();
         $data->heading = $request->input('heading', 'Default Heading');
-        $data->subheading = "Life Impact";
+        $data->subheading = "Impact Life Mission";
     
         if ($request->hasFile('image')) {
             $dir = 'public/images/slides';
