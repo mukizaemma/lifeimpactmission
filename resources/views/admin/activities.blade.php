@@ -19,7 +19,7 @@
             <div class="container-fluid px-4">
                 {{-- <h1 class="mt-4">Dashboard</h1> --}}
                 <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active">Impact Life Mission Missions Projects</li>
+                    <li class="breadcrumb-item active">Impact Life Mission Projects</li>
                 </ol>
                 <div class="row">
                     @if(session()->has('success'))
