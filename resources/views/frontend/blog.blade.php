@@ -18,7 +18,7 @@
                     <h3 class="postbox__title">{{ $blog->title }}</h3>
                     <div class="postbox__text">
                         <p>
-                            {{ $blog->description }}
+                            {{ $blog->body }}
                         </p>
                     </div>
                 </div>
