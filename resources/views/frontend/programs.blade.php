@@ -42,7 +42,7 @@
                         </a>
                         <div class="tp-blog-2__content ">
                             <div class="tp-blog-2__tag">
-                                <h5 class="tp-donate__title">{{ $rs->title }}</h5>
+                                <h5 class="tp-donate__title"><a href="{{route('singleProgram',['slug'=>$rs->slug])}}"></a> </h5>
                             </div>
 
 
