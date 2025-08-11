@@ -124,6 +124,10 @@
                             </div>
                         </a>
                         <div class="tp-blog-2__content">
+                        <a href="{{ route('postSingle', $latest->slug) }}">
+                                    <h6 class="tp-blog-2__title-sm" style="margin-bottom: 5px;">{{ $latest->title }}</h6>
+                                </a>
+
                             @php
                                 $words = Str::limit($latest->body, 150, '...');
                                 @endphp
