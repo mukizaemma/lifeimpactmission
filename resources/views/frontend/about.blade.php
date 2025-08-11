@@ -40,7 +40,7 @@
                         </div>
                         <div class="tp-about-4__content">
                             <div class="tp-about-4__text">
-                                <p style="font-size: 20px; font-wight:700; text-align:justify" > {{ $about->description }} </p>
+                                <p style="font-size: 20px; font-wight:700; text-align:left" > {{ $about->description }} </p>
 
                                 <div class="tp-about-3__btn">
                                     <a class="tp-btn" href="{{route('backgroundDetails')}}">Read More</a>

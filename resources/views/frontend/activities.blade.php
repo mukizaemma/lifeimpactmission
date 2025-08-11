@@ -40,7 +40,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="postbox__text">
-                        <p style="font-size: 20px; font-wight:700; text-align:justify">
+                        <p style="font-size: 20px; font-wight:700; text-align:left">
                             {{ $program->description }}
                         </p>
                     </div>
