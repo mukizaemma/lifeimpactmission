@@ -78,7 +78,7 @@ class HomeController extends Controller
         $events = Event::where('status','Active')->latest()->get();
         $slides = Slide::oldest()->get();
         $testimonials = Testimony::latest()->paginate(3);
-        $news = News::latest()->get();
+        $news = News::latest()->paginate(3);
         $partners = Partner::latest()->get();
         $staff = Team::latest()->get();
 
