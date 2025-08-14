@@ -218,7 +218,7 @@
                                     </li>                                     --}}
                                     <li>
                                         <div class="tp-header-3__btn d-none d-md-block">
-                                            <a class="tp-btn" href="https://secure.qgiv.com/for/impactlifemission" targwt="_blank">Donate Now</a>
+                                            <a class="tp-btn" href="https://secure.qgiv.com/for/impactlifemission" target="_blank">Donate Now</a>
                                         </div>
                                     </li>  
                                     <li>

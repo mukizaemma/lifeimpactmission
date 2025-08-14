@@ -11,7 +11,7 @@
                                 data-wow-delay=".3s">let's start something for them</span>
                                 <h4 class="tp-cta-2__title wow tpfadeUp" data-wow-duration=".9s"
                                 data-wow-delay=".5s">No One Has Ever Become <br>Poor From Giving</h4>
-                                <a href="{{route('campaigns')}}" class="tp-btn theme-1-bg wow tpfadeUp" data-wow-duration=".9s"
+                                <a href="https://secure.qgiv.com/for/impactlifemission" target="_blank" class="tp-btn theme-1-bg wow tpfadeUp" data-wow-duration=".9s"
                                 data-wow-delay=".7s">Get Involved</a>
                             </div>
                         </div>
