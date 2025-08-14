@@ -218,7 +218,7 @@
                                     </li>                                     --}}
                                     <li>
                                         <div class="tp-header-3__btn d-none d-md-block">
-                                            <a class="tp-btn" href="{{ route('contacts') }}">Donate Now</a>
+                                            <a class="tp-btn" href="https://secure.qgiv.com/for/impactlifemission" targwt="_blank">Donate Now</a>
                                         </div>
                                     </li>  
                                     <li>
@@ -319,7 +319,7 @@
                             <div class="tp-footer__widget footer-2-col-4 ">
                                 {{-- <div class="tp-footer__donate-box tp-copyright__bg p-3"> --}}
                                     {{-- <h4 class="tp-footer__donate-title-sm">We Work Together For a <br>Beautiful World, Come Join Us Today!</h4> --}}
-                                    <a class="tp-btn" href="{{ route('testimonials') }}">Donate Now</a>
+                                    <a class="tp-btn" href="https://secure.qgiv.com/for/impactlifemission" target="_blank">Donate Now</a>
                                 {{-- </div> --}}
                             </div>
                         </div>

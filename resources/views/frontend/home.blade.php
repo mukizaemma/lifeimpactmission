@@ -82,7 +82,7 @@
                             data-wow-delay=".3s">A generation is rising with purpose, passion, and faith.</span>
                             <h4 class="tp-cta-2__title wow tpfadeUp" data-wow-duration=".9s"
                             data-wow-delay=".5s">It starts with one moment of encouragement that changes everything</h4>
-                            <a href="{{route('contacts')}}" class="tp-btn theme-1-bg wow tpfadeUp" data-wow-duration=".9s"
+                            <a href="https://secure.qgiv.com/for/impactlifemission" target="_blank" class="tp-btn theme-1-bg wow tpfadeUp" data-wow-duration=".9s"
                             data-wow-delay=".7s">Get Involved</a>
                         </div>
                     </div>
