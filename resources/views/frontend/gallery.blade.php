@@ -37,7 +37,7 @@
 
                 @foreach($programs as $program)
                     @php
-                        $programImages = $program->activities->flatMap->images->take(9);
+                        $programImages = $program->images->take(9);
                     @endphp
                     <div class="tab-pane fade" id="program-{{ $program->id }}" role="tabpanel">
                         <div class="row">

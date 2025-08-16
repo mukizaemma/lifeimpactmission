@@ -208,7 +208,7 @@ class HomeController extends Controller
 
 public function gallery(){
     $gallery = Projectimage::latest()->take(9)->get();
-    $programs = Program::with('activities.images')->get();
+    $programs = Activity::with('images')->get();
 
     return view('frontend.gallery', [
         'gallery' => $gallery,
