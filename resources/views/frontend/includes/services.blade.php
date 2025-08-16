@@ -14,7 +14,7 @@
                     <div class="tp-blog-2__item">
                         <a href="{{route('singleProgram',['slug'=>$rs->slug])}}">
                             <div class="tp-blog-2__thumb p-relative">
-                                <img src="{{ asset('storage/images/programs') . $rs->image }}" alt="" style="height: 250px; object-fit: cover;">
+                                <img src="{{ asset('storage/images/projects') . $rs->image }}" alt="" style="height: 250px; object-fit: cover;">
                             </div>
                         </a>
                         <div class="tp-blog-2__content ">

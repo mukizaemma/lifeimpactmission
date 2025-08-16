@@ -42,7 +42,7 @@
                             <thead>
                                 <tr>
                                     <th>Project Title</th>
-                                    <th>Program</th>
+                                    {{-- <th>Program</th> --}}
                                     <th>Description</th>
                                     {{-- <th>Gallery</th> --}}
                                     <th>Image</th>
@@ -90,7 +90,7 @@
                                             @csrf
                                             <div class="form-body">
                                                 <div class="row">
-                                                <div class="col-lg-4 col-sm-12">
+                                                {{-- <div class="col-lg-4 col-sm-12">
                                                     <label for="program_id" class="form-label">Program</label>
                                                     <select name="program_id" id="program_id" class="form-control" required>
                                                         <option value="" disabled selected>-- Select --</option>
@@ -98,9 +98,9 @@
                                                             <option value="{{ $program->id }}">{{ $program->title }}</option>
                                                         @endforeach
                                                     </select>
-                                                </div>
+                                                </div> --}}
 
-                                                    <div class="col-md-8">
+                                                    <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="projectinput1">Project Title</label>
                                                             <input type="text" class="form-control"

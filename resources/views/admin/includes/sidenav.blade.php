@@ -22,20 +22,20 @@
         Project Background
     </a>
 
-    <a class="nav-link" href="{{ route('programs') }}">
+    {{-- <a class="nav-link" href="{{ route('programs') }}">
         <div class="sb-nav-link-icon"><i class="fa fa-list-alt"></i></div>
         Programs
-    </a>
+    </a> --}}
 
     <a class="nav-link" href="{{ route('getProjects') }}">
         <div class="sb-nav-link-icon"><i class="fa fa-bullhorn"></i></div>
-        Projects
+        Programs
     </a>
 
-    <a class="nav-link" href="{{ route('getTestimonials') }}">
+    {{-- <a class="nav-link" href="{{ route('getTestimonials') }}">
         <div class="sb-nav-link-icon"><i class="fa fa-comment-dots"></i></div>
         Testimonials
-    </a>
+    </a> --}}
 
     <hr>
 

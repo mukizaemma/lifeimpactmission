@@ -55,16 +55,16 @@
                         <div class="form-body">
                             <div class="row">
 
-                                <div class="col-lg-4 col-sm-12">
+                                {{-- <div class="col-lg-4 col-sm-12">
                                     <select name="program_id" id="">
                                         <option value="" disabled selected>{{ $data->program->title ?? '' }}</option>
                                         @foreach ($programs as $program)
                                             <option value="{{ $program->id }}">{{ $program->title }}</option>
                                         @endforeach
                                     </select>
-                                </div>
+                                </div> --}}
 
-                                <div class="col-lg-8 col-sm-12">
+                                <div class="col-12">
                                     <div class="form-group">
                                         <label for="projectinput1">Project Title</label>
                                         <input type="text" class="form-control" name="title" value="{{$data->title}}">

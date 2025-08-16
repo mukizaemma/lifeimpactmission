@@ -3,12 +3,10 @@
 @section('content')
 
 
-
 <!-- postbox area start -->
 <section class="postbox__area pt-120 pb-80">
 <div class="container">
     <div class="row">
-
     <div class="col-xl-12">
         <div class="tp-blog-2__section-title pb-50 text-center">
             <h4 class="tp-section-title">Description</h4>

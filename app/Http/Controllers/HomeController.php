@@ -72,7 +72,7 @@ class HomeController extends Controller
 
     public function index(){
         $background = Background::latest()->get();
-        $programs = Program::oldest()->get();
+        $programs = Activity::oldest()->get();
         $about = background::first();
         $mission = About::first();
         $homeGallery = Gallery::latest()->get();
@@ -156,7 +156,7 @@ class HomeController extends Controller
         $news = News::latest()->paginate(9);
 
         return view('frontend.activity',['activity'=>$activity, 'relatedActivities'=>$relatedActivities, 
-        'about'=>$about, 'gallery'=>$gallery,'images'=>$images]);
+        'about'=>$about, 'gallery'=>$gallery,'images'=>$images,'news'=>$news]);
     }
     public function campaigns(){
         $programs = Program::oldest()->get();
