@@ -18,16 +18,13 @@ Route::get('/',[App\Http\Controllers\HomeController::class,'index'])->name('home
 Route::get('/about-us',[App\Http\Controllers\HomeController::class,'backgroundDetails'])->name('backgroundDetails');
 Route::get('/team',[App\Http\Controllers\HomeController::class,'team'])->name('team');
 Route::get('/programs',[App\Http\Controllers\HomeController::class,'showPrograms'])->name('showPrograms');
-Route::get('/program/{slug}',[App\Http\Controllers\HomeController::class,'singleProgram'])->name('singleProgram');
-Route::get('/project/{slug}',[App\Http\Controllers\HomeController::class,'project'])->name('project');
+Route::get('/programs/{slug}',[App\Http\Controllers\HomeController::class,'project'])->name('project');
 Route::get('/campaigns',[App\Http\Controllers\HomeController::class,'campaigns'])->name('campaigns');
 Route::get('/campaigns/{slug}',[App\Http\Controllers\HomeController::class,'campaign'])->name('campaign');
 Route::get('/upcoming-events',[App\Http\Controllers\HomeController::class,'upcomingEvents'])->name('upcomingEvents');
 Route::get('/upcoming-events/{slug}',[App\Http\Controllers\HomeController::class,'event'])->name('event');
 Route::get('/Messages',[App\Http\Controllers\HomeController::class,'messages'])->name('Messages');
 Route::get('/Gallery',[App\Http\Controllers\HomeController::class,'gallery'])->name('gallery');
-Route::get('/sponsorship',[App\Http\Controllers\HomeController::class,'Sponsorship'])->name('Sponsorship');
-Route::get('/sponsorship/{id}',[App\Http\Controllers\HomeController::class,'childDetail'])->name('childDetail');
 Route::get('/contacts',[App\Http\Controllers\HomeController::class,'contacts'])->name('contacts');
 Route::get('/testimonials',[App\Http\Controllers\HomeController::class,'testimonials'])->name('testimonials');
 Route::get('/testimonials/{id}',[App\Http\Controllers\HomeController::class,'testimony'])->name('testimony');

@@ -134,7 +134,7 @@ class HomeController extends Controller
         return view('frontend.testimony',['testimony'=>$testimony, 'programs'=>$programs,'testimonials'=>$testimonials,'about'=>$about]);
     }
     public function showPrograms(){
-        $programs = Program::oldest()->get();
+        $programs = Activity::oldest()->get();
         $about = background::first();
         return view('frontend.programs',['programs'=>$programs, 'about'=>$about]);
     }
@@ -170,15 +170,6 @@ class HomeController extends Controller
         return view('frontend.campaign',['about'=>$about, 'testimonials'=>$testimonials,'programs'=>$programs]);
     }
 
-
-    public function Sponsorship(){
-        $data = Sponsorship::latest()->get();
-        return view('frontend.sponsorship',['data'=>$data]);
-    }
-    public function childDetail($id){
-        $data = Sponsorship::find($id);
-        return view('frontend.sponsorshipDetails',['data'=>$data]);
-    }
     public function upcomingEvents(){
         $events = Event::where('status','Active')->latest()->get();
         return view('frontend.events',['events'=>$events]);
