@@ -2,7 +2,6 @@
 
 @section('content')
 
-
  
     <!-- gallery-area-start -->
     <div class="tp-gallery-3__area pt-120 pb-120">

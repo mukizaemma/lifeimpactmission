@@ -8,18 +8,18 @@
                 </div>
             </div>
             <div class="row">
-                @foreach ($programs as $rs)
+                @foreach ($ourPrograms as $rs)
                 <div class="col-xl-4 col-lg-4 col-md-6 mb-30 wow tpfadeUp" data-wow-duration=".9s"
                 data-wow-delay=".3s">
                     <div class="tp-blog-2__item">
-                        <a href="{{route('singleProgram',['slug'=>$rs->slug])}}">
+                        <a href="{{route('project',['slug'=>$rs->slug])}}">
                             <div class="tp-blog-2__thumb p-relative">
                                 <img src="{{ asset('storage/images/projects') . $rs->image }}" alt="" style="height: 250px; object-fit: cover;">
                             </div>
                         </a>
                         <div class="tp-blog-2__content ">
                             <div class="tp-blog-2__tag">
-                                <a href="{{route('singleProgram',['slug'=>$rs->slug])}}"><h5 class="tp-donate__title">{{ $rs->title }}</h5></a>
+                                <a href="{{route('project',['slug'=>$rs->slug])}}"><h5 class="tp-donate__title">{{ $rs->title }}</h5></a>
                             </div>
 
 
@@ -31,7 +31,7 @@
                                 <p style="font-size: 20px; font-wight:700; text-align:left; color: #000;" > {{ $words }} </p>
 
                                 @if(strlen($rs->description) > 100)
-                                <a href="{{route('singleProgram',['slug'=>$rs->slug])}}">
+                                <a href="{{route('project',['slug'=>$rs->slug])}}">
                                     <div class="tp-blog-2__link text-center">
                                         <span>Read More<i class="flaticon-arrow-right"></i><span>
                                     </span></span></div>

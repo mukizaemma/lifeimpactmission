@@ -118,7 +118,7 @@
                                     <li><a href="{{route('backgroundDetails')}}">Who We Are</a>
                                     </li>
 
-                                    <li class="has-dropdown"><a href="#">Our Programs</a>
+                                    <li class="has-dropdown"><a href="{{ route('programs') }}">Our Programs</a>
                                         <ul class="submenu tp-submenu">
                                             @foreach ($ourPrograms as $program)
                                                 <li><a href="{{ route('project',['slug'=>$program->slug]) }}">{{ $program->title }}</a></li>           
