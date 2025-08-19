@@ -49,7 +49,7 @@
                     data-wow-delay=".3s">
                         <div class="tp-contact-form__left-box">
                             <span class="tp-contact-form__subtitle">CONTACT FORM</span>
-                            <p>if it's easier for you, fill the bellow form to let us know how you would like to partner with you</p>
+                            <p>If it's easier for you, fill out the form to let us know how you would like to partner with us</p>
                             <div class="tp-contact-form__social-box">
                             <a href="{{ $setting->facebook ?? '' }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
                             <a href="{{ $setting->instagram ?? '' }}" target="_blank"><i class="fab fa-instagram"></i></a>

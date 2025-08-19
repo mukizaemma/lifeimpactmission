@@ -42,10 +42,9 @@
                             <thead>
                                 <tr>
                                     <th>Project Title</th>
-                                    {{-- <th>Program</th> --}}
                                     <th>Description</th>
-                                    {{-- <th>Gallery</th> --}}
                                     <th>Image</th>
+                                    <th>Created_at</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -54,9 +53,9 @@
                                 @foreach($data as $rs)
                                 <tr>
                                     <td>{{$rs->title}}</td>
-                                    <td>{{$rs->program->title ?? ''}}</td>
                                     <td>{!!$rs->description!!}</td>
                                     <td><img src="{{ asset('storage/images/projects') . $rs->image }}" alt="" width="150px"></td>
+                                    <td>{{ $rs->created_at }}</td>
                                     <td>   
                                         <div class="bg-light rounded ">
                                             <div class="btn-group" role="group">

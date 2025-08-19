@@ -18,7 +18,7 @@ class ProjectsController extends Controller
     public function index()
     {
 
-        $data = Activity::latest()->get();
+        $data = Activity::oldest()->get();
         $programs = Program::all();
         return view('admin.activities', ['data'=>$data,'programs'=>$programs]);
     }
@@ -74,6 +74,7 @@ class ProjectsController extends Controller
         $data->title = $request->input('title');
         $data->description = $request->input('description');
         $data->program_id = $request->input('program_id');
+        $data->created_at = $request->input('created_at');
 
         if(!$data){
             return back()->with('Error','Program Not Found');

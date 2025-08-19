@@ -17,7 +17,7 @@ use App\Http\Controllers\AdminController;
 Route::get('/',[App\Http\Controllers\HomeController::class,'index'])->name('home');
 Route::get('/about-us',[App\Http\Controllers\HomeController::class,'backgroundDetails'])->name('backgroundDetails');
 Route::get('/team',[App\Http\Controllers\HomeController::class,'team'])->name('team');
-Route::get('/programs',[App\Http\Controllers\HomeController::class,'showPrograms'])->name('showPrograms');
+Route::get('/our-programs',[App\Http\Controllers\HomeController::class,'showPrograms'])->name('showPrograms');
 Route::get('/programs/{slug}',[App\Http\Controllers\HomeController::class,'project'])->name('project');
 Route::get('/campaigns',[App\Http\Controllers\HomeController::class,'campaigns'])->name('campaigns');
 Route::get('/campaigns/{slug}',[App\Http\Controllers\HomeController::class,'campaign'])->name('campaign');

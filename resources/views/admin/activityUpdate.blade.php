@@ -64,19 +64,19 @@
                                     </select>
                                 </div> --}}
 
-                                <div class="col-12">
+                                <div class="col-lg-8 col-sm-12">
                                     <div class="form-group">
                                         <label for="projectinput1">Project Title</label>
                                         <input type="text" class="form-control" name="title" value="{{$data->title}}">
                                     </div>
                                 </div>
-                                {{-- <div class="col-md-4">
+                                <div class="col-lg-4 col-sm-12">
                                     <div class="form-group">
-                                        <label for="projectinput4">Keywords</label>
-                                        <input type="text" class="form-control"
-                                            placeholder="Category keywords/Code" name="keywords">
+                                        <label for="projectinput4">Created at</label>
+                                        <input type="datetime" class="form-control"
+                                            value="{{ $data->created_at }}" name="created_at">
                                     </div>
-                                </div> --}}
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="projectinput8">Project Description</label>

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>{{ $setting->company ?? ''}}</title>
-    <meta name="description" content="">
+    <meta name="description" content="A Community-based Initiative Dedicated to Transforming Lives through Holistic Empowerment, Leadership Development, and Spiritual Growth">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
@@ -118,7 +118,7 @@
                                     <li><a href="{{route('backgroundDetails')}}">Who We Are</a>
                                     </li>
 
-                                    <li class="has-dropdown"><a href="{{ route('programs') }}">Our Programs</a>
+                                    <li class="has-dropdown"><a href="{{ route('showPrograms') }}">Our Programs</a>
                                         <ul class="submenu tp-submenu">
                                             @foreach ($ourPrograms as $program)
                                                 <li><a href="{{ route('project',['slug'=>$program->slug]) }}">{{ $program->title }}</a></li>           
@@ -241,7 +241,7 @@
                                 <div class="tp-footer__list">
                                     <ul>
                                         @foreach ($ourPrograms as $rs)
-                                            <li><a href="{{ route('singleProgram',['slug'=>$rs->slug]) }}" style="color:#fff">{{ $rs->title }}</a></li>
+                                            <li><a href="{{ route('project',['slug'=>$rs->slug]) }}" style="color:#fff">{{ $rs->title }}</a></li>
                                         @endforeach
                                     </ul>
                                 </div>

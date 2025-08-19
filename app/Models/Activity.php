@@ -14,7 +14,8 @@ class Activity extends Model
         'description',
         'slug',
         'image',
-        'program_id'
+        'program_id',
+        'created_at'
     ];
 
     public function program(){

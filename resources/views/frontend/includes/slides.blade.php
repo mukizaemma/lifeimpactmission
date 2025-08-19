@@ -1,4 +1,4 @@
-        <div class="tp-slider-3__area p-relative">
+        <div class="tp-slider-3__area p-relative custom-banner">
             <div class="tp-slider-3__icon smooth">
                 <a href="#service" class="arrow-scroll-btn"><i class="flaticon-down-arrow"></i></a>
             </div>

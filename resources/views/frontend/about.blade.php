@@ -6,7 +6,7 @@
 
 
         <!-- breadcrumb-area-start -->
-        <div class="tp-breadcrumb__area p-relative fix tp-breadcrumb-height" data-background="{{ asset('storage/images/' . $about->image2) }}" >
+        <div class="tp-breadcrumb__area p-relative fix tp-breadcrumb-height" data-background="{{ asset('storage/images/' . $about->image2) }}"  >
             <div class="tp-breadcrumb__shape-1 z-index-5">
                 <img src="assets/img/breadcrumb/breadcrumb-shape-1.png" alt="">
             </div>
@@ -52,15 +52,26 @@
                         </div>
                     </div>
                 </div>
-                <div class="tp-about-4__wraper pb-45 d-flex justify-content-between">
+                <div class="container">
+                                    <div class="tp-about-4__wraper pb-45 d-flex justify-content-between">
 
-                    <div class="tp-about-4__list-item d-flex align-items-start">
+                    <div class="tp-about-4__list-item d-flex align-items-start" style="width: 80%">
                     <div class="tp-about-4__list-content" style="display: flex; flex-direction: column; align-items: center; text-align: start;">
                         <div class="tp-about-4__list-icon">
                             <i class="flaticon-mission"></i>
                         </div>
                         <h4 class="tp-about-4__title-sm">Our Mission</h4>
                         <p>{{ $mission->mission }}</p>
+                    </div>
+
+                    </div>
+                    <div class="tp-about-4__list-item d-flex align-items-start" style="width: 30%">
+                    <div class="tp-about-4__list-content" style="display: flex; flex-direction: column; align-items: center; text-align: start;">
+                        <div class="tp-about-4__list-icon">
+                            {{-- <i class="flaticon-mission"></i> --}}
+                        </div>
+                        <h4 class="tp-about-4__title-sm"></h4>
+                        <p></p>
                     </div>
 
                     </div>
@@ -74,7 +85,8 @@
                     </div>
 
                     </div>
-                </div> 
+                </div>
+                </div>
             </div>
         </div>
     </div>
