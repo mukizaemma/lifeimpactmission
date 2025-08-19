@@ -7,7 +7,7 @@
     <!-- slider-area-end -->
     
     <!-- about-area-start -->
-    <div class="tp-about-4__area tp-about-4__space p-relative fix grey-bg mt-60">
+    <div class="tp-about-4__area tp-about-4__space p-relative fix grey-bg">
         <div class="tp-about-4__bg" data-background="{{ asset('storage/images/' . $about->image) }}">
         </div>
         <div class="container">

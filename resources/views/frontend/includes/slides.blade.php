@@ -1,7 +1,7 @@
-        <div class="tp-slider-3__area p-relative custom-banner">
-            <div class="tp-slider-3__icon smooth">
+        <div class="tp-slider-3__area p-relative custom-banners">
+            {{-- <div class="tp-slider-3__icon smooth">
                 <a href="#service" class="arrow-scroll-btn"><i class="flaticon-down-arrow"></i></a>
-            </div>
+            </div> --}}
 
             <div class="tp-slider-3__wrapper">
                 <div class="swiper-container tp-slider-3__active">
