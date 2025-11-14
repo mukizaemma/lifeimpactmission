@@ -78,7 +78,7 @@ class HomeController extends Controller
         $homeGallery = Gallery::latest()->get();
         $slides = Slide::oldest()->get();
         $testimonials = Testimony::latest()->paginate(3);
-        $news = News::latest()->paginate(3);
+        $news = News::latest()->paginate(2);
         $partners = Partner::latest()->get();
         $staff = Team::latest()->get();
 

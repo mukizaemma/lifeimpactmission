@@ -160,7 +160,7 @@
     <div class="col-xl-4 col-lg-4 col-md-6 mb-30 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".1s">
         <div class="tp-blog-2__item" style="padding:0; overflow:hidden;">
 
-            <div class="tp-blog-2__thumb p-relative" style="height: 270px; overflow: hidden;">
+            <div class="tp-blog-2__thumb p-relative" style="height: 370px; overflow: hidden;">
                 <iframe 
                     src="https://www.youtube.com/embed/vKovWq3XabM?autoplay=0&mute=1&loop=1&playlist=vKovWq3XabM"
                     style="width:100%; height:100%; object-fit:cover; border:0;"
