@@ -156,25 +156,35 @@
             </div>
 <div class="row">
 
-    {{-- FIRST CARD: FULL VIDEO ONLY --}}
-    <div class="col-xl-4 col-lg-4 col-md-6 mb-30 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".1s">
-        <div class="tp-blog-2__item" style="padding:0; overflow:hidden;">
-
-            <div class="tp-blog-2__thumb p-relative" style="height: 370px; overflow: hidden;">
-                <iframe 
-                    src="https://www.youtube.com/embed/vKovWq3XabM?autoplay=0&mute=1&loop=1&playlist=vKovWq3XabM"
-                    style="width:100%; height:100%; object-fit:cover; border:0;"
-                    allow="autoplay; encrypted-media"
-                    allowfullscreen>
-                </iframe>
-            </div>
-
+    {{-- FIRST CARD: FULL VIDEO WITH INLINE CSS --}}
+    <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+        <div style="
+            background:#000;
+            border-radius:10px;
+            overflow:hidden;
+            height:370px;
+            position:relative;
+            box-shadow:0 8px 22px rgba(0,0,0,0.08);
+        ">
+            <iframe
+                src="https://www.youtube.com/embed/vKovWq3XabM?autoplay=1&mute=1&loop=1&playlist=vKovWq3XabM"
+                allow="autoplay; encrypted-media"
+                allowfullscreen
+                style="
+                    width:100%;
+                    height:100%;
+                    border:0;
+                    display:block;
+                    object-fit:cover;
+                    cursor:pointer;
+                ">
+            </iframe>
         </div>
     </div>
 
     {{-- OTHER BLOG CARDS --}}
     @foreach ($news as $blog)
-    <div class="col-xl-4 col-lg-4 col-md-6 mb-30 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".3s">
+    <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
         <div class="tp-blog-2__item">
             <a href="{{ route('postSingle', $blog->slug) }}">
                 <div class="tp-blog-2__thumb p-relative">
@@ -186,16 +196,13 @@
                 <a href="{{ route('postSingle', $blog->slug) }}">
                     <h4 class="tp-blog-2__title-sm">{{ $blog->title }}</h4>
                 </a>
-
                 <span class="tp-blog-2__meta-3">{{ $blog->created_at->format('d M,Y') }}</span>
-
                 <a href="{{ route('postSingle', $blog->slug) }}">
                     <div class="tp-blog-2__link text-center">
                         <span>Read More<i class="flaticon-arrow-right"></i></span>
                     </div>
                 </a>
             </div>
-
         </div>
     </div>
     @endforeach
