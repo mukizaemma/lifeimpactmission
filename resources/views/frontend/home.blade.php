@@ -8,7 +8,19 @@
     
     <!-- about-area-start -->
     <div class="tp-about-4__area tp-about-4__space p-relative fix grey-bg">
-        <div class="tp-about-4__bg" data-background="{{ asset('storage/images/' . $about->image) }}">
+<div class="tp-about-4__bg position-relative overflow-hidden" style="height:100%; width:100%;">
+    
+    <iframe 
+        src="https://www.youtube.com/embed/vKovWq3XabM?autoplay=1&mute=1&loop=1&playlist=vKovWq3XabM"
+        class="youtube-bg-video"
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+        allowfullscreen>
+    </iframe>
+
+</div>
+
+
         </div>
         <div class="container">
             <div class="row">
@@ -23,8 +35,10 @@
                                 @php
                                 $words = Str::limit($about->description, 400, '...');
                                 @endphp
+<p >
+    {!! nl2br(e($words)) !!}
+</p>
 
-                                <p style="font-size: 20px; font-wight:700; text-align:left" > {{ $words }} </p>
 
                                 @if(strlen($about->description) > 400)
                                 

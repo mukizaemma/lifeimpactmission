@@ -2,7 +2,7 @@
     <div class="min-h-screen flex"  style="background-color: #fff">
 
                 <!-- Right Side: Image -->
-        <div class="hidden md:flex w-1/2 bg-cover bg-center" style="background-image: url(`{{asset('storage\images').$setting->logo}}`);">
+        <div class="hidden md:flex w-1/2 bg-cover bg-center" style="background-image: url(`{{asset('storage\images').($setting->logo ?? '')}}`);">
             <!-- Optional overlay -->
             <div class="w-full h-full bg-black bg-opacity-30 flex items-center justify-center">
                 <h2 class="text-white text-3xl font-bold">Empowering Your Impact</h2>
