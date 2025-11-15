@@ -92,6 +92,69 @@
     </div>
         <!-- about-area-end -->
 
+        <div class="container">
+    <div class="tp-brand-2__border">
+
+        <div class="tp-about-4__section-title text-center mb-40">
+            <h4 class="tp-section-title">Meet Our Team</h4>
+        </div>
+
+        <div class="row justify-content-center">
+
+            @foreach ($staff as $member)
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+                <div style="
+                    background: #fff;
+                    border-radius: 12px;
+                    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+                    overflow: hidden;
+                    text-align: center;
+                    padding: 20px;
+                    transition: all .3s ease-in-out;
+                "
+                onmouseover="this.style.transform='translateY(-6px)'; this.style.boxShadow='0 12px 30px rgba(0,0,0,0.12)'"
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.08)'">
+
+                    {{-- Image --}}
+                    <div style="width: 100%; height: 220px; overflow: hidden; border-radius: 10px; margin-bottom: 15px;">
+                        <img src="{{ asset('storage/images/staff/' . $member->image) }}"
+                             alt="{{ $member->names }}"
+                             style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+
+                    {{-- Name --}}
+                    <h4 style="font-size: 20px; font-weight:700; margin-bottom: 5px;">
+                        {{ $member->names }}
+                    </h4>
+
+                    {{-- Position --}}
+                    <p style="color:#555; font-size: 15px; margin-bottom: 10px;">
+                        {{ $member->position }}
+                    </p>
+
+                    {{-- Phone --}}
+                    <p style="margin:0; font-size:14px;">
+                        📞 <a href="tel:{{ $member->phone }}" style="color:#333; text-decoration:none;">
+                            {{ $member->phone }}
+                        </a>
+                    </p>
+
+                    {{-- Email --}}
+                    <p style="margin:0; font-size:14px;">
+                        ✉ <a href="mailto:{{ $member->email }}" style="color:#333; text-decoration:none;">
+                            {{ $member->email }}
+                        </a>
+                    </p>
+
+                </div>
+            </div>
+            @endforeach
+
+        </div>
+
+    </div>
+</div>
+
         <!-- brand-area-start -->
         <div class="tp-brand-2__area">
             <div class="container">

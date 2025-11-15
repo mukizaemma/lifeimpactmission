@@ -108,10 +108,11 @@ class HomeController extends Controller
 
         $programs = Program::latest()->get();
         $partners = Partner::oldest()->get();
+        $staff = Team::oldest()->get();
         $about = background::first();
         $mission = About::first();
         $testimonials = DB::table('testimonies')->paginate(3);
-        return view('frontend.about',['about'=>$about,'mission'=>$mission,'testimonials' =>$testimonials,'programs'=>$programs, 'partners'=>$partners]);
+        return view('frontend.about',['about'=>$about,'mission'=>$mission,'testimonials' =>$testimonials,'programs'=>$programs, 'partners'=>$partners, 'staff'=>$staff]);
     }
     public function team(){
         $programs = Program::latest()->get();

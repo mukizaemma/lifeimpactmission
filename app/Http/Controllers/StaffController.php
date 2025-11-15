@@ -50,11 +50,15 @@ class StaffController extends Controller
 
         // Uploading image
         if ($request->hasFile('image')) {
-            $dir = 'public/images/staff';
-            $path = $request->file('image')->store($dir);
-            $fileName = str_replace($dir, '', $path);
+            $file = $request->file('image');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/images/staff', $fileName);
+
             $data->image = $fileName;
+        } else {
+            dd('Image not received');
         }
+
 
         $stored = $data->save();
 
