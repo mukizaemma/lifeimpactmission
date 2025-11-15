@@ -39,38 +39,38 @@
                         @csrf
                         <div class="form-body">
                             <div class="row mb-4">
-                                <div class="col-lg-6 col-sm-12">
+                                <div class="col-lg-8 col-sm-12">
                                         <label for="names">Names</label>
                                         <input type="text" class="form-control" value="{{ $data->names }}" name="names">
                                 </div>
-                                <div class="col-lg-3 col-sm-12">
+                                <div class="col-lg-4 col-sm-12">
                                     <label for="position">Position</label>
                                     <input type="text" class="form-control" value="{{ $data->position }}"  name="position">
                                 </div>
-                                <div class="col-lg-3 col-sm-12">
+                                <!-- <div class="col-lg-3 col-sm-12">
                                     <label for="projectinput1">Display Category</label>
                                       <select name="category" id="" class="form-control">
                                             <option value="" selected disabled>-- Select Category --</option>
                                             <option value="Administration">Administration Team</option>
                                             <option value="Operations">Operations Team</option>
                                             <option value="Advisors">Advisors Team</option>
-                                        </select>
-                            </div>
+                                    </select>
+                                </div> -->
                             </div>
 
                             <div class="row mb-4">
                                 <div class="col-lg-4 col-sm-12">
-                                        <label for="names">Facebook Page Url</label>
-                                        <input type="text" class="form-control" value="{{ $data->facebook }}" name="facebook">
+                                        <label for="names">Phone</label>
+                                        <input type="text" class="form-control" value="{{ $data->phone }}" name="phone">
                                 </div>
                                 <div class="col-lg-4 col-sm-12">
-                                    <label for="position">Instagram Page Url</label>
-                                    <input type="text" class="form-control" value="{{ $data->instagram }}"  name="instagram">
+                                    <label for="position">Email</label>
+                                    <input type="text" class="form-control" value="{{ $data->facebook }}"  name="facebook">
                                 </div>
-                                <div class="col-lg-4 col-sm-12">
+                                <!-- <div class="col-lg-4 col-sm-12">
                                     <label for="position">Twuitter Page Url</label>
                                     <input type="text" class="form-control" value="{{ $data->twitter }}"  name="twitter">
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="row mt-5">
@@ -82,7 +82,7 @@
                                     </label>
                                 </div>
                                 <div class="col-lg-6 col-sm-12">
-                                    <label>Change Staff Profile <br><span style="color: red">(This image should be resized to 270X312 pixels)</span></label>
+                                    <label>Change Staff Profile Image</label>
                                     <label id="projectinput7" class="file center-block">
                                         <input type="file" id="image" name="image">
                                         <span class="file-custom"></span>

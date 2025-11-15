@@ -44,8 +44,9 @@
                                     <th>Image</th>
                                     <th>Names</th>
                                     <th>Position</th>
-                                    <th>Category</th>
-                                    <th>BIO</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                    <th>Biography</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -57,7 +58,8 @@
                                     <td><img src="{{asset('storage/images/staff').$rs->image}}" alt="" width="150px"></td>
                                     <td>{{$rs->names}}</td>
                                     <td>{{$rs->position}}</td>
-                                    <td>{{$rs->category}}</td>
+                                    <td>{{$rs->phone}}</td>
+                                    <td>{{$rs->facebook}}</td>
                                     <td>{!!$rs->bio!!}</td>
 
                                     <td> <div class="btn-btn-group ">

@@ -128,7 +128,7 @@
                     </h4>
 
                     {{-- Position --}}
-                    <p style="color:#555; font-size: 15px; margin-bottom: 10px;">
+                    <p style="color:#555; font-size: 15px; margin-bottom: 10px;" class="text-center">
                         {{ $member->position }}
                     </p>
 
