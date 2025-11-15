@@ -79,9 +79,9 @@
                     <div class="col-xl-12">
                         <div class="tp-cta-2__content text-center">
                             <span class="tp-cta-2__subtitle wow tpfadeUp" data-wow-duration=".9s"
-                            data-wow-delay=".3s">A generation is rising with purpose, passion, and faith.</span>
+                            data-wow-delay=".3s">Impact Life Mission</span>
                             <h4 class="tp-cta-2__title wow tpfadeUp" data-wow-duration=".9s"
-                            data-wow-delay=".5s">It starts with one moment of encouragement that changes everything</h4>
+                            data-wow-delay=".5s">When a young heart kneels, a might future is born.</h4>
                             <a href="https://secure.qgiv.com/for/impactlifemission" target="_blank" class="tp-btn theme-1-bg wow tpfadeUp" data-wow-duration=".9s"
                             data-wow-delay=".7s">Get Involved</a>
                         </div>

@@ -133,18 +133,18 @@
                     </p>
 
                     {{-- Phone --}}
-                    <p style="margin:0; font-size:14px;">
+                    <!-- <p style="margin:0; font-size:14px;">
                         📞 <a href="tel:{{ $member->phone }}" style="color:#333; text-decoration:none;">
                             {{ $member->phone }}
                         </a>
-                    </p>
+                    </p> -->
 
                     {{-- Email --}}
-                    <p style="margin:0; font-size:14px;">
+                    <!-- <p style="margin:0; font-size:14px;">
                         ✉ <a href="mailto:{{ $member->facebook }}" style="color:#333; text-decoration:none;">
                             {{ $member->facebook }}
                         </a>
-                    </p>
+                    </p> -->
 
                 </div>
             </div>
