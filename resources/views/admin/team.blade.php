@@ -93,38 +93,38 @@
                                             <div class="form-body">
 
                                                 <div class="row mb-4">
-                                                    <div class="col-lg-6 col-sm-12">
+                                                    <div class="col-lg-8 col-sm-12">
                                                             <label for="names">Staff Names</label>
                                                             <input type="text" class="form-control"
                                                             placeholder="Event Title" name="names"  required="">
                                                     </div>
-                                                    <div class="col-lg-3 col-sm-12">
+                                                    <div class="col-lg-4 col-sm-12">
                                                         <label for="position">Position</label>
                                                         <input type="text" class="form-control"
                                                         placeholder="Staff Position" name="position"  required="">
                                                     </div>
-                                                    <div class="col-lg-3 col-sm-12">
+                                                    <!-- <div class="col-lg-3 col-sm-12">
                                                         <label for="projectinput1">Category</label>
                                                         <select name="category" id="" class="form-control">
                                                             <option value="Administration" selected="Administration">Administration Team</option>
                                                             <option value="Operations">Operations Team</option>
                                                             <option value="Advisors">Advisors Team</option>
-                                                        </select>
+                                                    </select> -->
                                                 </div>
                                                 </div>
 
                                                 <div class="row mb-4">
-                                                    <div class="col-lg-3 col-sm-12">
+                                                    <div class="col-lg-6 col-sm-12">
                                                             <label for="facebook">Phone</label>
                                                             <input type="text" class="form-control"
                                                             placeholder="Facebook" name="phone">
                                                     </div>
-                                                    <div class="col-lg-3 col-sm-12">
-                                                        <label for="instagram">Facebook Page Url</label>
+                                                    <div class="col-lg-6 col-sm-12">
+                                                        <label for="instagram">Email</label>
                                                         <input type="text" class="form-control"
                                                         placeholder="Instagram" name="facebook">
                                                     </div>
-                                                    <div class="col-lg-3 col-sm-12">
+                                                    <!-- <div class="col-lg-3 col-sm-12">
                                                         <label for="position">Instagram Page Url</label>
                                                         <input type="text" class="form-control"
                                                         placeholder="Staff Position" name="instagram">
@@ -133,7 +133,7 @@
                                                         <label for="twitter">Twitter Page Url</label>
                                                         <input type="text" class="form-control"
                                                         placeholder="Twitter" name="twitter">
-                                                    </div>
+                                                    </div> -->
                                                 </div>
 
                                                 <div class="row">

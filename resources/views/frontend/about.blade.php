@@ -141,8 +141,8 @@
 
                     {{-- Email --}}
                     <p style="margin:0; font-size:14px;">
-                        ✉ <a href="mailto:{{ $member->email }}" style="color:#333; text-decoration:none;">
-                            {{ $member->email }}
+                        ✉ <a href="mailto:{{ $member->facebook }}" style="color:#333; text-decoration:none;">
+                            {{ $member->facebook }}
                         </a>
                     </p>
 
