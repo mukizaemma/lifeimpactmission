@@ -2,6 +2,7 @@
 
 @section('content')
 
+        @include('frontend.includes.page-hero', ['pageKey' => 'contact'])
 
         <!-- contact-area-start -->
         <div class="tp-contact__area">
@@ -51,8 +52,7 @@
                             <span class="tp-contact-form__subtitle">CONTACT FORM</span>
                             <p>If it's easier for you, fill out the form to let us know how you would like to partner with us</p>
                             <div class="tp-contact-form__social-box">
-                            <a href="{{ $setting->facebook ?? '' }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                            <a href="{{ $setting->instagram ?? '' }}" target="_blank"><i class="fab fa-instagram"></i></a>
+                                @include('frontend.includes.social-links')
                             </div>
                         </div>
                     </div>

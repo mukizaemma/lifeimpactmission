@@ -85,26 +85,52 @@
                                                 </div>
 
                                                 <div class="row mt-5">
-                                                    <div class="col-lg-4 col-sm-12">
-                                                        <div class="form-group">
-                                                            <label for="projectinput1">Facebook</label>
-                                                            <input type="text" class="form-control"
-                                                                value="{{ $data->facebook }}" name="facebook">
-                                                        </div>
+                                                    <div class="col-12">
+                                                        <h5 class="mb-3">Social Media Links</h5>
+                                                        <p class="text-muted small">Only platforms with a URL will appear on the website.</p>
                                                     </div>
-
                                                     <div class="col-lg-4 col-sm-12">
                                                         <div class="form-group">
-                                                            <label for="projectinput1">Instagram</label>
-                                                            <input type="text" class="form-control"
-                                                                value="{{ $data->instagram }}" name="instagram">
+                                                            <label>Facebook URL</label>
+                                                            <input type="url" class="form-control" value="{{ $data->facebook }}" name="facebook" placeholder="https://facebook.com/...">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4 col-sm-12">
                                                         <div class="form-group">
-                                                            <label for="projectinput4">YouTube</label>
-                                                            <input type="text" class="form-control"
-                                                                value="{{ $data->youtube }}" name="youtube">
+                                                            <label>Instagram Profile URL</label>
+                                                            <input type="url" class="form-control" value="{{ $data->instagram }}" name="instagram" placeholder="https://instagram.com/...">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label>LinkedIn URL</label>
+                                                            <input type="url" class="form-control" value="{{ $data->linkedin ?? '' }}" name="linkedin" placeholder="https://linkedin.com/...">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label>TikTok URL</label>
+                                                            <input type="url" class="form-control" value="{{ $data->tiktok ?? '' }}" name="tiktok" placeholder="https://tiktok.com/@...">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label>YouTube URL</label>
+                                                            <input type="url" class="form-control" value="{{ $data->youtube }}" name="youtube" placeholder="https://youtube.com/...">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label>Linktree URL</label>
+                                                            <input type="url" class="form-control" value="{{ $data->linktree ?? '' }}" name="linktree" placeholder="https://linktr.ee/...">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="instagram_post_url">Latest Instagram Post or Reel URL <small class="text-muted">(homepage Events &amp; Highlights)</small></label>
+                                                            <input type="url" class="form-control" id="instagram_post_url"
+                                                                value="{{ $data->instagram_post_url ?? '' }}" name="instagram_post_url"
+                                                                placeholder="https://www.instagram.com/p/... or https://www.instagram.com/reel/...">
                                                         </div>
                                                     </div>
                                                 </div>

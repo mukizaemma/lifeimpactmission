@@ -7,6 +7,9 @@
     <meta name="description" content="A Community-based Initiative Dedicated to Transforming Lives through Holistic Empowerment, Leadership Development, and Spiritual Growth">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="preconnect" href="https://img.youtube.com" crossorigin>
+    <link rel="dns-prefetch" href="https://img.youtube.com">
+    @stack('head')
 
     <!-- Place favicon.ico in the root directory -->
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('storage\images').$setting->logo}}">
@@ -24,6 +27,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/spacing.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/ilm-home.css') }}">
 </head>
 
 <body>
@@ -126,13 +130,14 @@
 
                                         </ul>
                                     </li>
+                                    <li><a href="{{ route('home') }}#events">Events</a></li>
                                     <li class="has-dropdown"><a href="#">Updates</a>
                                         <ul class="submenu tp-submenu">
+                                            <li><a href="{{ route('home') }}#events">Events & Highlights</a></li>
                                             <li><a href="{{ route('upcomingEvents') }}">Upcoming Events</a></li>
                                             <li><a href="{{ route('posts') }}">Recent Updates</a></li>
                                             <li><a href="{{ route('testimonials') }}">Testimonials</a></li>
                                         </ul>
-                                    </li>
                                     </li>
                                     <li><a href="{{route('gallery')}}">Gallery</a></li>
                                     <li><a href="{{route('contacts')}}">Contact</a></li>
@@ -179,81 +184,82 @@
         <div class="tp-footer__area">
             <div class="tp-footer__bg" data-background="#">
                 <div class="container">
-                    <div class="row">
-                        <div class="col-xl-4 col-lg-4 col-sm-12 mb-45 wow tpfadeUp" data-wow-duration=".9s"
-                    data-wow-delay=".3s">
+                    <div class="row ilm-footer-row">
+                        <div class="col-xl-4 col-lg-4 col-md-6 mb-45 ilm-footer-col-brand wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".3s">
                             <div class="tp-footer__widget footer-2-col-1">
                                 <div class="tp-footer__logo">
-                                    <a href="index.html">
-                                        <img src="{{asset('storage\images').$setting->logo}}" alt="" height="120px">
+                                    <a href="{{ route('home') }}">
+                                        <img src="{{ asset('storage/images') . $setting->logo }}" alt="Impact Life Mission" height="120">
                                     </a>
                                 </div>
                                 <div class="tp-footer__text">
-                                    <p style="color:#fff">From your heart to theirs—help us impact lives that truly matter</p>
+                                    <p style="color:#fff">From your heart to theirs—help us impact lives that truly matter.</p>
                                 </div>
-                                <div class="tp-footer__contact-list">
-                                    <div class="tp-footer__contact-item pb-20 d-flex about-items-center">
-                                        <div class="tp-footer__icon">
-                                            <i class="flaticon-mail"></i>
-                                        </div>
-                                        <div class="tp-footer__text">
-                                             <a href="mailto:{{$setting->email ?? ''}}" style="color:#fff">{{$setting->email ?? ''}}</a>
-                                        </div>
-                                    </div>
-                                    <div class="tp-footer__contact-item d-flex about-items-center">
-                                        <div class="tp-footer__icon">
-                                            <i aria-hidden="true" class="flaticon-phone"></i>
-                                        </div>
-                                        <div class="tp-footer__text">                                            
-                                             <a href="tel:{{$setting->phone ?? ''}}" style="color:#fff">{{$setting->phone ?? ''}}</a>
-                                        </div>
-                                    </div>
-                                    <div class="tp-footer__contact-item d-flex about-items-center mt-20">
-                                        <div class="tp-copyright__social text-center text-sm-end">
-                                            <a href="{{ $setting->facebook ?? '' }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                                            <a href="{{ $setting->instagram ?? '' }}" target="_blank"><i class="fab fa-instagram"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
+                                <a class="tp-btn mt-15" href="https://secure.qgiv.com/for/impactlifemission" target="_blank" rel="noopener">Donate Now</a>
                             </div>
                         </div>
-                        {{-- <div class="col-xl-2 col-lg-2 col-md-6 mb-45 wow tpfadeUp" data-wow-duration=".9s"
-                    data-wow-delay=".5s">
-                            <div class="tp-footer__widget footer-2-col-2">
-                                <h4 class="tp-footer__widget-title-3">Useful Links</h4>
+
+                        <div class="col-xl-4 col-lg-4 col-md-6 mb-45 ilm-footer-col-links wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".5s">
+                            <div class="tp-footer__widget">
+                                <h4 class="tp-footer__widget-title-3">Quick Links</h4>
                                 <div class="tp-footer__list">
-                                    <ul>
-                                        <li><a href="{{ route('home') }}" style="color:#fff">Home</a></li>
-                                        <li><a href="{{ route('backgroundDetails') }}" style="color:#fff">About Us</a></li>
-                                        <li><a href="{{ route('showPrograms') }}" style="color:#fff">Programs</a></li>
-                                        <li><a href="{{ route('testimonials') }}" style="color:#fff">Testimonials</a></li>
-                                        <li><a href="{{ route('posts') }}" style="color:#fff">Updates</a></li>
-                                        <li><a href="{{ route('contacts') }}" style="color:#fff">Contact Us</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div> --}}
-                        <div class="col-2"></div>
-                        <div class="col-xl-3 col-lg-3 col-sm-12 mb-45 wow tpfadeUp p-20" data-wow-duration=".9s"
-                    data-wow-delay=".7s">
-                            <div class="tp-footer__widget footer-2-col-3">
-                                <h4 class="tp-footer__widget-title-3">Our Programs</h4>
-                                <div class="tp-footer__list">
-                                    <ul>
-                                        @foreach ($ourPrograms as $rs)
-                                            <li><a href="{{ route('project',['slug'=>$rs->slug]) }}" style="color:#fff">{{ $rs->title }}</a></li>
-                                        @endforeach
+                                    <ul class="ilm-footer-quicklinks">
+                                        <li><a href="{{ route('home') }}">Home</a></li>
+                                        <li><a href="{{ route('backgroundDetails') }}">Who We Are</a></li>
+                                        <li><a href="{{ route('showPrograms') }}">Our Programs</a></li>
+                                        <li><a href="{{ route('home') }}#events">Events</a></li>
+                                        <li><a href="{{ route('posts') }}">Updates</a></li>
+                                        <li><a href="{{ route('gallery') }}">Gallery</a></li>
+                                        <li><a href="{{ route('contacts') }}">Contact</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-lg-3 col-sm-12 mb-45 wow tpfadeUp" data-wow-duration=".9s"
-                    data-wow-delay=".9s">
-                            <div class="tp-footer__widget footer-2-col-4 ">
-                                {{-- <div class="tp-footer__donate-box tp-copyright__bg p-3"> --}}
-                                    {{-- <h4 class="tp-footer__donate-title-sm">We Work Together For a <br>Beautiful World, Come Join Us Today!</h4> --}}
-                                    <a class="tp-btn" href="https://secure.qgiv.com/for/impactlifemission" target="_blank">Donate Now</a>
-                                {{-- </div> --}}
+
+                        <div class="col-xl-4 col-lg-4 col-md-12 mb-45 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".7s">
+                            <div class="tp-footer__widget ilm-footer-connect">
+                                <h4 class="tp-footer__widget-title-3">Connect With Us</h4>
+
+                                <div class="ilm-footer-connect__cards">
+                                    @if(!empty($setting->email))
+                                        <a href="mailto:{{ $setting->email }}" class="ilm-footer-connect__card">
+                                            <span class="ilm-footer-connect__icon"><i class="flaticon-mail"></i></span>
+                                            <span class="ilm-footer-connect__text">
+                                                <small>Email</small>
+                                                {{ $setting->email }}
+                                            </span>
+                                        </a>
+                                    @endif
+                                    @if(!empty($setting->phone))
+                                        <a href="tel:{{ $setting->phone }}" class="ilm-footer-connect__card">
+                                            <span class="ilm-footer-connect__icon"><i class="flaticon-phone"></i></span>
+                                            <span class="ilm-footer-connect__text">
+                                                <small>Phone</small>
+                                                {{ $setting->phone }}
+                                            </span>
+                                        </a>
+                                    @endif
+                                    @if(!empty($setting->phone1))
+                                        <a href="tel:{{ $setting->phone1 }}" class="ilm-footer-connect__card">
+                                            <span class="ilm-footer-connect__icon"><i class="flaticon-phone"></i></span>
+                                            <span class="ilm-footer-connect__text">
+                                                <small>Phone 2</small>
+                                                {{ $setting->phone1 }}
+                                            </span>
+                                        </a>
+                                    @endif
+                                    @if(!empty($setting->address))
+                                        <div class="ilm-footer-connect__card ilm-footer-connect__card--static">
+                                            <span class="ilm-footer-connect__icon"><i class="flaticon-location"></i></span>
+                                            <span class="ilm-footer-connect__text">
+                                                <small>Address</small>
+                                                {{ $setting->address }}
+                                            </span>
+                                        </div>
+                                    @endif
+                                </div>
+
+                                @include('frontend.includes.social-links')
                             </div>
                         </div>
                     </div>

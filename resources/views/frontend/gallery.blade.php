@@ -2,7 +2,8 @@
 
 @section('content')
 
- 
+    @include('frontend.includes.page-hero', ['pageKey' => 'gallery'])
+
     <!-- gallery-area-start -->
     <div class="tp-gallery-3__area pt-120 pb-120">
         <div class="container">

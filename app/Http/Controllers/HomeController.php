@@ -26,6 +26,7 @@ use App\Mail\ReplyMessage;
 use App\Models\Background;
 use App\Models\Sponsorship;
 use App\Models\Projectimage;
+use App\Services\InstagramService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -70,34 +71,57 @@ class HomeController extends Controller
         }
     }
 
-    public function index(){
+    public function index(InstagramService $instagramService){
         $background = Background::latest()->get();
         $programs = Activity::oldest()->get();
         $about = background::first();
         $mission = About::first();
         $homeGallery = Gallery::latest()->get();
         $slides = Slide::oldest()->get();
-        $testimonials = Testimony::latest()->paginate(3);
-        $news = News::latest()->paginate(2);
-        $partners = Partner::latest()->get();
+        $testimonials = Testimony::latest()->take(3)->get();
+        $partners = Partner::oldest()->get();
+        $impacts = Impact::where('status', 'Active')->latest()->get();
+        if ($impacts->isEmpty()) {
+            $impacts = Impact::latest()->take(4)->get();
+        }
         $staff = Team::latest()->get();
 
         $today = Carbon::today()->toDateString();
 
-        $event = Event::where('status', 'Active')
+        $upcomingEvents = Event::where('status', 'Active')
             ->where('date', '>=', $today)
-            ->orderBy('date', 'asc') // earliest upcoming
-            ->first();
+            ->whereNotNull('image')
+            ->where('image', '!=', '')
+            ->orderBy('date', 'asc')
+            ->get();
+
+        $featuredEvent = $upcomingEvents->first();
+        $eventIsUpcoming = (bool) $featuredEvent;
+
+        if (! $featuredEvent) {
+            $featuredEvent = Event::where('status', 'Active')
+                ->whereNotNull('image')
+                ->where('image', '!=', '')
+                ->orderByRaw('CASE WHEN date IS NULL OR date = "" THEN 1 ELSE 0 END')
+                ->orderByDesc('date')
+                ->orderByDesc('created_at')
+                ->first();
+        }
+
+        $instagramPost = $instagramService->getLatestPost();
 
         return view('frontend.home', [
             'background' =>$background,
             'programs' =>$programs,
             'homeGallery' =>$homeGallery,
-            'event' =>$event,
+            'featuredEvent' =>$featuredEvent,
+            'eventIsUpcoming' =>$eventIsUpcoming,
+            'upcomingEvents' =>$upcomingEvents,
             'slides' =>$slides,
             'testimonials' =>$testimonials,
-            'news' =>$news,
             'partners' =>$partners,
+            'impacts' =>$impacts,
+            'instagramPost' =>$instagramPost,
             'staff' =>$staff,
             'about' =>$about,
             'mission' =>$mission,
@@ -341,8 +365,14 @@ public function gallery(){
         $data->keywords = $request->input('keywords');
         $data->facebook = $request->input('facebook');
         $data->instagram = $request->input('instagram');
+        $data->linkedin = $request->input('linkedin');
+        $data->tiktok = $request->input('tiktok');
+        $data->instagram_post_url = $request->input('instagram_post_url');
         $data->youtube = $request->input('youtube');
+        $data->linktree = $request->input('linktree');
+        $data->phone2 = $request->input('phone2');
 
+        app(InstagramService::class)->clearCache();
 
         if ($request->hasFile('logo') && request('logo') != '') {
             $dir = 'public/images';

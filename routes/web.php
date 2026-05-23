@@ -78,6 +78,9 @@ Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verifi
     Route::get('/setting',[App\Http\Controllers\HomeController::class,'setting'])->name('settings');
     Route::post('/saveSetting/{id}',[App\Http\Controllers\HomeController::class,'saveSetting'])->name('saveSetting');
 
+    Route::get('/page-headers', [App\Http\Controllers\PageHeaderController::class, 'index'])->name('pageHeaders');
+    Route::post('/page-headers', [App\Http\Controllers\PageHeaderController::class, 'update'])->name('updatePageHeaders');
+
     Route::get('/about',[App\Http\Controllers\HomeController::class,'about'])->name('about');
     Route::POST('/saveAbout/{id}',[App\Http\Controllers\HomeController::class,'saveAbout'])->name('saveAbout');
 

@@ -12,6 +12,11 @@
         Contacts Settings
     </a>
 
+    <a class="nav-link" href="{{ route('pageHeaders') }}">
+        <div class="sb-nav-link-icon"><i class="fa fa-image"></i></div>
+        Page Headers
+    </a>
+
     <a class="nav-link" href="{{ route('about') }}">
         <div class="sb-nav-link-icon"><i class="fa fa-bullseye"></i></div>
         Mission & Vision
