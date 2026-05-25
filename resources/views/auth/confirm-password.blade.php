@@ -1,28 +1,29 @@
-<x-guest-layout>
-    <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
-        </x-slot>
+<x-guest-layout
+    page-title="Confirm Password"
+    brand-text="Please confirm your password before continuing to this secure area."
+>
+    <h2 class="ilm-auth-card__heading">Confirm password</h2>
+    <p class="ilm-auth-card__subheading">This is a secure area. Please confirm your password to continue.</p>
 
-        <div class="mb-4 text-sm text-gray-600">
-            {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
+    @if ($errors->any())
+        <ul class="ilm-auth-errors">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
+
+    <form method="POST" action="{{ route('password.confirm') }}">
+        @csrf
+
+        <div class="ilm-auth-field">
+            <label for="password">Password</label>
+            <input id="password" type="password" name="password" required autocomplete="current-password">
+            @error('password')
+                <p class="ilm-auth-field__error">{{ $message }}</p>
+            @enderror
         </div>
 
-        <x-jet-validation-errors class="mb-4" />
-
-        <form method="POST" action="{{ route('password.confirm') }}">
-            @csrf
-
-            <div>
-                <x-jet-label for="password" value="{{ __('Password') }}" />
-                <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" autofocus />
-            </div>
-
-            <div class="flex justify-end mt-4">
-                <x-jet-button class="ml-4">
-                    {{ __('Confirm') }}
-                </x-jet-button>
-            </div>
-        </form>
-    </x-jet-authentication-card>
+        <button type="submit" class="ilm-auth-btn">Confirm</button>
+    </form>
 </x-guest-layout>

@@ -1,62 +1,59 @@
-<x-guest-layout>
-    <div class="min-h-screen flex"  style="background-color: #fff">
+<x-guest-layout
+    page-title="Sign In"
+    brand-text="Sign in to manage content, events, partners, and keep our mission reaching the next generation."
+>
+    <h2 class="ilm-auth-card__heading">Welcome back</h2>
+    <p class="ilm-auth-card__subheading">Sign in to the Impact Life Mission admin panel</p>
 
-                <!-- Right Side: Image -->
-        <div class="hidden md:flex w-1/2 bg-cover bg-center" style="background-image: url(`{{asset('storage\images').($setting->logo ?? '')}}`);">
-            <!-- Optional overlay -->
-            <div class="w-full h-full bg-black bg-opacity-30 flex items-center justify-center">
-                <h2 class="text-white text-3xl font-bold">Empowering Your Impact</h2>
-            </div>
+    @if (session('status'))
+        <div class="ilm-auth-alert ilm-auth-alert--success">{{ session('status') }}</div>
+    @endif
+
+    @if ($errors->any())
+        <ul class="ilm-auth-errors">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
+
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
+
+        <div class="ilm-auth-field">
+            <label for="email">Email address</label>
+            <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username">
+            @error('email')
+                <p class="ilm-auth-field__error">{{ $message }}</p>
+            @enderror
         </div>
 
-        <!-- Left Side: Login Form -->
-        <div class="w-full md:w-1/2 flex items-center justify-center p-6" >
-            <x-jet-authentication-card>
-                <x-slot name="logo">
-                    <h1 class="text-2xl font-bold text-gray-800 mb-4">Welcome to Impact Life Mission Admin Panel</h1>
-                </x-slot>
-
-                <x-jet-validation-errors class="mb-4" />
-
-                @if (session('status'))
-                    <div class="mb-4 font-medium text-sm text-green-600">
-                        {{ session('status') }}
-                    </div>
-                @endif
-
-                <form method="POST" action="{{ route('login') }}" class="space-y-4">
-                    @csrf
-
-                    <div>
-                        <x-jet-label for="email" value="{{ __('Email') }}" />
-                        <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-                    </div>
-
-                    <div>
-                        <x-jet-label for="password" value="{{ __('Password') }}" />
-                        <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
-                    </div>
-
-                    <div class="flex items-center">
-                        <x-jet-checkbox id="remember_me" name="remember" />
-                        <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                    </div>
-
-                    <div class="flex items-center justify-between">
-                        @if (Route::has('password.request'))
-                            <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                                {{ __('Forgot your password?') }}
-                            </a>
-                        @endif
-
-                        <x-jet-button>
-                            {{ __('Log in') }}
-                        </x-jet-button>
-                    </div>
-                </form>
-            </x-jet-authentication-card>
+        <div class="ilm-auth-field">
+            <label for="password">Password</label>
+            <input id="password" type="password" name="password" required autocomplete="current-password">
+            @error('password')
+                <p class="ilm-auth-field__error">{{ $message }}</p>
+            @enderror
         </div>
 
+        <div class="ilm-auth-check">
+            <input type="checkbox" name="remember" id="remember_me" {{ old('remember') ? 'checked' : '' }}>
+            <span><label for="remember_me" style="cursor:pointer;font-weight:400;">Remember me</label></span>
+        </div>
 
+        <button type="submit" class="ilm-auth-btn">Sign in</button>
+
+        <div class="ilm-auth-links-row" style="margin-top: 1.25rem; margin-bottom: 0;">
+            @if (Route::has('password.request'))
+                <a href="{{ route('password.request') }}">Forgot password?</a>
+            @endif
+            @if (Route::has('register'))
+                <a href="{{ route('register') }}">Create account</a>
+            @endif
+        </div>
+    </form>
+
+    <div class="ilm-auth-footer">
+        <a href="{{ route('home') }}"><i class="fas fa-arrow-left"></i> Back to website</a>
     </div>
 </x-guest-layout>

@@ -2,17 +2,27 @@
 
 namespace App\View\Components;
 
+use App\Models\Setting;
 use Illuminate\View\Component;
 
 class GuestLayout extends Component
 {
-    /**
-     * Get the view / contents that represents the component.
-     *
-     * @return \Illuminate\View\View
-     */
+    public ?string $brandText;
+
+    public ?string $pageTitle;
+
+    public function __construct(?string $brandText = null, ?string $pageTitle = null)
+    {
+        $this->brandText = $brandText;
+        $this->pageTitle = $pageTitle;
+    }
+
     public function render()
     {
-        return view('layouts.guest');
+        return view('layouts.auth', [
+            'setting' => Setting::first(),
+            'brandText' => $this->brandText,
+            'pageTitle' => $this->pageTitle,
+        ]);
     }
 }

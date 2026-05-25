@@ -1,34 +1,41 @@
-<x-guest-layout>
-    <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
-        </x-slot>
+<x-guest-layout
+    page-title="Forgot Password"
+    brand-text="We will email you a secure link to reset your password and get you back into the admin panel."
+>
+    <a href="{{ route('login') }}" class="ilm-auth-back"><i class="fas fa-arrow-left"></i> Back to sign in</a>
 
-        <div class="mb-4 text-sm text-gray-600">
-            {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+    <h2 class="ilm-auth-card__heading">Reset password</h2>
+    <p class="ilm-auth-card__subheading">
+        Enter your email address and we will send you a link to choose a new password.
+    </p>
+
+    @if (session('status'))
+        <div class="ilm-auth-alert ilm-auth-alert--success">{{ session('status') }}</div>
+    @endif
+
+    @if ($errors->any())
+        <ul class="ilm-auth-errors">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
+
+    <form method="POST" action="{{ route('password.email') }}">
+        @csrf
+
+        <div class="ilm-auth-field">
+            <label for="email">Email address</label>
+            <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username">
+            @error('email')
+                <p class="ilm-auth-field__error">{{ $message }}</p>
+            @enderror
         </div>
 
-        @if (session('status'))
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ session('status') }}
-            </div>
-        @endif
+        <button type="submit" class="ilm-auth-btn">Send reset link</button>
+    </form>
 
-        <x-jet-validation-errors class="mb-4" />
-
-        <form method="POST" action="{{ route('password.email') }}">
-            @csrf
-
-            <div class="block">
-                <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <x-jet-button>
-                    {{ __('Email Password Reset Link') }}
-                </x-jet-button>
-            </div>
-        </form>
-    </x-jet-authentication-card>
+    <div class="ilm-auth-footer">
+        Remember your password? <a href="{{ route('login') }}">Sign in</a>
+    </div>
 </x-guest-layout>

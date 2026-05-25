@@ -1,0 +1,312 @@
+/* Impact Life Mission — admin auth pages */
+:root {
+  --ilm-auth-green: #1e3737;
+  --ilm-auth-green-dark: #0f221c;
+  --ilm-auth-orange: #c45c26;
+  --ilm-auth-orange-hover: #a84d1f;
+}
+
+.ilm-auth-body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Lato", "Segoe UI", system-ui, sans-serif;
+  background: #f4f7f6;
+}
+
+.ilm-auth {
+  display: flex;
+  min-height: 100vh;
+}
+
+.ilm-auth-brand {
+  display: none;
+  flex: 1;
+  position: relative;
+  background: linear-gradient(145deg, var(--ilm-auth-green-dark) 0%, var(--ilm-auth-green) 45%, #2d5a4a 100%);
+  color: #fff;
+  padding: 3rem;
+  overflow: hidden;
+}
+
+@media (min-width: 992px) {
+  .ilm-auth-brand {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 48%;
+  }
+}
+
+.ilm-auth-brand::before {
+  content: "";
+  position: absolute;
+  bottom: -20%;
+  left: -10%;
+  width: 80%;
+  height: 60%;
+  background: radial-gradient(ellipse, rgba(196, 92, 38, 0.35) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.ilm-auth-brand::after {
+  content: "";
+  position: absolute;
+  top: 10%;
+  right: -15%;
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  pointer-events: none;
+}
+
+.ilm-auth-brand__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 420px;
+}
+
+.ilm-auth-brand__logo img {
+  max-height: 100px;
+  width: auto;
+  margin-bottom: 2rem;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
+}
+
+.ilm-auth-brand__title {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 1rem;
+}
+
+.ilm-auth-brand__text {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.ilm-auth-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.25rem;
+}
+
+.ilm-auth-card {
+  width: 100%;
+  max-width: 440px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(20, 45, 35, 0.12);
+  padding: 2.5rem 2rem;
+}
+
+@media (min-width: 576px) {
+  .ilm-auth-card {
+    padding: 3rem 2.5rem;
+  }
+}
+
+.ilm-auth-card__logo-mobile {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 992px) {
+  .ilm-auth-card__logo-mobile {
+    display: none;
+  }
+}
+
+.ilm-auth-card__logo-mobile img {
+  max-height: 72px;
+}
+
+.ilm-auth-card__heading {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--ilm-auth-green);
+  margin: 0 0 0.35rem;
+  text-align: center;
+}
+
+.ilm-auth-card__subheading {
+  text-align: center;
+  color: #5a6b66;
+  font-size: 0.95rem;
+  margin: 0 0 1.75rem;
+  line-height: 1.5;
+}
+
+.ilm-auth-alert {
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  margin-bottom: 1.25rem;
+}
+
+.ilm-auth-alert--success {
+  background: #e8f5ef;
+  color: #1a5c3a;
+  border: 1px solid #b8e0c8;
+}
+
+.ilm-auth-alert--error {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.ilm-auth-errors {
+  list-style: none;
+  margin: 0 0 1.25rem;
+  padding: 0.85rem 1rem;
+  background: #fef2f2;
+  border-radius: 8px;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+  font-size: 0.875rem;
+}
+
+.ilm-auth-errors li + li {
+  margin-top: 0.35rem;
+}
+
+.ilm-auth-field {
+  margin-bottom: 1.25rem;
+}
+
+.ilm-auth-field label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ilm-auth-green);
+  margin-bottom: 0.45rem;
+}
+
+.ilm-auth-field input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #d4ddd9;
+  border-radius: 8px;
+  background: #fafcfb;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.ilm-auth-field input:focus {
+  outline: none;
+  border-color: var(--ilm-auth-orange);
+  box-shadow: 0 0 0 3px rgba(196, 92, 38, 0.15);
+  background: #fff;
+}
+
+.ilm-auth-field__error {
+  color: #b91c1c;
+  font-size: 0.8rem;
+  margin-top: 0.35rem;
+}
+
+.ilm-auth-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.ilm-auth-check input {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--ilm-auth-orange);
+}
+
+.ilm-auth-check span {
+  font-size: 0.9rem;
+  color: #4a5c56;
+}
+
+.ilm-auth-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.9rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #fff;
+  background: var(--ilm-auth-orange);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.ilm-auth-btn:hover {
+  background: var(--ilm-auth-orange-hover);
+  color: #fff;
+}
+
+.ilm-auth-btn:active {
+  transform: scale(0.98);
+}
+
+.ilm-auth-footer {
+  margin-top: 1.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e8eeec;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #5a6b66;
+}
+
+.ilm-auth-footer a {
+  color: var(--ilm-auth-orange);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ilm-auth-footer a:hover {
+  text-decoration: underline;
+}
+
+.ilm-auth-links-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.ilm-auth-links-row a {
+  font-size: 0.875rem;
+  color: var(--ilm-auth-orange);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.ilm-auth-links-row a:hover {
+  text-decoration: underline;
+}
+
+.ilm-auth-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.875rem;
+  color: #5a6b66;
+  text-decoration: none;
+  margin-bottom: 1rem;
+}
+
+.ilm-auth-back:hover {
+  color: var(--ilm-auth-green);
+}

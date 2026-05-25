@@ -23,7 +23,18 @@
 
         <div class="ilm-highlight-row">
             {{-- Column 1: Event flyer --}}
-            <article class="ilm-highlight-card">
+            <article class="ilm-highlight-card ilm-highlight-card--event">
+                <div class="ilm-highlight-card__header">
+                    @if(isset($featuredEvent) && $featuredEvent)
+                        <span class="ilm-badge">
+                            {{ !empty($eventIsUpcoming) ? 'Upcoming Event' : 'Latest Event' }}
+                        </span>
+                        <h4 class="tp-blog-2__title-sm mb-0">{{ $featuredEvent->title }}</h4>
+                    @else
+                        <span class="ilm-badge">Events</span>
+                        <h4 class="tp-blog-2__title-sm mb-0">Upcoming gatherings</h4>
+                    @endif
+                </div>
                 <div class="ilm-highlight-card__media">
                     @if(isset($featuredEvent) && $featuredEvent && $featuredEvent->image)
                         <a
@@ -46,44 +57,15 @@
                         </div>
                     @endif
                 </div>
-                <div class="ilm-highlight-card__body">
-                    @if(isset($featuredEvent) && $featuredEvent)
-                        <span class="ilm-badge">
-                            {{ !empty($eventIsUpcoming) ? 'Upcoming Event' : 'Latest Event' }}
-                        </span>
-                        <h4 class="tp-blog-2__title-sm mb-15">{{ $featuredEvent->title }}</h4>
-                        @if($featuredEvent->date)
-                            <p class="ilm-event-meta">
-                                <i class="far fa-calendar-alt"></i>
-                                {{ \Carbon\Carbon::parse($featuredEvent->date)->format('l, F j, Y') }}
-                                @if($featuredEvent->timeStart)
-                                    &nbsp;·&nbsp;
-                                    <i class="far fa-clock"></i>
-                                    {{ $featuredEvent->timeStart }}
-                                    @if($featuredEvent->timeEnd) – {{ $featuredEvent->timeEnd }} @endif
-                                @endif
-                            </p>
-                        @endif
-                        @if($featuredEvent->location)
-                            <p class="ilm-event-meta"><i class="fal fa-map-marker-alt"></i>{{ $featuredEvent->location }}</p>
-                        @endif
-                        @if($featuredEvent->description)
-                            <p class="ilm-card-text mb-20">{{ Str::limit(strip_tags($featuredEvent->description), 140) }}</p>
-                        @endif
-                        <div class="mt-auto d-flex flex-wrap gap-2">
-                            @if($featuredEvent->registerLink)
-                                <a class="tp-btn" href="{{ $featuredEvent->registerLink }}" target="_blank" rel="noopener">Register</a>
-                            @endif
-                            @if($featuredEvent->slug)
-                                <a class="tp-btn theme-1-bg" href="{{ route('event', ['slug' => $featuredEvent->slug]) }}">Event Details</a>
-                            @endif
-                            <a class="tp-btn" href="{{ route('upcomingEvents') }}">All Events</a>
-                        </div>
-                    @else
-                        <span class="ilm-badge">Events</span>
-                        <p class="ilm-card-text mb-20">Stay tuned for our next outreach, conference, or community gathering.</p>
-                        <a class="tp-btn theme-1-bg" href="{{ route('upcomingEvents') }}">View Events</a>
-                    @endif
+                <div class="ilm-highlight-card__footer">
+                    @php
+                        $eventViewUrl = (isset($featuredEvent) && $featuredEvent && $featuredEvent->slug)
+                            ? route('event', ['slug' => $featuredEvent->slug])
+                            : route('upcomingEvents');
+                    @endphp
+                    <a class="tp-btn theme-1-bg" href="{{ $eventViewUrl }}">
+                        View More <i class="flaticon-arrow-right ms-1"></i>
+                    </a>
                 </div>
             </article>
 

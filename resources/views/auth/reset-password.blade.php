@@ -1,36 +1,48 @@
-<x-guest-layout>
-    <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
-        </x-slot>
+<x-guest-layout
+    page-title="New Password"
+    brand-text="Choose a strong new password to secure your Impact Life Mission admin account."
+>
+    <h2 class="ilm-auth-card__heading">Set new password</h2>
+    <p class="ilm-auth-card__subheading">Enter your email and choose a new password below.</p>
 
-        <x-jet-validation-errors class="mb-4" />
+    @if ($errors->any())
+        <ul class="ilm-auth-errors">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
 
-        <form method="POST" action="{{ route('password.update') }}">
-            @csrf
+    <form method="POST" action="{{ route('password.update') }}">
+        @csrf
 
-            <input type="hidden" name="token" value="{{ $request->route('token') }}">
+        <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-            <div class="block">
-                <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus />
-            </div>
+        <div class="ilm-auth-field">
+            <label for="email">Email address</label>
+            <input id="email" type="email" name="email" value="{{ old('email', $request->email) }}" required autofocus autocomplete="username">
+            @error('email')
+                <p class="ilm-auth-field__error">{{ $message }}</p>
+            @enderror
+        </div>
 
-            <div class="mt-4">
-                <x-jet-label for="password" value="{{ __('Password') }}" />
-                <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            </div>
+        <div class="ilm-auth-field">
+            <label for="password">New password</label>
+            <input id="password" type="password" name="password" required autocomplete="new-password">
+            @error('password')
+                <p class="ilm-auth-field__error">{{ $message }}</p>
+            @enderror
+        </div>
 
-            <div class="mt-4">
-                <x-jet-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
-            </div>
+        <div class="ilm-auth-field">
+            <label for="password_confirmation">Confirm new password</label>
+            <input id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password">
+        </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <x-jet-button>
-                    {{ __('Reset Password') }}
-                </x-jet-button>
-            </div>
-        </form>
-    </x-jet-authentication-card>
+        <button type="submit" class="ilm-auth-btn">Reset password</button>
+    </form>
+
+    <div class="ilm-auth-footer">
+        <a href="{{ route('login') }}"><i class="fas fa-arrow-left"></i> Back to sign in</a>
+    </div>
 </x-guest-layout>
