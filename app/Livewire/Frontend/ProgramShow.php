@@ -26,6 +26,8 @@ class ProgramShow extends Component
     {
         $activity = Activity::with('images')->where('slug', $this->slug)->firstOrFail();
 
+        view()->share('title', $activity->title);
+
         return view('frontend.activity', [
             'activity' => $activity,
             'relatedActivities' => Activity::where('id', '!=', $activity->id)->oldest()->get(),
@@ -33,6 +35,6 @@ class ProgramShow extends Component
             'gallery' => Gallery::latest()->get(),
             'images' => $activity->images,
             'news' => News::latest()->paginate(9),
-        ])->title($activity->title);
+        ]);
     }
 }

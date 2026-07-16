@@ -20,8 +20,10 @@ class EventShow extends Component
     {
         $event = Event::where('slug', $this->slug)->firstOrFail();
 
+        view()->share('title', $event->title);
+
         return view('frontend.event', [
             'event' => $event,
-        ])->title($event->title);
+        ]);
     }
 }

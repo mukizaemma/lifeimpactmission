@@ -22,12 +22,14 @@ class UpdateShow extends Component
     {
         $blog = News::where('slug', $this->slug)->firstOrFail();
 
+        view()->share('title', $blog->title);
+
         return view('frontend.blog', [
             'blog' => $blog,
             'images' => $blog->Blogimages()->latest()->get(),
             'relatedBlogs' => News::where('id', '!=', $blog->id)->latest()->take(6)->get(),
             'programs' => Program::latest()->get(),
             'about' => Background::first(),
-        ])->title($blog->title);
+        ]);
     }
 }

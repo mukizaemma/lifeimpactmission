@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{{ $setting->company ?? ''}}</title>
+    <title>{{ $title ?? ($setting->company ?? 'Impact Life Mission') }}</title>
     <meta name="description" content="Impact Life Mission empowers young mothers and vulnerable youth in Rwanda through vocational training, shelter and food support, health insurance, hygiene materials, mentorship, and faith—building pathways to lasting independence.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 

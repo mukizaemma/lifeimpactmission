@@ -25,11 +25,13 @@ class TestimonyShow extends Component
     {
         $testimony = Testimony::where('id', $this->id)->firstOrFail();
 
+        view()->share('title', $testimony->names ?? 'Testimony');
+
         return view('frontend.testimony', [
             'testimony' => $testimony,
             'programs' => Program::latest()->get(),
             'about' => Background::first(),
             'testimonials' => Testimony::where('id', '!=', $testimony->id)->paginate(6),
-        ])->title($testimony->names ?? 'Testimony');
+        ]);
     }
 }

@@ -21,9 +21,11 @@ class MotherShow extends Component
     {
         $mother = Mother::where('slug', $this->slug)->where('status', 'Active')->firstOrFail();
 
+        view()->share('title', $mother->names . ' | Mother\'s Story');
+
         return view('frontend.mother', [
             'mother' => $mother,
             'about' => Background::first(),
-        ])->title($mother->names . ' | Mother\'s Story');
+        ]);
     }
 }
