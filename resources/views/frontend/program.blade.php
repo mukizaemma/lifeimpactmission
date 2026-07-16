@@ -12,7 +12,7 @@
             <div class="postbox__wrapper">
             <article class="postbox__item format-image mb-50 transition-3">
                 <div class="postbox__thumb p-relative m-img">
-                    <img src="{{ asset('storage/images/programs/' . $program->image) }}" alt="">
+                    <img src="{{ ilm_image_url('images/programs', $program->image) }}" alt="">
                 </div>
                 <div class="postbox__content">
                     <h3 class="postbox__title">{{ $program->title }}</h3>
@@ -31,9 +31,9 @@
                     <div class="col-xl-4 col-lg-4 col-md-6 mb-30 wow tpfadeUp" data-wow-duration=".9s"
                     data-wow-delay=".3s">
                         <div class="tp-gallery-3__item p-relative">
-                            <img src="{{asset('storage/images/gallery').$image->image}}" alt="">
+                            <img src="{{ilm_image_url('images/gallery', $image->image)}}" alt="">
                             <div class="tp-gallery-3__icon">
-                                <a class="popup-image" href="{{asset('storage/images/gallery').$image->image}}">
+                                <a class="popup-image" href="{{ilm_image_url('images/gallery', $image->image)}}">
                                     <svg id="body" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="49" height="51" viewBox="0 0 49 51">
                                         <g id="gallery">
                                           <g id="_02_hover" data-name="02 + hover">
@@ -66,7 +66,7 @@
                         @foreach ($news as $rs)
                         <div class="rc__post mb-10 d-flex align-items-center">
                         <div class="rc__post-thumb mr-20">
-                            <a href="{{route('postSingle',$rs->slug)}}" wire:navigate><img src="{{ asset('storage/images/news/' . $rs->image) }}" alt="" width="90px"></a>
+                            <a href="{{route('postSingle',$rs->slug)}}" wire:navigate><img src="{{ ilm_image_url('images/news', $rs->image) }}" alt="" width="90px"></a>
                         </div>
                         <div class="rc__post-content">
                             {{-- <div class="rc__meta">

@@ -20,6 +20,6 @@ class PageHeader extends Model
             return null;
         }
 
-        return asset('storage/images/headers/' . $this->image);
+        return ilm_image_url('images/headers', $this->image);
     }
 }

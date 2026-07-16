@@ -124,7 +124,7 @@
                                                     <div class="col-lg-6 col-sm-12">
                                                         <label>Company Logo </label><br>
                                                         <label id="projectinput7" class="file center-block">
-                                                            <img src="{{ asset('storage/images/' . ltrim($data->logo ?? '', '/')) }}"
+                                                            <img src="{{ ilm_image_url('images', $data->logo ?? '') }}"
                                                                 alt="Company logo" width="150">
                                                         </label>
                                                     </div>

@@ -18,7 +18,7 @@
                 <article class="ilm-activity-detail__main wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".2s">
                     <div class="ilm-activity-detail__media">
                         <img
-                            src="{{ asset('storage/images/projects/' . ltrim($activity->image, '/')) }}"
+                            src="{{ ilm_image_url('images/projects', $activity->image) }}"
                             alt="{{ $activity->title }}"
                             loading="eager"
                             decoding="async"
@@ -52,9 +52,9 @@
                             @foreach ($images as $image)
                             <div class="col-md-6 mb-30">
                                 <div class="ilm-activity-gallery__item">
-                                    <a class="popup-image" href="{{ asset('storage/images/projects/' . ltrim($image->image, '/')) }}">
+                                    <a class="popup-image" href="{{ ilm_image_url('images/projects', $image->image) }}">
                                         <img
-                                            src="{{ asset('storage/images/projects/' . ltrim($image->image, '/')) }}"
+                                            src="{{ ilm_image_url('images/projects', $image->image) }}"
                                             alt="{{ $activity->title }} gallery image"
                                             loading="lazy"
                                             decoding="async"
@@ -75,7 +75,7 @@
                         <a href="{{ route('project', ['slug' => $rs->slug]) }}" class="ilm-activity-sidebar__item" wire:navigate>
                             <span class="ilm-activity-sidebar__thumb">
                                 <img
-                                    src="{{ asset('storage/images/projects') . $rs->image }}"
+                                    src="{{ ilm_image_url('images/projects', $rs->image)}}"
                                     alt="{{ $rs->title }}"
                                     loading="lazy"
                                     decoding="async"

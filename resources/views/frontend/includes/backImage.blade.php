@@ -1,5 +1,5 @@
         <div class="tp-cta-2__area pb-15">
-            <div class="tp-cta-2__bg p-relative fix" data-background="{{ asset('storage/images/' . $about->image1) }}">
+            <div class="tp-cta-2__bg p-relative fix" data-background="{{ ilm_image_url('images', $about->image1) }}">
                 <div class="tp-cta-2__shape-3 d-none d-lg-block">
                     <img src="assets/img/cta/cta-shape-3.png" alt="">
                 </div>

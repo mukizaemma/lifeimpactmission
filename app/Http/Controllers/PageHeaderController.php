@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Concerns\StoresOptimizedImages;
 use App\Models\PageHeader;
-use App\Services\ImageUploadService;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use InvalidArgumentException;
 
 class PageHeaderController extends Controller
@@ -21,12 +21,27 @@ class PageHeaderController extends Controller
 
     public function update(Request $request)
     {
-        $validated = $request->validate([
+        $rules = [
             'headers' => 'required|array',
             'headers.*.title' => 'required|string|max:255',
             'headers.*.subtitle' => 'nullable|string|max:500',
-            'headers.*.image' => app(ImageUploadService::class)->validationRules(true, false),
-        ]);
+        ];
+
+        // Only validate image fields that were actually uploaded (empty file inputs
+        // must not block title/subtitle saves).
+        foreach ($request->file('headers', []) as $id => $files) {
+            $file = $files['image'] ?? null;
+            if ($file instanceof UploadedFile && $file->isValid()) {
+                $rules["headers.{$id}.image"] = [
+                    'nullable',
+                    'image',
+                    'mimes:jpeg,jpg,png,gif,webp',
+                    'max:10240', // allow larger originals; server optimizes to 300–700KB
+                ];
+            }
+        }
+
+        $validated = $request->validate($rules);
 
         foreach ($validated['headers'] as $id => $row) {
             $header = PageHeader::findOrFail($id);
@@ -34,22 +49,29 @@ class PageHeaderController extends Controller
             $header->title = $row['title'];
             $header->subtitle = $row['subtitle'] ?? null;
 
-            if ($request->hasFile("headers.{$id}.image")) {
+            $uploaded = $request->file("headers.{$id}.image");
+            if ($uploaded instanceof UploadedFile && $uploaded->isValid()) {
                 try {
                     $header->image = $this->storeOptimizedImage(
-                        $request->file("headers.{$id}.image"),
+                        $uploaded,
                         'images/headers',
                         true,
                         $header->image
                     );
                 } catch (InvalidArgumentException $e) {
-                    return redirect()->back()->withInput()->with('error', $e->getMessage());
+                    return redirect()
+                        ->back()
+                        ->withInput()
+                        ->with('error', "{$header->label}: ".$e->getMessage())
+                        ->withErrors(["headers.{$id}.image" => $e->getMessage()]);
                 }
             }
 
             $header->save();
         }
 
-        return redirect()->route('pageHeaders')->with('success', 'Page headers updated successfully.');
+        return redirect()
+            ->route('pageHeaders')
+            ->with('success', 'Page headers updated successfully.');
     }
 }

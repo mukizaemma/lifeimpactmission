@@ -54,7 +54,7 @@
                                                 <div class="col-lg-6 col-sm-12">
                                                     <label>Background image below programs</label><br>
                                                     @if(!empty($ctaImage))
-                                                        <img src="{{ asset('storage/images/' . ltrim($ctaImage, '/')) }}" alt="CTA background" width="150">
+                                                        <img src="{{ ilm_image_url('images', $ctaImage) }}" alt="CTA background" width="150">
                                                     @else
                                                         <p class="text-muted mb-0">No image uploaded yet.</p>
                                                     @endif

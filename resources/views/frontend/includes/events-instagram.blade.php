@@ -44,7 +44,7 @@
                             wire:navigate
                         >
                             <img
-                                src="{{ asset('storage/images/events/' . $featuredEvent->image) }}"
+                                src="{{ ilm_image_url('images/events', $featuredEvent->image) }}"
                                 alt="{{ $featuredEvent->title }} event flyer"
                                 loading="lazy"
                                 decoding="async"

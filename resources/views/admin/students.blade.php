@@ -37,7 +37,7 @@
                                 <tbody>
                                     @foreach ($data as $rs)
                                         <tr>
-                                            <td><img src="{{ asset('storage/images/students') . $rs->image }}"
+                                            <td><img src="{{ ilm_image_url('images/students', $rs->image)}}"
                                                 alt="" width="150px"></td>
                                             <td>{{ $rs->names }}</td>
                                             <td>{!! $rs->testimony !!}</td>

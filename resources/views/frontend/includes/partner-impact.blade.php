@@ -79,10 +79,10 @@
                                     <div class="tp-brand-2__item text-center">
                                         @if($partner->website)
                                             <a href="{{ $partner->website }}" target="_blank" rel="noopener noreferrer">
-                                                <img src="{{ asset('storage/images/partners') . $partner->image }}" alt="Partner logo" loading="lazy" decoding="async">
+                                                <img src="{{ ilm_image_url('images/partners', $partner->image)}}" alt="Partner logo" loading="lazy" decoding="async">
                                             </a>
                                         @else
-                                            <img src="{{ asset('storage/images/partners') . $partner->image }}" alt="Partner logo" loading="lazy" decoding="async">
+                                            <img src="{{ ilm_image_url('images/partners', $partner->image)}}" alt="Partner logo" loading="lazy" decoding="async">
                                         @endif
                                     </div>
                                 </div>

@@ -46,7 +46,7 @@
                                                 <div class="col-lg-6 col-sm-12">
                                                     <label>About cover image</label><br>
                                                     @if(!empty($data->image))
-                                                        <img src="{{ asset('storage/images/' . ltrim($data->image, '/')) }}" width="150" alt="About cover">
+                                                        <img src="{{ ilm_image_url('images', $data->image) }}" width="150" alt="About cover">
                                                     @else
                                                         <p class="text-muted mb-0">No image uploaded yet.</p>
                                                     @endif
@@ -63,7 +63,7 @@
                                                 <div class="col-lg-6 col-sm-12">
                                                     <label>Home / CTA background image</label><br>
                                                     @if(!empty($data->image1))
-                                                        <img src="{{ asset('storage/images/' . ltrim($data->image1, '/')) }}" width="150" alt="CTA background">
+                                                        <img src="{{ ilm_image_url('images', $data->image1) }}" width="150" alt="CTA background">
                                                     @else
                                                         <p class="text-muted mb-0">No image uploaded yet.</p>
                                                     @endif
@@ -80,7 +80,7 @@
                                                 <div class="col-lg-6 col-sm-12">
                                                     <label>Pages header image</label><br>
                                                     @if(!empty($data->image2))
-                                                        <img src="{{ asset('storage/images/' . ltrim($data->image2, '/')) }}" width="150" alt="Page header">
+                                                        <img src="{{ ilm_image_url('images', $data->image2) }}" width="150" alt="Page header">
                                                     @else
                                                         <p class="text-muted mb-0">No image uploaded yet.</p>
                                                     @endif

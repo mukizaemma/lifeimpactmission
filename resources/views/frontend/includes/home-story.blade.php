@@ -7,7 +7,7 @@
                 <div class="col-lg-5">
                     <div class="ilm-story__media">
                         <img
-                            src="{{ asset('storage/images/testimonies') . $story->image }}"
+                            src="{{ ilm_image_url('images/testimonies', $story->image)}}"
                             alt="{{ $story->names }}"
                             loading="lazy"
                             decoding="async"

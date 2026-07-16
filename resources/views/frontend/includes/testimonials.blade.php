@@ -9,7 +9,7 @@
             <div class="col-xl-4 col-lg-4 col-md-6 mb-30 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".3s">
                 <article class="ilm-key-card">
                     <a href="{{ route('testimony',['id'=>$rs->id]) }}" class="ilm-key-card__media" wire:navigate>
-                        <img src="{{ asset('storage/images/testimonies') . $rs->image }}" alt="{{ $rs->names }}" loading="lazy" decoding="async" width="480" height="250">
+                        <img src="{{ ilm_image_url('images/testimonies', $rs->image)}}" alt="{{ $rs->names }}" loading="lazy" decoding="async" width="480" height="250">
                         <span class="ilm-key-card__shine" aria-hidden="true"></span>
                     </a>
                     <div class="ilm-key-card__body">

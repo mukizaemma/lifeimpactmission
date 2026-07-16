@@ -13,7 +13,7 @@
                 <div class="col-lg-6 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".2s">
                     <article class="ilm-team-feature">
                         <div class="ilm-team-feature__media">
-                            <img src="{{ asset('storage/images/staff') . $rs->image }}" alt="{{ $rs->names }}" loading="lazy" decoding="async">
+                            <img src="{{ ilm_image_url('images/staff', $rs->image)}}" alt="{{ $rs->names }}" loading="lazy" decoding="async">
                         </div>
                         <div class="ilm-team-feature__body">
                             <h3>{{ $rs->names }}</h3>
@@ -39,7 +39,7 @@
                 <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
                     <article class="ilm-team-card">
                         <div class="ilm-team-card__media">
-                            <img src="{{ asset('storage/images/staff') . $adv->image }}" alt="{{ $adv->names }}" loading="lazy" decoding="async">
+                            <img src="{{ ilm_image_url('images/staff', $adv->image)}}" alt="{{ $adv->names }}" loading="lazy" decoding="async">
                         </div>
                         <h3 class="ilm-team-card__name">{{ $adv->names }}</h3>
                         <p class="ilm-team-card__role">{{ $adv->position }}</p>

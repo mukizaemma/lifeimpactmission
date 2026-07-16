@@ -56,7 +56,7 @@
                     <div class="ilm-about-home__media">
                         <div class="ilm-about-home__frame">
                             @if(!empty($about->image))
-                                <img src="{{ asset('storage/images/' . $about->image) }}" alt="About Impact Life Mission" loading="lazy" decoding="async">
+                                <img src="{{ ilm_image_url('images', $about->image) }}" alt="About Impact Life Mission" loading="lazy" decoding="async">
                             @endif
                         </div>
                         <div class="ilm-about-home__accent" aria-hidden="true"></div>
@@ -201,7 +201,7 @@
                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
                     <article class="ilm-team-card">
                         <div class="ilm-team-card__media">
-                            <img src="{{ asset('storage/images/staff/' . $member->image) }}" alt="{{ $member->names }}" loading="lazy" decoding="async">
+                            <img src="{{ ilm_image_url('images/staff', $member->image) }}" alt="{{ $member->names }}" loading="lazy" decoding="async">
                         </div>
                         <h3 class="ilm-team-card__name">{{ $member->names }}</h3>
                         <p class="ilm-team-card__role">{{ $member->position }}</p>
@@ -229,10 +229,10 @@
                                     <div class="tp-brand-2__item text-center">
                                         @if($partner->website)
                                             <a href="{{ $partner->website }}" target="_blank" rel="noopener noreferrer">
-                                                <img src="{{ asset('storage/images/partners') . $partner->image }}" alt="Partner logo" loading="lazy" decoding="async">
+                                                <img src="{{ ilm_image_url('images/partners', $partner->image)}}" alt="Partner logo" loading="lazy" decoding="async">
                                             </a>
                                         @else
-                                            <img src="{{ asset('storage/images/partners') . $partner->image }}" alt="Partner logo" loading="lazy" decoding="async">
+                                            <img src="{{ ilm_image_url('images/partners', $partner->image)}}" alt="Partner logo" loading="lazy" decoding="async">
                                         @endif
                                     </div>
                                 </div>

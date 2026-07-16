@@ -14,7 +14,7 @@
                     <div class="ilm-about-home__frame">
                         @if(!empty($about->image))
                             <img
-                                src="{{ asset('storage/images/' . $about->image) }}"
+                                src="{{ ilm_image_url('images', $about->image) }}"
                                 alt="Mentorship and empowerment"
                                 loading="lazy"
                                 decoding="async"

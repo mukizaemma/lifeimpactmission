@@ -42,7 +42,7 @@
                                     <div  class="row mt-3">
                                         <div class="col-lg-4 col-sm-12">
                                             <label for="image" class="form-label">Blog Cover Image</label>
-                                            <img src="{{ asset('storage/images/news') . $blog->image }}" alt="" width="120px">
+                                            <img src="{{ ilm_image_url('images/news', $blog->image)}}" alt="" width="120px">
                                         </div>
                                         <div class="col-lg-4 col-sm-12">
                                             <label for="image" class="form-label">Blog Cover Image</label>

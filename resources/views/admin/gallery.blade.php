@@ -51,7 +51,7 @@
                                             @foreach($images as $rs)
                                             <tr>
                                                 <td>{{ $rs->program->title ?? '' }}</td>
-                                                <td><img src="{{ asset('storage/images/gallery/'.$rs->image) }}" width="150px"></td>
+                                                <td><img src="{{ ilm_image_url('images/gallery', $rs->image) }}" width="150px"></td>
                                                 <td>
                                                     <div class="btn-group">
                                                         <a href="{{ route('editGallery', $rs->id) }}" class="btn btn-primary text-black" wire:navigate>Edit</a>
@@ -78,7 +78,7 @@
                                         <tbody>
                                             @foreach($images->where('program_id', $program->id) as $rs)
                                             <tr>
-                                                <td><img src="{{ asset('storage/images/gallery/'.$rs->image) }}" width="150px"></td>
+                                                <td><img src="{{ ilm_image_url('images/gallery', $rs->image) }}" width="150px"></td>
                                                 <td>
                                                     <div class="btn-group">
                                                         <a href="{{ route('editGallery', $rs->id) }}" class="btn btn-primary text-black" wire:navigate>Edit</a>

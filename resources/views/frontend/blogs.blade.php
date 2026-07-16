@@ -13,7 +13,7 @@
                 <div class="col-xl-4 col-lg-4 col-md-6 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".{{ min($loop->iteration + 1, 5) }}s">
                     <article class="ilm-update-card">
                         <a href="{{ route('postSingle', $blog->slug) }}" class="ilm-update-card__media" wire:navigate>
-                            <img src="{{ asset('storage/images/news/' . $blog->image) }}" alt="{{ $blog->title }}" loading="lazy" decoding="async">
+                            <img src="{{ ilm_image_url('images/news', $blog->image) }}" alt="{{ $blog->title }}" loading="lazy" decoding="async">
                         </a>
                         <div class="ilm-update-card__body">
                             <span class="ilm-update-date">{{ optional($blog->created_at)->format('d M, Y') }}</span>

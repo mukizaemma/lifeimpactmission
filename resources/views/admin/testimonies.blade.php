@@ -36,7 +36,7 @@
                                         <tr>
                                             <td>{{ $rs->names }}</td>
                                             <td>{!! $rs->testimony !!}</td>
-                                            <td><img src="{{ asset('storage/images/testimonies') . $rs->image }}"
+                                            <td><img src="{{ ilm_image_url('images/testimonies', $rs->image)}}"
                                                     alt="" width="150px"></td>
                                             <td>
                                                 <div class="btn-btn-group ">

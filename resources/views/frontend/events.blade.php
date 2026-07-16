@@ -13,7 +13,7 @@
                 <div class="col-lg-6 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".2s">
                     <article class="ilm-event-card">
                         <a href="{{ route('event', ['slug' => $event->slug]) }}" class="ilm-event-card__media" wire:navigate>
-                            <img src="{{ asset('storage/images/events/') . $event->image }}" alt="{{ $event->title }}" loading="lazy" decoding="async">
+                            <img src="{{ ilm_image_url('images/events', $event->image)}}" alt="{{ $event->title }}" loading="lazy" decoding="async">
                         </a>
                         <div class="ilm-event-card__body">
                             <div class="ilm-event-card__meta">

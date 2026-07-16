@@ -58,7 +58,7 @@
                                                     <div class="col-lg-6 col-sm-12">
                                                         <label>Image on the right of Welcome note </label><br>
                                                         <label id="projectinput7" class="file center-block">
-                                                            <img src="{{ asset('storage/images') . $data->aboutImage }}"
+                                                            <img src="{{ ilm_image_url('images', $data->aboutImage)}}"
                                                                 alt="" width="150px">
                                                         </label>
                                                     </div>
@@ -75,7 +75,7 @@
                                                     <div class="col-lg-6 col-sm-12">
                                                         <label>Backgound Image behind Vision & Mission row </label><br>
                                                         <label id="projectinput7" class="file center-block">
-                                                            <img src="{{ asset('storage/images') . $data->back1 }}"
+                                                            <img src="{{ ilm_image_url('images', $data->back1)}}"
                                                                 alt="" width="150px">
                                                         </label>
                                                     </div>
@@ -93,7 +93,7 @@
                                                     <div class="col-lg-6 col-sm-12">
                                                         <label>Backgound Image below Programs </label><br>
                                                         <label id="projectinput7" class="file center-block">
-                                                            <img src="{{ asset('storage/images') . $data->back2 }}"
+                                                            <img src="{{ ilm_image_url('images', $data->back2)}}"
                                                                 alt="" width="150px">
                                                         </label>
                                                     </div>

@@ -38,7 +38,7 @@
                                 <tr>
                                     <td>{{$rs->title}}</td>
                                     <td>{!!$rs->description!!}</td>
-                                    <td><img src="{{ asset('storage/images/projects') . $rs->image }}" alt="" width="150px"></td>
+                                    <td><img src="{{ ilm_image_url('images/projects', $rs->image)}}" alt="" width="150px"></td>
                                     <td>{{ $rs->created_at }}</td>
                                     <td>   
                                         <div class="bg-light rounded ">

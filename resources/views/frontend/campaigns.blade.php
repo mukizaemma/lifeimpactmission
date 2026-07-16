@@ -56,9 +56,9 @@
                         <div class="swiper-slide">
                             <div class="tp-donate__item">
                                 <div class="tp-donate__thumb p-relative fix">
-                                    <img src="{{ asset('storage/images/campaigns/' . $campaign->image) }}" alt="">
+                                    <img src="{{ ilm_image_url('images/campaigns', $campaign->image) }}" alt="">
                                     <div class="tp-donate__thumb-shape">
-                                        <img src="{{ asset('storage/images/campaigns/' . $campaign->image) }}" alt="">
+                                        <img src="{{ ilm_image_url('images/campaigns', $campaign->image) }}" alt="">
                                         {{-- <div class="tp-donate__thumb-text">
                                             <span>SHELTER</span>
                                         </div> --}}

@@ -36,7 +36,7 @@
                                 <div class="col-lg-4 col-sm-12">
                                         <label>Featured Image<br></label>
                                         <label id="projectinput7" class="file center-block">
-                                            <img src="{{asset('storage/images/slides').$data->image}}" alt="" width="120px">
+                                            <img src="{{ilm_image_url('images/slides', $data->image)}}" alt="" width="120px">
                                         </label>
                                 </div>
                                 <div class="col-lg-4 col-sm-12">

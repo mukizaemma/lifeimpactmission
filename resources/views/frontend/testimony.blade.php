@@ -5,7 +5,7 @@
                     <div class="col-xl-8 col-lg-8">
                         <div class="tp-event-details__left-box">
                             <div class="tp-event-details__thumb p-relative pb-35">
-                                <img src="{{ asset('storage/images/testimonies/' . $testimony->image) }}" alt="{{ $testimony->title }}">
+                                <img src="{{ ilm_image_url('images/testimonies', $testimony->image) }}" alt="{{ $testimony->title }}">
                             </div>
                             <h4 class="tp-event-details__title">{{ $testimony->title }}</h4>
 
@@ -27,7 +27,7 @@
                                         @foreach ($testimonials as $rs)
                                         <div class="rc__post mb-10 d-flex align-items-center">
                                         <div class="rc__post-thumb mr-20">
-                                            <a href="{{ route('testimony',['id'=>$rs->id]) }}" wire:navigate><img src="{{ asset('storage/images/testimonies/' . $rs->image) }}" alt="" width="100px"></a>
+                                            <a href="{{ route('testimony',['id'=>$rs->id]) }}" wire:navigate><img src="{{ ilm_image_url('images/testimonies', $rs->image) }}" alt="" width="100px"></a>
                                         </div>
                                         <div class="rc__post-content">
                                             {{-- <div class="rc__meta">

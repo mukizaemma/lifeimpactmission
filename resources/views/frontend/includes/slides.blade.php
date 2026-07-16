@@ -7,7 +7,7 @@
         'link' => 'https://secure.qgiv.com/for/impactlifemission',
     ]]);
     $heroFallbackBg = !empty($about->image)
-        ? asset('storage/images/' . $about->image)
+        ? ilm_image_url('images', $about->image)
         : asset('assets/img/slider/slider-3-1.jpg');
 @endphp
 
@@ -18,8 +18,7 @@
                 @foreach ($heroSlides as $index => $slide)
                 @php
                     $slideBg = !empty($slide->image)
-                        ? asset('storage/images/slides/') . $slide->image
-                        : $heroFallbackBg;
+                        ? ilm_image_url('images/slides', $slide->image) : $heroFallbackBg;
                     $subtitle = !empty($slide->subheading)
                         ? $slide->subheading
                         : 'Vocational training, shelter & food, health care, and faith-centered mentorship in Rwanda.';
@@ -56,6 +55,6 @@
 
 @if($slides->isNotEmpty())
     @push('head')
-        <link rel="preload" as="image" href="{{ asset('storage/images/slides/') . $slides->first()->image }}">
+        <link rel="preload" as="image" href="{{ ilm_image_url('images/slides', $slides->first()->image) }}">
     @endpush
 @endif

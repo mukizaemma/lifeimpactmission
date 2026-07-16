@@ -48,7 +48,7 @@
                                 <div class="col-lg-6 col-sm-12">
                                     <label>Select File</label><br>
                                     <label id="projectinput7" class="file center-block">
-                                        <img src="{{asset('storage/images/programs').$data->image}}" alt="" width="120px">
+                                        <img src="{{ilm_image_url('images/programs', $data->image)}}" alt="" width="120px">
                                     </label>
                                 </div>
                                 <div class="col-lg-6 col-sm-12">

@@ -37,7 +37,7 @@
                             <tbody>
                                 @foreach($events as $rs)
                                 <tr>
-                                    <td><img src="{{asset('storage/images/events').$rs->image}}" alt="" width="150px"></td>
+                                    <td><img src="{{ilm_image_url('images/events', $rs->image)}}" alt="" width="150px"></td>
                                     <td>{{$rs->title}}</td>
                                     <td>{{$rs->date}} <br>{{$rs->timeStart}} - {{$rs->timeEnd}}</td>
                                     <td>{{$rs->location}}</td>

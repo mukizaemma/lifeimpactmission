@@ -39,7 +39,7 @@
                                 @foreach($team as $rs)
                                 <tr>
 
-                                    <td><img src="{{asset('storage/images/staff').$rs->image}}" alt="" width="150px"></td>
+                                    <td><img src="{{ilm_image_url('images/staff', $rs->image)}}" alt="" width="150px"></td>
                                     <td>{{$rs->names}}</td>
                                     <td>{{$rs->position}}</td>
                                     <td>{{$rs->phone}}</td>

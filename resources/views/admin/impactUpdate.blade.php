@@ -49,7 +49,7 @@
 
                                         <div class="col-lg-6 col-sm-12">
                                             <label>Featured Cover Image</label>
-                                            <img src="{{asset('storage/images/impacts/' . $data->image)}}" alt="" width="120px">
+                                            <img src="{{ilm_image_url('images/impacts', $data->image)}}" alt="" width="120px">
                                         </div>
                                         <div class="col-lg-6 col-sm-12">
                                             <label>Update the Cover Image</label>

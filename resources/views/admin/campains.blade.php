@@ -39,7 +39,7 @@
                                 @foreach ($campain as $rs)
                                 <tr>
                                     <td><a href="{{ route('editCampain', $rs->id) }}" wire:navigate>{{ $rs->title }}</a> </td>
-                                    <td><img src="{{ asset('storage/images/campaigns/' . $rs->image) }}" alt="" width="150px"></td>
+                                    <td><img src="{{ ilm_image_url('images/campaigns', $rs->image) }}" alt="" width="150px"></td>
                                     <td>{{ $rs->program->title ?? '' }}</td>
                                     <td>{!! \Illuminate\Support\Str::limit(strip_tags($rs->description), 100) !!}</td>
                                     <td>{{$rs->goal}}</td>

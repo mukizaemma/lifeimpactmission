@@ -3,7 +3,7 @@
 
     $heroTitle = $heroTitle ?? $header?->title ?? ($title ?? 'Page');
     $heroSubtitle = $heroSubtitle ?? $header?->subtitle;
-    $heroImage = $heroImage ?? $header?->imageUrl() ?? asset('storage/images/' . ($about->image2 ?? ''));
+    $heroImage = $heroImage ?? $header?->imageUrl() ?? ilm_image_url('images', $about->image2 ?? '');
 
     $showHomeCrumb = $showHomeCrumb ?? true;
     $heroAlign = $heroAlign ?? 'center';

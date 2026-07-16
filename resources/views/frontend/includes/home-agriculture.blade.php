@@ -1,7 +1,7 @@
 @php
     $agriImage = !empty($about->image1)
-        ? asset('storage/images/' . $about->image1)
-        : (!empty($about->image) ? asset('storage/images/' . $about->image) : asset('assets/img/cta/cta-bg-3.jpg'));
+        ? ilm_image_url('images', $about->image1)
+        : (!empty($about->image) ? ilm_image_url('images', $about->image) : asset('assets/img/cta/cta-bg-3.jpg'));
 @endphp
 
 <section class="ilm-agriculture" id="agriculture">

@@ -35,7 +35,7 @@ class Mother extends Model
             return asset('assets/img/team/team-1.jpg');
         }
 
-        return asset('storage/images/mothers/' . ltrim($this->image, '/'));
+        return ilm_image_url('images/mothers', $this->image);
     }
 
     public function videoEmbedUrl(): ?string

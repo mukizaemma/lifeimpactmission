@@ -38,7 +38,7 @@
                                 <tr>
                                     <td>{{$rs->title}}</td>
                                     <td>{!!$rs->description!!}</td>
-                                    <td><img src="{{ asset('storage/images/impacts/' . $rs->image) }}" alt="" width="150px"></td>
+                                    <td><img src="{{ ilm_image_url('images/impacts', $rs->image) }}" alt="" width="150px"></td>
                                     {{-- <td>
                                         <a href="{{route('image.index', ['pid' =>$rs->id])}}" onclick="return !window.open(this.href, '', 'top=50 left=100 width=1100, height=700')">
                                         <img src="assets/admin/assets/img/gallery.png" alt="" width="90px">

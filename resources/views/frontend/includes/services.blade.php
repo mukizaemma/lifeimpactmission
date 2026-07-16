@@ -21,21 +21,21 @@
             'slug' => null,
             'image' => null,
             'description' => 'Faith-based guidance and mentorship that help students value their lives, make healthy choices, and find purpose.',
-            'fallback_image' => !empty($about->image) ? asset('storage/images/' . $about->image) : asset('assets/img/blog/blog-1.jpg'),
+            'fallback_image' => !empty($about->image) ? ilm_image_url('images', $about->image) : asset('assets/img/blog/blog-1.jpg'),
         ],
         (object) [
             'title' => 'Young Mothers Empowerment',
             'slug' => null,
             'image' => null,
             'description' => 'Counseling, life skills, and vocational training so teen mothers rebuild confidence and raise children in dignity.',
-            'fallback_image' => !empty($about->image1) ? asset('storage/images/' . $about->image1) : asset('assets/img/blog/blog-2.jpg'),
+            'fallback_image' => !empty($about->image1) ? ilm_image_url('images', $about->image1) : asset('assets/img/blog/blog-2.jpg'),
         ],
         (object) [
             'title' => 'Leadership Empowerment',
             'slug' => null,
             'image' => null,
             'description' => 'Seminars and mentoring that raise leaders grounded in integrity, faith, and responsibility.',
-            'fallback_image' => !empty($about->image2) ? asset('storage/images/' . $about->image2) : asset('assets/img/blog/blog-3.jpg'),
+            'fallback_image' => !empty($about->image2) ? ilm_image_url('images', $about->image2) : asset('assets/img/blog/blog-3.jpg'),
         ],
     ];
 
@@ -58,8 +58,7 @@
                     $excerpt = $desc !== '' ? Str::limit($desc, 130, '...') : '';
                     $href = !empty($rs->slug) ? route('project', ['slug' => $rs->slug]) : route('showPrograms');
                     $img = !empty($rs->image)
-                        ? asset('storage/images/projects') . $rs->image
-                        : ($rs->fallback_image ?? asset('assets/img/blog/blog-1.jpg'));
+                        ? ilm_image_url('images/projects', $rs->image) : ($rs->fallback_image ?? asset('assets/img/blog/blog-1.jpg'));
                 @endphp
                 <div class="col-lg-4 col-md-6 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".{{ $loop->iteration + 1 }}s">
                     <article class="ilm-key-card">

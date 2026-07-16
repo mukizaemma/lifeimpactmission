@@ -41,7 +41,8 @@ class ImageUploadService
 
         Storage::disk($disk)->put($path, $binary);
 
-        return $filename;
+        // Leading slash matches legacy DB values so older Blade concat URLs keep working.
+        return '/' . $filename;
     }
 
     /**
@@ -152,7 +153,7 @@ class ImageUploadService
 
         Storage::disk($disk)->put($path, file_get_contents($file->getRealPath()));
 
-        return $filename;
+        return '/' . $filename;
     }
 
     private function makeFilename(UploadedFile $file, string $extension): string

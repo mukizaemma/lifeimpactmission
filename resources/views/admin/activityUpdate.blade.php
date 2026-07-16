@@ -72,7 +72,7 @@
                                 <div class="col-lg-6 col-sm-12">
                                     <label>Select File</label><br>
                                     <label id="projectinput7" class="file center-block">
-                                        <img src="{{asset('storage/images/projects').$data->image}}" alt="" width="120px">
+                                        <img src="{{ilm_image_url('images/projects', $data->image)}}" alt="" width="120px">
                                     </label>
                                 </div>
                                 <div class="col-lg-6 col-sm-12">
@@ -118,7 +118,7 @@
                                 @foreach($images as $image)
                                 <div class="col-md-4 col-sm-6 mb-4">
                                     <div class="card shadow" style="position: relative; overflow: hidden; transition: 0.3s;">
-                                        <img src="{{ asset('storage/images/projects/' . $image->image) }}" 
+                                        <img src="{{ ilm_image_url('images/projects', $image->image) }}" 
                                             class="card-img-top rounded" alt="Blog Image" style="width: 100%; height: auto;">
                                         <button onclick="confirmDelete('{{ route('deleteProjectImage', $image->id) }}')" 
                                                 style="position: absolute; top: 10px; right: 10px; background: rgba(255, 0, 0, 0.8); color: white; border: none; padding: 6px 10px; border-radius: 50%; cursor: pointer; transition: 0.3s;">

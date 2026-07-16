@@ -37,7 +37,7 @@
                                 <tr>
                                     <td>{{$rs->heading}}</td>
                                     {{-- <td>{{$rs->subheading}}</td> --}}
-                                    <td><img src="{{asset('storage/images/slides').$rs->image}}" alt="" width="150px"></td>
+                                    <td><img src="{{ilm_image_url('images/slides', $rs->image)}}" alt="" width="150px"></td>
                                     <td>                                                <div class="btn-btn-group ">
                                         <a type="button" href="{{ route('editSlide', $rs->id) }}"
                                             class="btn btn-primary text-black" wire:navigate>Edit</a>

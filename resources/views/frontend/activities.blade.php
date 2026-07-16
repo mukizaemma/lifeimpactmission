@@ -3,8 +3,7 @@
             'pageKey' => 'program_detail',
             'heroTitle' => $program->title,
             'heroImage' => $program->image
-                ? asset('storage/images/projects') . $program->image
-                : null,
+                ? ilm_image_url('images/projects', $program->image) : null,
         ])
 
     <!-- service-area-start -->

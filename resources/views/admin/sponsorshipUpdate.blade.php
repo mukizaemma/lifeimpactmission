@@ -85,7 +85,7 @@
 
                                 <div class="col-lg-6 col-sm-12">
                                     <label>Child's Picture</label>
-                                    <img src="{{ asset('storage/images/sponsorship') . $data->image }}" alt="" width="120px">
+                                    <img src="{{ ilm_image_url('images/sponsorship', $data->image)}}" alt="" width="120px">
                                 </div>
                                 <div class="col-lg-6 col-sm-12">
                                     <label>Change the Child's Picture </label>

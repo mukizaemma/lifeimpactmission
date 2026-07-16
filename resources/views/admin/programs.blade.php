@@ -38,7 +38,7 @@
                                 <tr>
                                     <td>{{$rs->title}}</td>
                                     <td>{!!$rs->description!!}</td>
-                                    <td><img src="{{ asset('storage/images/programs') . $rs->image }}" alt="" width="150px"></td>
+                                    <td><img src="{{ ilm_image_url('images/programs', $rs->image)}}" alt="" width="150px"></td>
                                     <td>                                                <div class="btn-btn-group ">
                                         <a type="button" href="{{ route('editProgram', $rs->id) }}"
                                             class="btn btn-primary text-black" wire:navigate>Edit</a>

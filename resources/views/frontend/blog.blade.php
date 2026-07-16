@@ -31,7 +31,7 @@
                 <div class="col-lg-8">
                     @if(!empty($blog->image))
                         <div class="ilm-update-article__hero">
-                            <img src="{{ asset('storage/images/news/' . $blog->image) }}" alt="{{ $blog->title }}" loading="eager" decoding="async">
+                            <img src="{{ ilm_image_url('images/news', $blog->image) }}" alt="{{ $blog->title }}" loading="eager" decoding="async">
                         </div>
                     @endif
 
@@ -62,7 +62,7 @@
                             @forelse($related as $rs)
                                 <a class="ilm-update-related" href="{{ route('postSingle', $rs->slug) }}" wire:navigate>
                                     <span class="ilm-update-related__media">
-                                        <img src="{{ asset('storage/images/news/' . $rs->image) }}" alt="" loading="lazy" decoding="async">
+                                        <img src="{{ ilm_image_url('images/news', $rs->image) }}" alt="" loading="lazy" decoding="async">
                                     </span>
                                     <span class="ilm-update-related__body">
                                         <span class="ilm-update-related__date">{{ optional($rs->created_at)->format('d M, Y') }}</span>

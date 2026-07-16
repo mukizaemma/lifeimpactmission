@@ -39,7 +39,7 @@
                                             <td>{{ $rs->title }}</td>
                                             <td>{!! $rs->body !!}</td>
                                             <td>
-                                                <img src="{{ asset('storage/images/news/' . $rs->image) }}" alt="" width="150px">
+                                                <img src="{{ ilm_image_url('images/news', $rs->image) }}" alt="" width="150px">
                                             </td>
                                             <td>
                                                 <div class="btn-group">
