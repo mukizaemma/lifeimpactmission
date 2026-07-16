@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\StoresOptimizedImages;
+use App\Services\ImageUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\Program;
+use InvalidArgumentException;
 
 class ProgramController extends Controller
 {
+    use StoresOptimizedImages;
 
     public function index()
     {
@@ -21,11 +23,15 @@ class ProgramController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'image' => app(ImageUploadService::class)->validationRules(true, true),
+        ]);
 
-        $file = $request->file('image');
-
-        $path = $file->store('public/images/programs');
-        $fileName = basename($path);
+        try {
+            $fileName = $this->storeOptimizedImage($request->file('image'), 'images/programs');
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
+        }
 
         // Generate slug
 
@@ -58,6 +64,10 @@ class ProgramController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'image' => app(ImageUploadService::class)->validationRules(true, false),
+        ]);
+
         $data = Program::find($id);
         // $data->branch_id = $request->input('branch_id');
         $data->title = $request->input('title');
@@ -67,16 +77,17 @@ class ProgramController extends Controller
             return back()->with('Error','Program Not Found');
         }
 
-        if ($request->hasFile('image') && request('image') != '') {
-            $dir = 'public/images/programs';
-
-            if (File::exists($dir)) {
-                unlink($dir);
+        try {
+            if ($request->hasFile('image')) {
+                $data->image = $this->storeOptimizedImage(
+                    $request->file('image'),
+                    'images/programs',
+                    true,
+                    $data->image
+                );
             }
-            $path = $request->file('image')->store($dir);
-            $fileName = str_replace($dir, '', $path);
-
-            $data->image = $fileName;
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
 
         $data->update();

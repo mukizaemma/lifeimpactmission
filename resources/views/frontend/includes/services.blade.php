@@ -1,52 +1,80 @@
-    <div class="tp-blog-2__area tp-blog-2__space" id="programs">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="tp-blog-2__section-title pb-50 text-center">
-                        <h4 class="tp-section-title">Our Programs</h4>
-                    </div>
-                </div>
-            </div>
-            <div class="row ilm-card-grid">
-                @foreach ($ourPrograms as $rs)
-                <div class="col-xl-4 col-lg-4 col-md-6 mb-30 wow tpfadeUp" data-wow-duration=".9s"
-                data-wow-delay=".3s">
-                    <div class="tp-blog-2__item ilm-card">
-                        <a href="{{route('project',['slug'=>$rs->slug])}}">
-                            <div class="tp-blog-2__thumb p-relative">
-                                <img
-                                    src="{{ asset('storage/images/projects') . $rs->image }}"
-                                    alt="{{ $rs->title }}"
-                                    loading="lazy"
-                                    decoding="async"
-                                    width="480"
-                                    height="250"
-                                >
-                            </div>
+@php
+    $programOrder = function ($program) {
+        $title = strtolower($program->title ?? '');
+        if (str_contains($title, 'school') || str_contains($title, 'outreach')) {
+            return 0;
+        }
+        if (str_contains($title, 'young mother') || str_contains($title, 'mother')) {
+            return 1;
+        }
+        if (str_contains($title, 'leadership')) {
+            return 2;
+        }
+        return 3;
+    };
+
+    $orderedPrograms = collect($ourPrograms ?? [])->sortBy($programOrder)->values();
+
+    $fallbackPrograms = [
+        (object) [
+            'title' => 'School Outreaches',
+            'slug' => null,
+            'image' => null,
+            'description' => 'Faith-based guidance and mentorship that help students value their lives, make healthy choices, and find purpose.',
+            'fallback_image' => !empty($about->image) ? asset('storage/images/' . $about->image) : asset('assets/img/blog/blog-1.jpg'),
+        ],
+        (object) [
+            'title' => 'Young Mothers Empowerment',
+            'slug' => null,
+            'image' => null,
+            'description' => 'Counseling, life skills, and vocational training so teen mothers rebuild confidence and raise children in dignity.',
+            'fallback_image' => !empty($about->image1) ? asset('storage/images/' . $about->image1) : asset('assets/img/blog/blog-2.jpg'),
+        ],
+        (object) [
+            'title' => 'Leadership Empowerment',
+            'slug' => null,
+            'image' => null,
+            'description' => 'Seminars and mentoring that raise leaders grounded in integrity, faith, and responsibility.',
+            'fallback_image' => !empty($about->image2) ? asset('storage/images/' . $about->image2) : asset('assets/img/blog/blog-3.jpg'),
+        ],
+    ];
+
+    if ($orderedPrograms->isEmpty()) {
+        $orderedPrograms = collect($fallbackPrograms);
+    }
+@endphp
+
+<section class="ilm-key-programs" id="programs">
+    <div class="container">
+        <div class="text-center mb-50">
+            <h2 class="ilm-section-title">Key Programs</h2>
+            <p class="ilm-section-subtitle">Three pathways of hope—reaching students, empowering young mothers, and raising community leaders.</p>
+        </div>
+
+        <div class="row g-4">
+            @foreach ($orderedPrograms->take(3) as $rs)
+                @php
+                    $desc = trim(strip_tags($rs->description ?? ''));
+                    $excerpt = $desc !== '' ? Str::limit($desc, 130, '...') : '';
+                    $href = !empty($rs->slug) ? route('project', ['slug' => $rs->slug]) : route('showPrograms');
+                    $img = !empty($rs->image)
+                        ? asset('storage/images/projects') . $rs->image
+                        : ($rs->fallback_image ?? asset('assets/img/blog/blog-1.jpg'));
+                @endphp
+                <div class="col-lg-4 col-md-6 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".{{ $loop->iteration + 1 }}s">
+                    <article class="ilm-key-card">
+                        <a href="{{ $href }}" class="ilm-key-card__media">
+                            <img src="{{ $img }}" alt="{{ $rs->title }}" loading="lazy" decoding="async" width="480" height="280">
+                            <span class="ilm-key-card__shine" aria-hidden="true"></span>
                         </a>
-                        <div class="tp-blog-2__content ilm-card-body">
-                            <div class="tp-blog-2__tag">
-                                <a href="{{route('project',['slug'=>$rs->slug])}}"><h5 class="tp-donate__title">{{ $rs->title }}</h5></a>
-                            </div>
-
-                            <div class="tp-about-3__text ilm-card-text">
-                                @php
-                                $words = Str::limit($rs->description, 100, '...');
-                                @endphp
-
-                                <p style="font-size: 16px; text-align:left; color: #333;">{{ $words }}</p>
-                            </div>
-
-                            <a href="{{route('project',['slug'=>$rs->slug])}}" class="mt-auto d-block">
-                                <div class="tp-blog-2__link text-center">
-                                    <span>Read More<i class="flaticon-arrow-right"></i></span>
-                                </div>
-                            </a>
+                        <div class="ilm-key-card__body">
+                            <h3 class="ilm-key-card__title"><a href="{{ $href }}">{{ $rs->title }}</a></h3>
+                            <p class="ilm-key-card__text">{{ $excerpt }}</p>
+                            <a class="tp-btn ilm-btn-orange ilm-btn-sm" href="{{ $href }}">Learn More</a>
                         </div>
-                    </div>
+                    </article>
                 </div>
-                @endforeach
-
-            </div>
+            @endforeach
         </div>
     </div>
+</section>

@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\StoresOptimizedImages;
+use App\Services\ImageUploadService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\Impact;
+use InvalidArgumentException;
 
 class ImpactsController extends Controller
 {
+    use StoresOptimizedImages;
+
     /**
      * Display a listing of the resource.
      *
@@ -45,15 +48,16 @@ class ImpactsController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'image' => app(ImageUploadService::class)->validationRules(true, true),
         ]);
 
         $fileName = '';
-        if($request->hasFile('image')){
-            $file = $request->file('image');
-
-            $path = $file->store('public/images/impacts');
-            $fileName = basename($path);
+        try {
+            if ($request->hasFile('image')) {
+                $fileName = $this->storeOptimizedImage($request->file('image'), 'images/impacts');
+            }
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
 
         // Generate the slug
@@ -105,24 +109,25 @@ class ImpactsController extends Controller
     public function update(Request $request, $id)
     {
         $impact = Impact::find($id);
-        $imagePath = 'public/images/impacts/' . $impact->image;
 
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
-            'image' => 'image|max:2048',
+            'image' => app(ImageUploadService::class)->validationRules(true, false),
         ]);
 
-        if ($request->hasFile('image')) {
-            if (File::exists($imagePath)) {
-                File::delete($imagePath);
+        $fileName = $impact->image;
+        try {
+            if ($request->hasFile('image')) {
+                $fileName = $this->storeOptimizedImage(
+                    $request->file('image'),
+                    'images/impacts',
+                    true,
+                    $impact->image
+                );
             }
-
-            $file = $request->file('image');
-            $path = $file->store('public/images/impacts');
-            $fileName = basename($path);
-        } else {
-            $fileName = $impact->image;
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
 
         $slug = Str::of($request->input('title'))->slug();

@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\StoresOptimizedImages;
+use App\Services\ImageUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
-use Symfony\Component\HttpFoundation\File\File;
 use Illuminate\Support\Facades\Storage;
-// use Intervention\Image\ImageManagerStatic as Image; (composer require intervention/image)
 use App\Models\News;
 use App\Models\Blogimages;
+use InvalidArgumentException;
 
 class NewsController extends Controller
 {
+    use StoresOptimizedImages;
+
     public function index()
     {
 
@@ -54,13 +57,18 @@ class NewsController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'image' => app(ImageUploadService::class)->validationRules(true, false),
+            'gallery.*' => app(ImageUploadService::class)->validationRules(true, false),
+        ]);
 
         $fileName = '';
-        if($request->hasFile('image')){
-            $file = $request->file('image');
-
-            $path = $file->store('public/images/news');
-            $fileName = basename($path);
+        try {
+            if ($request->hasFile('image')) {
+                $fileName = $this->storeOptimizedImage($request->file('image'), 'images/news');
+            }
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
 
         // Generate the slug
@@ -78,13 +86,15 @@ class NewsController extends Controller
             ]
         );
 
-        if($request->hasFile('gallery')){
-            $galleryImages = $request->file('gallery');
-            foreach($galleryImages as $gallery){
-                $path = $gallery->store('public/images/galleries');
-                $fileName = basename($path);
-                $blog->Blogimages()->create(['gallery' => $fileName]);
+        try {
+            if ($request->hasFile('gallery')) {
+                foreach ($request->file('gallery') as $gallery) {
+                    $galleryName = $this->storeOptimizedImage($gallery, 'images/galleries');
+                    $blog->Blogimages()->create(['gallery' => $galleryName]);
+                }
             }
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
 
         return redirect('blogs')->with('success', 'Blog post created successfully');
@@ -101,34 +111,36 @@ class NewsController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'image' => app(ImageUploadService::class)->validationRules(true, false),
+            'gallery.*' => app(ImageUploadService::class)->validationRules(true, false),
+        ]);
+
         $blog = News::find($id);
 
-        // Check if the request has an image
-        if ($request->hasFile('image')) {
-            // Delete the old image
-            Storage::delete('public/images/news/'.$blog->image);
-            // Store the new image
-            $file = $request->file('image');
-            $path = $file->store('public/images/news');
-            $fileName = basename($path);
-            $blog->image = $fileName;
-        }
+        try {
+            if ($request->hasFile('image')) {
+                $blog->image = $this->storeOptimizedImage(
+                    $request->file('image'),
+                    'images/news',
+                    true,
+                    $blog->image
+                );
+            }
 
-        // Check if the request has any gallery images
-        if ($request->hasFile('gallery')) {
-            // Delete the old gallery images
-            $oldGallery = $blog->Blogimages;
-            foreach ($oldGallery as $image) {
-                Storage::delete('public/images/galleries/'.$image->gallery);
-                $image->delete();
+            if ($request->hasFile('gallery')) {
+                $oldGallery = $blog->Blogimages;
+                foreach ($oldGallery as $image) {
+                    Storage::disk('public')->delete('images/galleries/' . ltrim($image->gallery, '/'));
+                    $image->delete();
+                }
+                foreach ($request->file('gallery') as $gallery) {
+                    $galleryName = $this->storeOptimizedImage($gallery, 'images/galleries');
+                    $blog->Blogimages()->create(['gallery' => $galleryName]);
+                }
             }
-            // Store the new gallery images
-            $galleryImages = $request->file('gallery');
-            foreach($galleryImages as $gallery){
-                $path = $gallery->store('public/images/galleries');
-                $fileName = basename($path);
-                $blog->Blogimages()->create(['gallery' => $fileName]);
-            }
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
 
         // Update the other fields

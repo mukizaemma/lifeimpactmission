@@ -1,19 +1,42 @@
 @extends('layouts.frontbase')
 
-@section('title', 'Home Page')
+@section('title', 'Testimonials')
 
 @section('content')
 
+    @include('frontend.includes.page-hero', ['pageKey' => 'testimonials'])
 
-        @include('frontend.includes.page-hero', ['pageKey' => 'testimonials'])
+    <section class="ilm-testimonials-page">
+        <div class="container">
+            <div class="text-center mb-50">
+                <h2 class="ilm-section-title">Voices of change</h2>
+                <p class="ilm-section-subtitle">Mothers, youth, and community members sharing how hope was restored.</p>
+            </div>
 
-    <!-- testimonial-area-start -->
-    @include('frontend.includes.testimonials')
-    <!-- testimonial-area-end -->
+            <div class="row g-4">
+                @forelse ($testimonials as $rs)
+                <div class="col-xl-4 col-lg-4 col-md-6 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".2s">
+                    <article class="ilm-key-card">
+                        <a href="{{ route('testimony', ['id' => $rs->id]) }}" class="ilm-key-card__media">
+                            <img src="{{ asset('storage/images/testimonies') . $rs->image }}" alt="{{ $rs->names }}" loading="lazy" decoding="async">
+                            <span class="ilm-key-card__shine" aria-hidden="true"></span>
+                        </a>
+                        <div class="ilm-key-card__body">
+                            <h3 class="ilm-key-card__title">
+                                <a href="{{ route('testimony', ['id' => $rs->id]) }}">{{ $rs->names }}</a>
+                            </h3>
+                            <p class="ilm-key-card__text">{{ Str::limit(strip_tags($rs->testimony), 120, '...') }}</p>
+                            <a class="tp-btn ilm-btn-orange ilm-btn-sm" href="{{ route('testimony', ['id' => $rs->id]) }}">Read Story</a>
+                        </div>
+                    </article>
+                </div>
+                @empty
+                <div class="col-12 text-center"><p>Testimonials will appear here soon.</p></div>
+                @endforelse
+            </div>
+        </div>
+    </section>
 
-        <!-- cta-area-start -->
-            @include('frontend.includes.backImage')
-        <!-- cta-area-end -->
-
+    @include('frontend.includes.backImage')
 
 @endsection

@@ -21,6 +21,7 @@
 
 
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+        <link href="{{ asset('assets/css/ilm-admin-upload.css') }}" rel="stylesheet">
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -70,5 +71,6 @@
         {{-- <script src="{{asset('assets')}}/js/summernote.js"></script> --}}
 
         @yield('scripts')
+    <script src="{{ asset('assets/js/ilm-image-upload.js') }}"></script>
 </body>
 </html>

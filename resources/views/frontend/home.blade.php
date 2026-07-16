@@ -2,85 +2,69 @@
 
 @section('content')
 
-    <!-- slider-area-start -->
+    {{-- 1. Hero --}}
     @include('frontend.includes.slides')
-    <!-- slider-area-end -->
-    
-    <!-- about-area-start -->
-    <div class="tp-about-4__area tp-about-4__space p-relative fix grey-bg">
-        <div class="tp-about-4__bg" data-background="{{ asset('storage/images/' . $about->image) }}">
-        </div>
+
+    {{-- 2. About + Vision / Mission (mockup split) --}}
+    @include('frontend.includes.home-need')
+
+    {{-- 3. Key Programs — 3 cards --}}
+    @include('frontend.includes.services')
+
+    {{-- 4. Empowering Young Mothers — 4 colored pillars --}}
+    @include('frontend.includes.home-pillars')
+
+    {{-- 5. Agriculture independence band --}}
+    @include('frontend.includes.home-agriculture')
+
+    {{-- 6. Impact numbers --}}
+    @if(isset($impacts) && $impacts->isNotEmpty())
+    <section class="ilm-impact-stats">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="offset-xl-6 offset-lg-6 col-xl-6 col-lg-6 wow tpfadeRight" data-wow-duration=".9s"
-                data-wow-delay=".5s">
-                    <div class="tp-about-4__left-side">
-                        <div class="tp-about-4__section-title">
-                            <h4 class="tp-section-title">About Impact Life Mission </h4>
-                        </div>
-                        <div class="tp-about-4__content">
-                            <div class="tp-about-4__text">
-                                @php
-                                $words = Str::limit($about->description, 400, '...');
-                                @endphp
-
-                                <p style="font-size: 20px; text-align:left">{{ $words }}</p>
-
-                                @if(strlen($about->description) > 400)
-                                <div class="tp-about-3__btn">
-                                    <a class="tp-btn" href="{{route('backgroundDetails')}}">Learn More</a>
-                                </div>
-                                @endif
-                            </div>                                
-                        </div>
-                    </div>
+            <div class="row mb-40">
+                <div class="col-xl-12 text-center">
+                    <h2 class="ilm-section-title text-white">Lives transformed through partnership</h2>
+                    <p class="ilm-section-subtitle ilm-section-subtitle--light">Numbers that point to restored dignity and growing hope.</p>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- about-area-end -->
-     
-    <!-- service-area-start -->
-    @include('frontend.includes.services')
-    <!-- service-area-end -->
-
-    <!-- partner impact & why partner -->
-    @include('frontend.includes.partner-impact')
-
-    <!-- cta-area-start -->
-    <div class="tp-cta-2__area pb-15">
-        <div class="tp-cta-2__bg p-relative fix" data-background="{{ asset('storage/images/' . $about->image1) }}">
-            <div class="tp-cta-2__shape-3 d-none d-lg-block">
-                <img src="{{ asset('assets/img/cta/cta-shape-3.png') }}" alt="" loading="lazy" decoding="async">
+            <div class="row justify-content-center">
+                @foreach($impacts->take(4) as $impact)
+                    <div class="col-lg-3 col-md-6 col-sm-6 mb-30">
+                        <div class="ilm-stat-item wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".3s">
+                            <div class="ilm-stat-item__number">{{ $impact->title }}</div>
+                            <div class="ilm-stat-item__label">{{ $impact->description }}</div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
+        </div>
+    </section>
+    @endif
+
+    {{-- 7. Story --}}
+    @include('frontend.includes.home-story')
+
+    {{-- 8. Donate band --}}
+    <div class="tp-cta-2__area pb-15">
+        <div class="tp-cta-2__bg p-relative fix" data-background="{{ asset('storage/images/' . ($about->image1 ?? $about->image)) }}">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="tp-cta-2__content text-center">
-                            <span class="tp-cta-2__subtitle wow tpfadeUp" data-wow-duration=".9s"
-                            data-wow-delay=".3s">Impact Life Mission</span>
-                            <h4 class="tp-cta-2__title wow tpfadeUp" data-wow-duration=".9s"
-                            data-wow-delay=".5s">When a young heart kneels, a mighty future is born.</h4>
-                            <a href="https://secure.qgiv.com/for/impactlifemission" target="_blank" rel="noopener" class="tp-btn theme-1-bg wow tpfadeUp" data-wow-duration=".9s"
-                            data-wow-delay=".7s">Donate</a>
+                            <span class="tp-cta-2__subtitle wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".3s">Impact Life Mission</span>
+                            <h4 class="tp-cta-2__title wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".5s">When a young heart kneels, a mighty future is born.</h4>
+                            <a href="https://secure.qgiv.com/for/impactlifemission" target="_blank" rel="noopener" class="tp-btn ilm-btn-orange wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".7s">Donate Now</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- cta-area-end -->
 
-    <!-- testimonial-area-start -->
-    @if(isset($testimonials) && $testimonials->count())
-        @include('frontend.includes.testimonials')
-    @endif
-    <!-- testimonial-area-end -->
+    {{-- 9. Mothers profiles (replaces events & highlights) --}}
+    @include('frontend.includes.home-mothers')
 
-    <!-- events & highlights (last section before footer) -->
-    @include('frontend.includes.events-instagram')
-
-    <!-- volunteer cta above footer -->
+    {{-- 10. Get involved --}}
     @include('frontend.includes.bottom')
 
 @endsection

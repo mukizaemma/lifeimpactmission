@@ -1,14 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
-use App\Models\Testimony;
 
+use App\Http\Controllers\Concerns\StoresOptimizedImages;
+use App\Services\ImageUploadService;
+use Illuminate\Support\Facades\DB;
+use App\Models\Testimony;
 use Illuminate\Http\Request;
+use InvalidArgumentException;
 
 class TestimoniesController extends Controller
 {
+    use StoresOptimizedImages;
+
     public function index()
     {
 
@@ -34,17 +38,21 @@ class TestimoniesController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'image' => app(ImageUploadService::class)->validationRules(true, false),
+        ]);
+
         $data = new Testimony();
         $data->names = $request->names;
         $data ->title = $request->title;
         $data ->testimony = $request->testimony;
 
-        // Uploading image
-        if ($request->hasFile('image')) {
-            $dir = 'public/images/testimonies';
-            $path = $request->file('image')->store($dir);
-            $fileName = str_replace($dir, '', $path);
-            $data->image = $fileName;
+        try {
+            if ($request->hasFile('image')) {
+                $data->image = $this->storeOptimizedImage($request->file('image'), 'images/testimonies');
+            }
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
 
         $stored = $data->save();
@@ -88,6 +96,10 @@ class TestimoniesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'image' => app(ImageUploadService::class)->validationRules(true, false),
+        ]);
+
         $data = Testimony::find($id);
         $data->names = $request->input('names');
         $data->title = $request->input('title');
@@ -97,16 +109,17 @@ class TestimoniesController extends Controller
             return back()->with('Error','Testimony Not Found');
         }
 
-        if ($request->hasFile('image') && request('image') != '') {
-            $dir = 'public/images/testimonies';
-
-            if (File::exists($dir)) {
-                unlink($dir);
+        try {
+            if ($request->hasFile('image')) {
+                $data->image = $this->storeOptimizedImage(
+                    $request->file('image'),
+                    'images/testimonies',
+                    true,
+                    $data->image
+                );
             }
-            $path = $request->file('image')->store($dir);
-            $fileName = str_replace($dir, '', $path);
-
-            $data->image = $fileName;
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
 
         $data->update();

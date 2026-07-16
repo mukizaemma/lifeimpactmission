@@ -1,122 +1,106 @@
 @extends('layouts.frontbase')
 
+@section('title', 'Contact')
+
 @section('content')
 
-        @include('frontend.includes.page-hero', ['pageKey' => 'contact'])
+    @include('frontend.includes.page-hero', ['pageKey' => 'contact'])
 
-        <!-- contact-area-start -->
-        <div class="tp-contact__area">
-            <div class="container">
-                <div class="tp-contact__bg">
-                    <div class="tp-contact__wrapper d-flex align-items-center justify-content-between">
-                        <div class="tp-contact__item d-flex align-items-center">
-                            <div class="tp-contact__icon">
-                              <span><i class="flaticon-phone"></i></span>
+    <section class="ilm-contact-info">
+        <div class="container">
+            @if(session('success'))
+                <div class="alert alert-success text-center mb-40">{{ session('success') }}</div>
+            @endif
+
+            <div class="text-center mb-50">
+                <h2 class="ilm-section-title">Reach out anytime</h2>
+                <p class="ilm-section-subtitle">Whether you want to partner, volunteer, or pray with us—we would love to hear from you.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <article class="ilm-contact-card">
+                        <div class="ilm-contact-card__icon"><i class="flaticon-phone"></i></div>
+                        <h3>Call us</h3>
+                        <p>
+                            <a href="tel:{{ $contact->phone ?? '' }}">{{ $contact->phone ?? '—' }}</a>
+                            @if(!empty($contact->phone1))
+                                <br><a href="tel:{{ $contact->phone1 }}">{{ $contact->phone1 }}</a>
+                            @endif
+                        </p>
+                    </article>
+                </div>
+                <div class="col-md-4">
+                    <article class="ilm-contact-card">
+                        <div class="ilm-contact-card__icon"><i class="flaticon-email"></i></div>
+                        <h3>Email us</h3>
+                        <p><a href="mailto:{{ $contact->email ?? '' }}">{{ $contact->email ?? '—' }}</a></p>
+                    </article>
+                </div>
+                <div class="col-md-4">
+                    <article class="ilm-contact-card">
+                        <div class="ilm-contact-card__icon"><i class="flaticon-location"></i></div>
+                        <h3>Visit us</h3>
+                        <p>{{ $contact->address ?? 'Rwanda' }}</p>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ilm-contact-form-section">
+        <div class="container">
+            <div class="row g-5 align-items-start">
+                <div class="col-lg-5 wow tpfadeLeft" data-wow-duration=".9s" data-wow-delay=".2s">
+                    <h2 class="ilm-section-title">Send a message</h2>
+                    <p class="ilm-section-subtitle">Tell us how you’d like to walk with young mothers and youth across Rwanda.</p>
+                    <div class="ilm-contact-aside">
+                        <p>Prefer a faster path? Explore ways to give, volunteer, or partner.</p>
+                        <a class="tp-btn ilm-btn-orange ilm-btn-sm" href="{{ route('getInvolved') }}">Get Involved</a>
+                    </div>
+                    <div class="tp-contact-form__social-box mt-30">
+                        @include('frontend.includes.social-links')
+                    </div>
+                </div>
+                <div class="col-lg-7 wow tpfadeRight" data-wow-duration=".9s" data-wow-delay=".35s">
+                    <div class="ilm-contact-form-box">
+                        <form class="form" action="{{ route('sendMessage') }}" method="POST">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-6 mb-30">
+                                    <div class="tp-contact-form__input-box">
+                                        <input type="text" placeholder="Your Name" name="names" value="{{ old('names') }}" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-30">
+                                    <div class="tp-contact-form__input-box">
+                                        <input type="email" placeholder="Your Email" name="email" value="{{ old('email') }}" required>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-30">
+                                    <div class="tp-contact-form__input-box">
+                                        <textarea name="message" placeholder="Your Message" required>{{ old('message') }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="tp-btn ilm-btn-orange">Send Message</button>
+                                </div>
                             </div>
-                            <div class="tp-contact__text">
-                                <a href="tel:{{ $contact->phone ?? '' }}">{{ $contact->phone ?? '' }}</a>
-                                <a href="tel:{{ $contact->phone1 ?? '' }}">{{ $contact->phone2 ?? '' }}</a>
-                            </div>
-                        </div>                        
-                        <div class="tp-contact__item d-flex align-items-center">
-                            <div class="tp-contact__icon">
-                              <span><i class="flaticon-email"></i></span>
-                            </div>
-                            <div class="tp-contact__text">
-                                <a href="mailto:{{ $contact->email ?? '' }}">{{ $contact->email ?? '' }}</a>
-                                {{-- <a href="mailto:infocompany@gmail.com">infocompany@gmail.com</a> --}}
-                            </div>
-                        </div>
-                        <div class="tp-contact__item d-flex align-items-center">
-                            <div class="tp-contact__icon">
-                              <span><i class="flaticon-location"></i></span>
-                            </div>
-                            <div class="tp-contact__text">
-                                <a href="#">{{ $contact->address ?? '' }} <br> Rwanda</a>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- contact-area-end -->
+    </section>
 
-
-        <!-- form-area-start -->
-        <div class="tp-contact-form__area tp-contact-form__space">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-5 col-lg-5 wow tpfadeLeft" data-wow-duration=".9s"
-                    data-wow-delay=".3s">
-                        <div class="tp-contact-form__left-box">
-                            <span class="tp-contact-form__subtitle">CONTACT FORM</span>
-                            <p>If it's easier for you, fill out the form to let us know how you would like to partner with us</p>
-                            <div class="tp-contact-form__social-box">
-                                @include('frontend.includes.social-links')
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-7 col-lg-7 wow tpfadeRight" data-wow-duration=".9s"
-                    data-wow-delay=".7s">
-                        <div class="tp-contact-form__form-box">
-                        <form class="form" action="{{ route('sendMessage') }}" method="POST"
-                        enctype="multipart/form-data">
-                        @csrf
-                                <div class="row">
-                                    <div class="col-xl-6 mb-30">
-                                        <div class="tp-contact-form__input-box">
-                                            <input type="text" placeholder="Your Name" name="names">
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-6 mb-30">
-                                        <div class="tp-contact-form__input-box">
-                                            <input type="email" placeholder="Your Email" name="email">
-                                        </div>
-                                    </div>
-                                    {{-- <div class="col-xl-6 mb-30">
-                                        <div class="tp-contact-form__input-box">
-                                            <input type="text" placeholder="Phone" name="phone">
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-6 mb-30">
-                                        <div class="tp-contact-form__input-box">
-                                            <input type="text" placeholder="Subject" name="">
-                                        </div>
-                                    </div> --}}
-                                    <div class="col-xl-12 mb-30">
-                                        <div class="tp-contact-form__textarea-box">
-                                            <textarea placeholder="Write Your Message" name="message"></textarea>
-                                        </div>
-                                    </div>
-                                </div>   
-                                <div class="tp-contact-form__button">
-                                <button class="tp-btn" type="submit">Send Your Message</button>
-                            </div>                             
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
+    <section class="ilm-mother-cta-band">
+        <div class="container text-center">
+            <h2 class="ilm-section-title text-white mb-15">Ready to walk with us?</h2>
+            <p class="ilm-section-subtitle text-white mb-30" style="opacity:.85">Your support helps young mothers rebuild with skills, health, and hope.</p>
+            <div class="ilm-mother-cta-band__actions">
+                <a class="tp-btn ilm-btn-orange" href="https://secure.qgiv.com/for/impactlifemission" target="_blank" rel="noopener">Donate Now</a>
+                <a class="tp-btn ilm-btn-outline-light" href="{{ route('getInvolved') }}">Get Involved</a>
             </div>
         </div>
-        <!-- form-area-end -->
-
-
-        <!-- location-area-start -->
-        <div class="tp-location__area">
-            <div class="container-fluid g-0">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="tp-location__info-box">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.434670504606!2d30.1565774!3d-1.9806325999999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca75ea871adfd%3A0x807deb18c1a0592f!2sImpact%20Life%20Mission!5e0!3m2!1sen!2srw!4v1755602240867!5m2!1sen!2srw" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- location-area-end -->
-
-
-    @include('frontend.includes.backImage')
+    </section>
 
 @endsection

@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\StoresOptimizedImages;
+use App\Services\ImageUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 use App\Models\Partner;
+use InvalidArgumentException;
 
 class PartnersController extends Controller
 {
+    use StoresOptimizedImages;
+
     public function index()
     {
 
@@ -29,6 +33,10 @@ class PartnersController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'image' => app(ImageUploadService::class)->validationRules(false, false),
+        ]);
+
         $data = new Partner();
         $data->names = $request->names;
         $data ->facebook = $request->facebook;
@@ -37,12 +45,12 @@ class PartnersController extends Controller
         $data ->website = $request->website;
         $data ->description = $request->description;
 
-        // Uploading image
-        if ($request->hasFile('image')) {
-            $dir = 'public/images/partners';
-            $path = $request->file('image')->store($dir);
-            $fileName = str_replace($dir, '', $path);
-            $data->image = $fileName;
+        try {
+            if ($request->hasFile('image')) {
+                $data->image = $this->storeOptimizedImage($request->file('image'), 'images/partners', false);
+            }
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
 
         $stored = $data->save();
@@ -68,6 +76,10 @@ class PartnersController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'image' => app(ImageUploadService::class)->validationRules(false, false),
+        ]);
+
         $data = Partner::find($id);
         $data->names = $request->input('names');
         // $data->facebook = $request->input('facebook');
@@ -80,16 +92,17 @@ class PartnersController extends Controller
             return back()->with('Error','Partner Not Found');
         }
 
-        if ($request->hasFile('image') && request('image') != '') {
-            $dir = 'public/images/partners';
-
-            if (File::exists($dir)) {
-                unlink($dir);
+        try {
+            if ($request->hasFile('image')) {
+                $data->image = $this->storeOptimizedImage(
+                    $request->file('image'),
+                    'images/partners',
+                    false,
+                    $data->image
+                );
             }
-            $path = $request->file('image')->store($dir);
-            $fileName = str_replace($dir, '', $path);
-
-            $data->image = $fileName;
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
 
         $data->update();

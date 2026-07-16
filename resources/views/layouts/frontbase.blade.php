@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>{{ $setting->company ?? ''}}</title>
-    <meta name="description" content="A Community-based Initiative Dedicated to Transforming Lives through Holistic Empowerment, Leadership Development, and Spiritual Growth">
+    <meta name="description" content="Impact Life Mission empowers young mothers and vulnerable youth in Rwanda through vocational training, shelter and food support, health insurance, hygiene materials, mentorship, and faith—building pathways to lasting independence.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="preconnect" href="https://img.youtube.com" crossorigin>
@@ -127,19 +127,24 @@
                                             @foreach ($ourPrograms as $program)
                                                 <li><a href="{{ route('project',['slug'=>$program->slug]) }}">{{ $program->title }}</a></li>           
                                             @endforeach
-
+                                            <li><a href="{{ route('mothers') }}">Mothers</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="{{ route('home') }}#events">Events</a></li>
-                                    <li class="has-dropdown"><a href="#">Updates</a>
+                                    <li class="has-dropdown"><a href="{{ route('posts') }}">Stories & Updates</a>
                                         <ul class="submenu tp-submenu">
-                                            <li><a href="{{ route('home') }}#events">Events & Highlights</a></li>
-                                            <li><a href="{{ route('upcomingEvents') }}">Upcoming Events</a></li>
-                                            <li><a href="{{ route('posts') }}">Recent Updates</a></li>
                                             <li><a href="{{ route('testimonials') }}">Testimonials</a></li>
+                                            <li><a href="{{ route('upcomingEvents') }}">Events</a></li>
+                                            <li><a href="{{ route('posts') }}">Recent Updates</a></li>
+                                            <li><a href="{{ route('home') }}#events">Highlights</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="{{route('gallery')}}">Gallery</a></li>
+                                    <li class="has-dropdown"><a href="{{ route('gallery') }}">Gallery</a>
+                                        <ul class="submenu tp-submenu">
+                                            <li><a href="{{ route('gallery') }}">Images</a></li>
+                                            <li><a href="{{ route('videos') }}">Videos</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="{{ route('getInvolved') }}">Get Involved</a></li>
                                     <li><a href="{{route('contacts')}}">Contact</a></li>
                                 </ul>
                             </nav>
@@ -193,7 +198,7 @@
                                     </a>
                                 </div>
                                 <div class="tp-footer__text">
-                                    <p style="color:#fff">From your heart to theirs—help us impact lives that truly matter.</p>
+                                    <p style="color:#fff">Empowering young mothers and youth to live with dignity, purpose, and hope.</p>
                                 </div>
                                 <a class="tp-btn mt-15" href="https://secure.qgiv.com/for/impactlifemission" target="_blank" rel="noopener">Donate Now</a>
                             </div>
@@ -207,9 +212,12 @@
                                         <li><a href="{{ route('home') }}">Home</a></li>
                                         <li><a href="{{ route('backgroundDetails') }}">Who We Are</a></li>
                                         <li><a href="{{ route('showPrograms') }}">Our Programs</a></li>
-                                        <li><a href="{{ route('home') }}#events">Events</a></li>
+                                        <li><a href="{{ route('mothers') }}">Mothers</a></li>
+                                        <li><a href="{{ route('upcomingEvents') }}">Events</a></li>
                                         <li><a href="{{ route('posts') }}">Updates</a></li>
-                                        <li><a href="{{ route('gallery') }}">Gallery</a></li>
+                                        <li><a href="{{ route('gallery') }}">Images</a></li>
+                                        <li><a href="{{ route('videos') }}">Videos</a></li>
+                                        <li><a href="{{ route('getInvolved') }}">Get Involved</a></li>
                                         <li><a href="{{ route('contacts') }}">Contact</a></li>
                                     </ul>
                                 </div>

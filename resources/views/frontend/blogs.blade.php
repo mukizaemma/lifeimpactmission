@@ -1,57 +1,56 @@
 @extends('layouts.frontbase')
 
-@section('title', 'Home Page')
+@section('title', 'Updates')
 
 @section('content')
 
+    @include('frontend.includes.page-hero', ['pageKey' => 'updates'])
 
-        @include('frontend.includes.page-hero', ['pageKey' => 'updates'])
-
-    <!-- service-area-start -->
-
-    
-    <div class="tp-blog-2__area pt-120 pb-90">
+    <section class="ilm-updates-page">
         <div class="container">
-            {{-- <div class="row">
-                <div class="col-xl-12">
-                    <div class="tp-blog-2__section-title pb-50 text-center">
-                        <h4 class="tp-section-title">Recent Updates</h4>
-                    </div>
-                </div>
-            </div> --}}
-            <div class="row">
-                @foreach ($news as $blog)
-                <div class="col-xl-4 col-lg-4 col-md-6 mb-30 wow tpfadeUp" data-wow-duration=".9s"
-                data-wow-delay=".3s">
-                    <div class="tp-blog-2__item">
-                        <a href="{{route('postSingle',$blog->slug)}}">
-                            <div class="tp-blog-2__thumb p-relative">
-                                <img src="{{ asset('storage/images/news/' . $blog->image) }}" alt="">
-                            </div>
-                        </a>
-                        <div class="tp-blog-2__content">
-                            <div class="{{route('postSingle',$blog->slug)}}">
-                            </div>
-                            <a href="{{route('postSingle',$blog->slug)}}"><h4 class="tp-blog-2__title-sm">{{$blog->title}}</h4></a>
-                            <span class="tp-blog-2__meta-3">{{$blog->created_at->format('d M,Y')}}</span>
-                            <a href="{{route('postSingle',$blog->slug)}}">
-                                <div class="tp-blog-2__link text-center">
-                                    <span>Read More<i class="flaticon-arrow-right"></i><span>
-                                </span></span></div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-
+            <div class="text-center mb-50">
+                <h2 class="ilm-section-title">Latest from the field</h2>
+                <p class="ilm-section-subtitle">Stories, progress, and highlights from our programs across Rwanda.</p>
             </div>
+
+            <div class="row g-4">
+                @forelse ($news as $blog)
+                <div class="col-xl-4 col-lg-4 col-md-6 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".{{ min($loop->iteration + 1, 5) }}s">
+                    <article class="ilm-update-card">
+                        <a href="{{ route('postSingle', $blog->slug) }}" class="ilm-update-card__media">
+                            <img src="{{ asset('storage/images/news/' . $blog->image) }}" alt="{{ $blog->title }}" loading="lazy" decoding="async">
+                        </a>
+                        <div class="ilm-update-card__body">
+                            <span class="ilm-update-date">{{ optional($blog->created_at)->format('d M, Y') }}</span>
+                            <h3 class="ilm-update-card__title">
+                                <a href="{{ route('postSingle', $blog->slug) }}">{{ $blog->title }}</a>
+                            </h3>
+                            <p class="ilm-update-card__excerpt">
+                                {{ Str::limit(strip_tags($blog->body), 110, '...') }}
+                            </p>
+                            <a class="tp-btn ilm-btn-orange ilm-btn-sm" href="{{ route('postSingle', $blog->slug) }}">Read More</a>
+                        </div>
+                    </article>
+                </div>
+                @empty
+                <div class="col-12">
+                    <div class="ilm-empty-state text-center">
+                        <h3>Stories are on the way</h3>
+                        <p>Field updates from young mothers, school outreaches, and community work will appear here soon.</p>
+                        <a class="tp-btn ilm-btn-orange" href="{{ route('getInvolved') }}">Get Involved</a>
+                    </div>
+                </div>
+                @endforelse
+            </div>
+
+            @if(method_exists($news, 'hasPages') && $news->hasPages())
+                <div class="ilm-pagination mt-50">
+                    {{ $news->links() }}
+                </div>
+            @endif
         </div>
-    </div>
-    <!-- service-area-end -->
+    </section>
 
-        <!-- cta-area-start -->
-    @include('frontend.includes.backImage')
-        <!-- cta-area-end -->
-
+    @include('frontend.includes.bottom')
 
 @endsection

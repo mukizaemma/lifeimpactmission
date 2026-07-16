@@ -116,7 +116,7 @@
                                                 <div class="col-lg-6 col-sm-12">
                                                     <label>Select File</label>
                                                     <label id="projectinput7" class="file center-block">
-                                                        <input type="file" id="image" name="image" required="">
+                                                        <input type="file" id="image" name="image" required="" data-ilm-allow-small="1">
                                                         <span class="file-custom"></span>
                                                     </label>
                                                 </div>

@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\StoresOptimizedImages;
 use App\Models\PageHeader;
+use App\Services\ImageUploadService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
+use InvalidArgumentException;
 
 class PageHeaderController extends Controller
 {
+    use StoresOptimizedImages;
+
     public function index()
     {
         $headers = PageHeader::orderBy('label')->get();
@@ -22,7 +25,7 @@ class PageHeaderController extends Controller
             'headers' => 'required|array',
             'headers.*.title' => 'required|string|max:255',
             'headers.*.subtitle' => 'nullable|string|max:500',
-            'headers.*.image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
+            'headers.*.image' => app(ImageUploadService::class)->validationRules(true, false),
         ]);
 
         foreach ($validated['headers'] as $id => $row) {
@@ -32,14 +35,16 @@ class PageHeaderController extends Controller
             $header->subtitle = $row['subtitle'] ?? null;
 
             if ($request->hasFile("headers.{$id}.image")) {
-                if ($header->image && Storage::disk('public')->exists('images/headers/' . $header->image)) {
-                    Storage::disk('public')->delete('images/headers/' . $header->image);
+                try {
+                    $header->image = $this->storeOptimizedImage(
+                        $request->file("headers.{$id}.image"),
+                        'images/headers',
+                        true,
+                        $header->image
+                    );
+                } catch (InvalidArgumentException $e) {
+                    return redirect()->back()->withInput()->with('error', $e->getMessage());
                 }
-
-                $file = $request->file("headers.{$id}.image");
-                $filename = $header->page_key . '_' . time() . '_' . Str::random(5) . '.' . $file->getClientOriginalExtension();
-                $file->storeAs('images/headers', $filename, 'public');
-                $header->image = $filename;
             }
 
             $header->save();

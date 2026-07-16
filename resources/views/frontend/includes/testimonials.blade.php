@@ -1,59 +1,28 @@
-    <div class="tp-blog-2__area tp-blog-2__spaces pt-60">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="tp-blog-2__section-title pb-50 text-center">
-                        <span class="ilm-badge">Stories of Change</span>
-                        <h4 class="tp-section-title">What People Say</h4>
+<section class="ilm-testimonials-page pt-60">
+    <div class="container">
+        <div class="text-center mb-50">
+            <h2 class="ilm-section-title">Voices of change</h2>
+            <p class="ilm-section-subtitle">Mothers, youth, and community members sharing how hope was restored.</p>
+        </div>
+        <div class="row g-4">
+            @foreach ($testimonials as $rs)
+            <div class="col-xl-4 col-lg-4 col-md-6 mb-30 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".3s">
+                <article class="ilm-key-card">
+                    <a href="{{ route('testimony',['id'=>$rs->id]) }}" class="ilm-key-card__media">
+                        <img src="{{ asset('storage/images/testimonies') . $rs->image }}" alt="{{ $rs->names }}" loading="lazy" decoding="async" width="480" height="250">
+                        <span class="ilm-key-card__shine" aria-hidden="true"></span>
+                    </a>
+                    <div class="ilm-key-card__body">
+                        <h3 class="ilm-key-card__title"><a href="{{ route('testimony',['id'=>$rs->id]) }}">{{ $rs->names }}</a></h3>
+                        <p class="ilm-key-card__text">{{ Str::limit(strip_tags($rs->testimony), 100, '...') }}</p>
+                        <a class="tp-btn ilm-btn-orange ilm-btn-sm" href="{{ route('testimony',['id'=>$rs->id]) }}">Read Story</a>
                     </div>
-                </div>
+                </article>
             </div>
-            <div class="row ilm-card-grid">
-                @foreach ($testimonials as $rs)
-                <div class="col-xl-4 col-lg-4 col-md-6 mb-30 wow tpfadeUp" data-wow-duration=".9s"
-                data-wow-delay=".3s">
-                    <div class="tp-blog-2__item ilm-card">
-                        <a href="{{ route('testimony',['id'=>$rs->id]) }}">
-                            <div class="tp-blog-2__thumb p-relative">
-                                <img
-                                    src="{{ asset('storage/images/testimonies') . $rs->image }}"
-                                    alt="{{ $rs->names }}"
-                                    loading="lazy"
-                                    decoding="async"
-                                    width="480"
-                                    height="250"
-                                >
-                            </div>
-                        </a>
-                        <div class="tp-blog-2__content ilm-card-body">
-                            <div class="tp-blog-2__tag">
-                                <span>{{ $rs->names }}</span>
-                            </div>
-
-                            <div class="tp-about-3__text ilm-card-text">
-                                @php
-                                $words = Str::limit($rs->testimony, 100, '...');
-                                @endphp
-
-                                <p style="font-size: 16px; text-align:left">{{ $words }}</p>
-                            </div>
-
-                            <a href="{{ route('testimony',['id'=>$rs->id]) }}" class="mt-auto d-block">
-                                <div class="tp-blog-2__link text-center">
-                                    <span>Read More<i class="flaticon-arrow-right"></i></span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-
-            </div>
-
-            <div class="row">
-                <div class="tp-about-3__btn text-center">
-                    <a class="tp-btn" href="{{route('testimonials')}}">View More Testimonials</a>
-                </div>
-            </div>
+            @endforeach
+        </div>
+        <div class="text-center mt-30">
+            <a class="tp-btn ilm-btn-orange" href="{{ route('testimonials') }}">View More Testimonials</a>
         </div>
     </div>
+</section>

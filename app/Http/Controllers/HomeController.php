@@ -5,12 +5,14 @@ use App\Models\News;
 
 use App\Models\Team;
 // use Google\Recaptcha\Recaptcha;
+use App\Http\Controllers\Concerns\StoresOptimizedImages;
 use App\Models\About;
 use App\Models\Event;
 use App\Models\Image;
 use App\Models\Slide;
 use App\Models\Donate;
 use App\Models\Impact;
+use App\Models\Mother;
 use App\Models\Member;
 use App\Models\Country;
 use App\Models\Gallery;
@@ -26,6 +28,8 @@ use App\Mail\ReplyMessage;
 use App\Models\Background;
 use App\Models\Sponsorship;
 use App\Models\Projectimage;
+use App\Models\Video;
+use App\Services\ImageUploadService;
 use App\Services\InstagramService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -33,9 +37,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
+use InvalidArgumentException;
 
 class HomeController extends Controller
 {
+    use StoresOptimizedImages;
+
     public function redirects(){
         $role = Auth::user()->role;
         if($role ==1){
@@ -109,6 +116,14 @@ class HomeController extends Controller
         }
 
         $instagramPost = $instagramService->getLatestPost();
+        $mothers = collect();
+        try {
+            if (\Illuminate\Support\Facades\Schema::hasTable('mothers')) {
+                $mothers = Mother::where('status', 'Active')->oldest()->take(4)->get();
+            }
+        } catch (\Throwable $e) {
+            $mothers = collect();
+        }
 
         return view('frontend.home', [
             'background' =>$background,
@@ -125,6 +140,29 @@ class HomeController extends Controller
             'staff' =>$staff,
             'about' =>$about,
             'mission' =>$mission,
+            'mothers' =>$mothers,
+        ]);
+    }
+
+    public function mothers()
+    {
+        $mothers = Mother::where('status', 'Active')->oldest()->get();
+        $about = background::first();
+
+        return view('frontend.mothers', [
+            'mothers' => $mothers,
+            'about' => $about,
+        ]);
+    }
+
+    public function mother($slug)
+    {
+        $mother = Mother::where('slug', $slug)->where('status', 'Active')->firstOrFail();
+        $about = background::first();
+
+        return view('frontend.mother', [
+            'mother' => $mother,
+            'about' => $about,
         ]);
     }
 
@@ -136,7 +174,19 @@ class HomeController extends Controller
         $about = background::first();
         $mission = About::first();
         $testimonials = DB::table('testimonies')->paginate(3);
-        return view('frontend.about',['about'=>$about,'mission'=>$mission,'testimonials' =>$testimonials,'programs'=>$programs, 'partners'=>$partners, 'staff'=>$staff]);
+        $impacts = Impact::where('status', 'Active')->latest()->get();
+        if ($impacts->isEmpty()) {
+            $impacts = Impact::latest()->take(4)->get();
+        }
+        return view('frontend.about',[
+            'about'=>$about,
+            'mission'=>$mission,
+            'testimonials' =>$testimonials,
+            'programs'=>$programs,
+            'partners'=>$partners,
+            'staff'=>$staff,
+            'impacts'=>$impacts,
+        ]);
     }
     public function team(){
         $programs = Program::latest()->get();
@@ -212,31 +262,55 @@ class HomeController extends Controller
     }
 
     public function postSingle($slug){
-        $blogs = News::latest()->get();
-        $blog = News::where('slug',$slug)->first();
-        $images = $blog->images ?? collect();
-        $relatedBlogs = News::where('id','!=',$blog->id)->latest()->take(9);
+        $blog = News::where('slug', $slug)->firstOrFail();
+        $images = $blog->Blogimages()->latest()->get();
+        $relatedBlogs = News::where('id', '!=', $blog->id)->latest()->take(6)->get();
         $programs = Program::latest()->get();
-        $about = background::first();
-        return view('frontend.blog',['blog'=>$blog,'blogs'=>$blogs,'relatedBlogs'=>$relatedBlogs,
-        'programs'=>$programs,'about'=>$about,'images'=>$images]);
+        $about = Background::first();
+
+        return view('frontend.blog', [
+            'blog' => $blog,
+            'relatedBlogs' => $relatedBlogs,
+            'programs' => $programs,
+            'about' => $about,
+            'images' => $images,
+        ]);
     }
 
-public function gallery(){
-    $gallery = Projectimage::latest()->take(9)->get();
-    $programs = Activity::with('images')->get();
+    public function gallery(){
+        $gallery = Image::with('program')->latest()->get();
+        $programs = Program::with('images')->latest()->get();
 
-    return view('frontend.gallery', [
-        'gallery' => $gallery,
-        'programs' => $programs
-    ]);
-}
+        return view('frontend.gallery', [
+            'gallery' => $gallery,
+            'programs' => $programs,
+        ]);
+    }
 
+    public function videos(){
+        $videos = Video::with('program')
+            ->where('status', 'Active')
+            ->orderBy('sort_order')
+            ->latest()
+            ->get();
+
+        return view('frontend.videos', [
+            'videos' => $videos,
+        ]);
+    }
+
+    public function getInvolved(){
+        $about = Background::first();
+
+        return view('frontend.get-involved', [
+            'about' => $about,
+        ]);
+    }
 
     public function contacts(){
         $contact = Setting::all()->first();
         $programs = Program::latest()->get();
-        $about = background::first();
+        $about = Background::first();
         return view('frontend.contact',['programs'=>$programs,'contact'=>$contact, 'about'=>$about]);
     }
 
@@ -288,15 +362,11 @@ public function gallery(){
             ]);
     }
     public function volunteer(){
-        return view('frontend.volunteer');
+        return redirect()->route('getInvolved')->withFragment('volunteer');
     }
+
     public function donate(){
-        $countries = Country::all();
-        $children = Sponsorship::where('status','Not Sponsored')->get();
-        return view('frontend.donate',[
-            'countries'=>$countries,
-            'children'=>$children
-            ]);
+        return redirect()->route('getInvolved');
     }
 
     public function saveDonation(Request $request){
@@ -356,6 +426,10 @@ public function gallery(){
 
 
     public function saveSetting(Request $request){
+        $request->validate([
+            'logo' => app(ImageUploadService::class)->validationRules(false, false),
+        ]);
+
         $data = Setting::first();
         $data->company = $request->input('company');
         $data->address = $request->input('address');
@@ -374,16 +448,17 @@ public function gallery(){
 
         app(InstagramService::class)->clearCache();
 
-        if ($request->hasFile('logo') && request('logo') != '') {
-            $dir = 'public/images';
-
-            if (File::exists($dir)) {
-                unlink($dir);
+        try {
+            if ($request->hasFile('logo')) {
+                $data->logo = $this->storeOptimizedImage(
+                    $request->file('logo'),
+                    'images',
+                    false,
+                    $data->logo
+                );
             }
-            $path = $request->file('logo')->store($dir);
-            $fileName = str_replace($dir, '', $path);
-
-            $data->logo = $fileName;
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
 
         $data->update();
@@ -405,22 +480,26 @@ public function gallery(){
     }
 
     public function saveAbout(Request $request, $id){
+        $request->validate([
+            'backImage' => app(ImageUploadService::class)->validationRules(true, false),
+        ]);
+
         $data = About::first();
         $data->mission = $request->input('mission');
         $data->vision = $request->input('vision');
         $data->values = $request->input('values');
 
-
-        if ($request->hasFile('backImage') && request('backImage') != '') {
-            $dir = 'public/images';
-
-            if (File::exists($dir)) {
-                unlink($dir);
+        try {
+            if ($request->hasFile('backImage')) {
+                $data->backImage = $this->storeOptimizedImage(
+                    $request->file('backImage'),
+                    'images',
+                    true,
+                    $data->backImage
+                );
             }
-            $path = $request->file('backImage')->store($dir);
-            $fileName = str_replace($dir, '', $path);
-
-            $data->backImage = $fileName;
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
 
         $data->update();

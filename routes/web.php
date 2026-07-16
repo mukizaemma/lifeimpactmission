@@ -25,11 +25,15 @@ Route::get('/upcoming-events',[App\Http\Controllers\HomeController::class,'upcom
 Route::get('/upcoming-events/{slug}',[App\Http\Controllers\HomeController::class,'event'])->name('event');
 Route::get('/Messages',[App\Http\Controllers\HomeController::class,'messages'])->name('Messages');
 Route::get('/Gallery',[App\Http\Controllers\HomeController::class,'gallery'])->name('gallery');
+Route::get('/videos',[App\Http\Controllers\HomeController::class,'videos'])->name('videos');
 Route::get('/contacts',[App\Http\Controllers\HomeController::class,'contacts'])->name('contacts');
 Route::get('/testimonials',[App\Http\Controllers\HomeController::class,'testimonials'])->name('testimonials');
 Route::get('/testimonials/{id}',[App\Http\Controllers\HomeController::class,'testimony'])->name('testimony');
+Route::get('/mothers',[App\Http\Controllers\HomeController::class,'mothers'])->name('mothers');
+Route::get('/mothers/{slug}',[App\Http\Controllers\HomeController::class,'mother'])->name('mother');
 Route::get('/updates',[App\Http\Controllers\HomeController::class,'posts'])->name('posts');
 Route::get('/updates/{slug}',[App\Http\Controllers\HomeController::class,'postSingle'])->name('postSingle');
+Route::get('/get-involved',[App\Http\Controllers\HomeController::class,'getInvolved'])->name('getInvolved');
 
 // Users Action
 Route::get('/donate',[App\Http\Controllers\HomeController::class,'donate'])->name('donate');
@@ -149,6 +153,19 @@ Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verifi
     Route::get('/editPartner/{id}', [App\Http\Controllers\PartnersController::class, 'edit'])->name('editPartner');
     Route::post('/updatePartner/{id}', [App\Http\Controllers\PartnersController::class, 'update'])->name('updatePartner');
     Route::get('/destroyPartner/{id}', [App\Http\Controllers\PartnersController::class, 'destroy'])->name('destroyPartner');
+
+    // Mothers
+    Route::get('/admin-mothers', [App\Http\Controllers\MothersController::class, 'index'])->name('mothersAdmin');
+    Route::post('/saveMother', [App\Http\Controllers\MothersController::class, 'store'])->name('saveMother');
+    Route::get('/editMother/{id}', [App\Http\Controllers\MothersController::class, 'edit'])->name('editMother');
+    Route::post('/updateMother/{id}', [App\Http\Controllers\MothersController::class, 'update'])->name('updateMother');
+    Route::get('/destroyMother/{id}', [App\Http\Controllers\MothersController::class, 'destroy'])->name('destroyMother');
+
+    Route::get('/admin-videos', [App\Http\Controllers\VideosController::class, 'index'])->name('videosAdmin');
+    Route::post('/saveVideo', [App\Http\Controllers\VideosController::class, 'store'])->name('saveVideo');
+    Route::get('/editVideo/{id}', [App\Http\Controllers\VideosController::class, 'edit'])->name('editVideo');
+    Route::post('/updateVideo/{id}', [App\Http\Controllers\VideosController::class, 'update'])->name('updateVideo');
+    Route::get('/destroyVideo/{id}', [App\Http\Controllers\VideosController::class, 'destroy'])->name('destroyVideo');
 
         Route::get('/get-campaigns',[App\Http\Controllers\CampainsController::class,'index'])->name('campainCrud');
         Route::post('/saveCampaign',[App\Http\Controllers\CampainsController::class,'store'])->name('saveCampain');

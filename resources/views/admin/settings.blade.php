@@ -149,7 +149,7 @@
                                                         <label>Change the Company Logo <br><span style="color: red">(This
                                                                 image should be resized to 120x90 pixels)</span></label>
                                                         <label id="projectinput7" class="file center-block">
-                                                            <input type="file" id="image" name="logo">
+                                                            <input type="file" id="image" name="logo" data-ilm-allow-small="1">
                                                             <span class="file-custom"></span>
                                                         </label>
                                                     </div>

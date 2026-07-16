@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\StoresOptimizedImages;
+use App\Services\ImageUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 use App\Models\Team;
+use InvalidArgumentException;
 
 class StaffController extends Controller
 {
+    use StoresOptimizedImages;
+
     /**
      * Display a listing of the resource.
      *
@@ -38,6 +42,10 @@ class StaffController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'image' => app(ImageUploadService::class)->validationRules(true, true),
+        ]);
+
         $data = new Team();
         $data ->names = $request->names;
         $data ->phone = $request->phone;
@@ -48,17 +56,13 @@ class StaffController extends Controller
         $data ->twitter = $request->twitter;
         $data ->bio = $request->bio;
 
-        // Uploading image
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs('public/images/staff', $fileName);
-
-            $data->image = $fileName;
-        } else {
-            dd('Image not received');
+        try {
+            if ($request->hasFile('image')) {
+                $data->image = $this->storeOptimizedImage($request->file('image'), 'images/staff');
+            }
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
-
 
         $stored = $data->save();
 
@@ -101,6 +105,10 @@ class StaffController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'image' => app(ImageUploadService::class)->validationRules(true, false),
+        ]);
+
         $data = Team::find($id);
         $data->names = $request->input('names');
         $data->phone = $request->input('phone');
@@ -116,16 +124,17 @@ class StaffController extends Controller
             return back()->with('Error','Staff Not Found');
         }
 
-        if ($request->hasFile('image') && request('image') != '') {
-            $dir = 'public/images/staff';
-
-            if (File::exists($dir)) {
-                unlink($dir);
+        try {
+            if ($request->hasFile('image')) {
+                $data->image = $this->storeOptimizedImage(
+                    $request->file('image'),
+                    'images/staff',
+                    true,
+                    $data->image
+                );
             }
-            $path = $request->file('image')->store($dir);
-            $fileName = str_replace($dir, '', $path);
-
-            $data->image = $fileName;
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
 
         $data->update();

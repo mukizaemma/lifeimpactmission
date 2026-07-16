@@ -32,7 +32,7 @@
 
     <div class="ilm-page-hero__curve" aria-hidden="true">
         <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0,40 C240,90 480,0 720,40 C960,80 1200,10 1440,50 L1440,80 L0,80 Z" fill="currentColor"/>
+            <path d="M0,48 C360,0 720,96 1080,40 C1260,12 1380,28 1440,48 L1440,80 L0,80 Z" fill="currentColor"/>
         </svg>
     </div>
 </section>

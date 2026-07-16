@@ -1,69 +1,84 @@
 @extends('layouts.frontbase')
 
+@section('title', 'Image Gallery')
+
 @section('content')
 
     @include('frontend.includes.page-hero', ['pageKey' => 'gallery'])
 
-    <!-- gallery-area-start -->
-    <div class="tp-gallery-3__area pt-120 pb-120">
+    <section class="ilm-gallery-page">
         <div class="container">
-            <ul class="nav nav-tabs justify-content-center mb-4" id="galleryTab" role="tablist">
+            <div class="text-center mb-40">
+                <h2 class="ilm-section-title">Moments that matter</h2>
+                <p class="ilm-section-subtitle">Training rooms, school visits, packages delivered, and joy restored across our programs.</p>
+            </div>
+
+            <div class="ilm-gallery-switch text-center mb-40">
+                <a class="ilm-gallery-switch__link is-active" href="{{ route('gallery') }}">Images</a>
+                <a class="ilm-gallery-switch__link" href="{{ route('videos') }}">Videos</a>
+            </div>
+
+            <ul class="nav nav-tabs ilm-gallery-tabs justify-content-center mb-4" id="galleryTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link active" id="all-tab" data-bs-toggle="tab" href="#all" role="tab">All</a>
+                    <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab">All</button>
                 </li>
                 @foreach($programs as $program)
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="program-{{ $program->id }}-tab" data-bs-toggle="tab" href="#program-{{ $program->id }}" role="tab">{{ $program->title }}</a>
-                    </li>
+                    @if($program->images->count())
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="program-{{ $program->id }}-tab" data-bs-toggle="tab" data-bs-target="#program-{{ $program->id }}" type="button" role="tab">
+                                {{ $program->title }}
+                            </button>
+                        </li>
+                    @endif
                 @endforeach
             </ul>
 
             <div class="tab-content" id="galleryTabContent">
                 <div class="tab-pane fade show active" id="all" role="tabpanel">
-                    <div class="row">
-                        @foreach($gallery as $image)
-                            <div class="col-xl-4 col-lg-4 col-md-6 mb-30 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".3s">
-                                <div class="tp-gallery-3__item p-relative">
-                                    <img src="{{ asset('storage/images/projects/' . $image->image) }}" alt="">
-                                    <div class="tp-gallery-3__icon">
-                                        <a class="popup-image" href="{{ asset('storage/images/projects/' . $image->image) }}">
-                                        </a>
-                                    </div>
+                    <div class="row g-4">
+                        @forelse($gallery as $image)
+                            <div class="col-xl-4 col-lg-4 col-md-6 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".2s">
+                                <a class="ilm-gallery-item popup-image" href="{{ $image->imageUrl() }}">
+                                    <img src="{{ $image->imageUrl() }}" alt="{{ $image->caption ?: 'Gallery moment' }}" loading="lazy" decoding="async">
+                                </a>
+                                @if(!empty($image->caption))
+                                    <p class="ilm-gallery-caption">{{ $image->caption }}</p>
+                                @endif
+                            </div>
+                        @empty
+                            <div class="col-12">
+                                <div class="ilm-empty-state text-center">
+                                    <h3>Gallery coming soon</h3>
+                                    <p>Photos from trainings, outreaches, and community moments will appear here.</p>
+                                    <a class="tp-btn ilm-btn-orange" href="{{ route('videos') }}">Watch Videos</a>
                                 </div>
                             </div>
-                        @endforeach
+                        @endforelse
                     </div>
                 </div>
 
                 @foreach($programs as $program)
-                    @php
-                        $programImages = $program->images->take(9);
-                    @endphp
-                    <div class="tab-pane fade" id="program-{{ $program->id }}" role="tabpanel">
-                        <div class="row">
-                            @forelse($programImages as $image)
-                                <div class="col-xl-4 col-lg-4 col-md-6 mb-30 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".3s">
-                                    <div class="tp-gallery-3__item p-relative">
-                                        <img src="{{ asset('storage/images/projects/' . $image->image) }}" alt="">
-                                        <div class="tp-gallery-3__icon">
-                                            <a class="popup-image" href="{{ asset('storage/images/projects/' . $image->image) }}">
-                                            </a>
-                                        </div>
+                    @if($program->images->count())
+                        <div class="tab-pane fade" id="program-{{ $program->id }}" role="tabpanel">
+                            <div class="row g-4">
+                                @foreach($program->images as $image)
+                                    <div class="col-xl-4 col-lg-4 col-md-6">
+                                        <a class="ilm-gallery-item popup-image" href="{{ $image->imageUrl() }}">
+                                            <img src="{{ $image->imageUrl() }}" alt="{{ $image->caption ?: $program->title }}" loading="lazy" decoding="async">
+                                        </a>
+                                        @if(!empty($image->caption))
+                                            <p class="ilm-gallery-caption">{{ $image->caption }}</p>
+                                        @endif
                                     </div>
-                                </div>
-                            @empty
-                                <div class="col-12 text-center">
-                                    <p>No images found for {{ $program->title }}.</p>
-                                </div>
-                            @endforelse
+                                @endforeach
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 @endforeach
             </div>
         </div>
-    </div>
-    <!-- gallery-area-end -->
+    </section>
 
-
+    @include('frontend.includes.bottom')
 
 @endsection

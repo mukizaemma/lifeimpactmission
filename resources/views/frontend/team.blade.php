@@ -1,97 +1,61 @@
 @extends('layouts.frontbase')
 
-@section('title', 'Home Page')
+@section('title', 'Our Team')
 
 @section('content')
 
+    @include('frontend.includes.page-hero', ['pageKey' => 'team'])
 
-        @include('frontend.includes.page-hero', ['pageKey' => 'team'])
+    <section class="ilm-team-section">
+        <div class="container">
+            <div class="text-center mb-50">
+                <h2 class="ilm-section-title">Leadership team</h2>
+                <p class="ilm-section-subtitle">Servants and mentors guiding the mission day to day.</p>
+            </div>
 
-        <!-- about-area-start -->
-        <div class="tp-product-details-area pt-20 pb-20">
-            <div class="container">
+            <div class="row g-4">
                 @foreach ($team as $rs)
-                    
-                    <div class="row">
-                        <div class="col-xl-6 col-lg-6">
-                            <div class="tp-shop-details__wrapper">
-                                <div class="tp-shop-details__tab-content-box">
-                                <div class="tab-content" id="nav-tabContent">
-                                    <div class="tab-pane fade show active" id="nav-one" role="tabpanel"
-                                        aria-labelledby="nav-one-tab">
-                                        <div class="tp-shop-details__tab-big-img">
-                                            <img src="{{asset('storage/images/staff').$rs->image}}" alt="">
-                                        </div>
-                                    </div>
-
-                                </div>
-                                </div>
-                            </div>
+                <div class="col-lg-6 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".2s">
+                    <article class="ilm-team-feature">
+                        <div class="ilm-team-feature__media">
+                            <img src="{{ asset('storage/images/staff') . $rs->image }}" alt="{{ $rs->names }}" loading="lazy" decoding="async">
                         </div>
-                        <div class="col-xl-6 col-lg-6">
-                            <div class="tp-shop-details__right-warp">
-                                <h3 class="tp-shop-details__title-sm">{{ $rs->names }}</h3>
-                                <div class="tp-shop-details__price">
-                                <span class="text-theme">{{ $rs->position }}</span>
-                            </div>
-
-                                <div class="tp-shop-details__text">
-                                <p>
-                                    {{ $rs->bio }}
-                                </p>
-                                </div>
-                            </div>
+                        <div class="ilm-team-feature__body">
+                            <h3>{{ $rs->names }}</h3>
+                            <p class="ilm-team-feature__role">{{ $rs->position }}</p>
+                            <p>{{ $rs->bio }}</p>
                         </div>
-                    </div>
+                    </article>
+                </div>
                 @endforeach
             </div>
         </div>
+    </section>
 
-        <!-- about-area-end -->
-
-        <!-- team-area-start -->
-        <div class="tp-team-2__area pt-115 pb-65">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="tp-team-2__section-title pb-50 text-center">
-                            <h4 class="tp-section-title">Our Team of Advisors</h4>
+    @if(isset($advisors) && count($advisors))
+    <section class="ilm-team-section grey-bg">
+        <div class="container">
+            <div class="text-center mb-50">
+                <h2 class="ilm-section-title">Our advisors</h2>
+                <p class="ilm-section-subtitle">Wise counsel helping us stay faithful and effective.</p>
+            </div>
+            <div class="row justify-content-center">
+                @foreach ($advisors as $adv)
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                    <article class="ilm-team-card">
+                        <div class="ilm-team-card__media">
+                            <img src="{{ asset('storage/images/staff') . $adv->image }}" alt="{{ $adv->names }}" loading="lazy" decoding="async">
                         </div>
-                    </div>
+                        <h3 class="ilm-team-card__name">{{ $adv->names }}</h3>
+                        <p class="ilm-team-card__role">{{ $adv->position }}</p>
+                    </article>
                 </div>
-                <div class="row">
-                    @foreach ($advisors as $adv)
-                    <div class="col-xl-4 col-lg-4 col-md-6 mb-30 wow tpfadeUp" data-wow-duration=".9s"
-                    data-wow-delay=".3s">
-                        <div class="tp-team-2__wrapper">
-                            <div class="tp-team-2__item text-center">
-                                <div class="tp-team-2__thumb">
-                                    <img src="{{asset('storage/images/staff').$adv->image}}" alt="">
-                                </div>
-                                <div class="tp-team-2__content">
-                                    <div class="tp-team-2__author-info">
-                                        <a href="#"><h4 class="tp-team-2__author-name">{{ $adv->names }}</h4></a>
-                                        <span>{{ $adv->position }}</span>
-                                    </div>
-                                    {{-- <div class="tp-team-2__social-box">
-                                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                        <a href="#"><i class="fab fa-instagram"></i></a>
-                                        <a href="#"><i class="fab fa-twitter"></i></a>
-                                    </div> --}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-
-                </div>
+                @endforeach
             </div>
         </div>
-        <!-- team-area-end -->
+    </section>
+    @endif
 
-        <!-- cta-area-start -->
-            @include('frontend.includes.backImage')
-        <!-- cta-area-end -->
-
+    @include('frontend.includes.backImage')
 
 @endsection

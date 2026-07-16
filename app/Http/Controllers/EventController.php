@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\StoresOptimizedImages;
+use App\Services\ImageUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use App\Models\Event;
+use InvalidArgumentException;
+
 class EventController extends Controller
 {
+    use StoresOptimizedImages;
 
     public function index()
     {
@@ -23,6 +27,10 @@ class EventController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'image' => app(ImageUploadService::class)->validationRules(true, false),
+        ]);
+
         $slug = Str::of($request->input('title'))->slug();
 
         $data = new Event();
@@ -35,14 +43,14 @@ class EventController extends Controller
         $data ->registerLink = $request->registerLink;
         $data ->registerContact = $request->registerContact;
         $data ->slug = $slug;
-        
 
-        // Uploading image
-        if ($request->hasFile('image')) {
-            $dir = 'public/images/events';
-            $path = $request->file('image')->store($dir);
-            $fileName = str_replace($dir, '', $path);
-            $data->image = $fileName;
+
+        try {
+            if ($request->hasFile('image')) {
+                $data->image = $this->storeOptimizedImage($request->file('image'), 'images/events');
+            }
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
 
         $stored = $data->save();
@@ -86,6 +94,10 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'image' => app(ImageUploadService::class)->validationRules(true, false),
+        ]);
+
         $data = Event::find($id);
         $data->title = $request->input('title');
         $data->location = $request->input('location');
@@ -101,16 +113,17 @@ class EventController extends Controller
             return back()->with('Error','Event Not Found');
         }
 
-        if ($request->hasFile('image') && request('image') != '') {
-            $dir = 'public/images/events';
-
-            if (File::exists($dir)) {
-                unlink($dir);
+        try {
+            if ($request->hasFile('image')) {
+                $data->image = $this->storeOptimizedImage(
+                    $request->file('image'),
+                    'images/events',
+                    true,
+                    $data->image
+                );
             }
-            $path = $request->file('image')->store($dir);
-            $fileName = str_replace($dir, '', $path);
-
-            $data->image = $fileName;
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
 
         $data->update();

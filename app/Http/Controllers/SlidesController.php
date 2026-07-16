@@ -2,95 +2,101 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\StoresOptimizedImages;
+use App\Services\ImageUploadService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Slide;
+use InvalidArgumentException;
 
 class SlidesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    use StoresOptimizedImages;
+
     public function index()
     {
-
         $slides = Slide::latest()->get();
-        return view('admin.slides', ['slides'=>$slides]);
+        return view('admin.slides', ['slides' => $slides]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
+
     public function store(Request $request)
     {
+        $request->validate([
+            'heading' => 'required|string|max:255',
+            'image' => app(ImageUploadService::class)->validationRules(true, true),
+        ]);
+
         $data = new Slide();
         $data->heading = $request->input('heading', 'Default Heading');
-        $data->subheading = "Impact Life Mission";
-    
-        if ($request->hasFile('image')) {
-            $dir = 'public/images/slides';
-            $path = $request->file('image')->store($dir);
-            $fileName = str_replace($dir . '/', '', $path);
-            $data->image = $fileName;
+        $data->subheading = $request->input('subheading', 'Through vocational training, shelter, health care, and faith-centered mentorship.');
+
+        try {
+            if ($request->hasFile('image')) {
+                $data->image = $this->storeOptimizedImage($request->file('image'), 'images/slides');
+            }
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
-    
-        $stored = $data->save();
-    
-        if ($stored) {
+
+        if ($data->save()) {
             return redirect('slides')->with('success', 'New Image has been added successfully');
         }
-    
+
         return redirect()->back()->with('error', 'Failed to add new Image');
     }
-    
+
     public function edit($id)
     {
         $data = Slide::find($id);
-        return view('admin.slideUpdate', ['data'=>$data]);
+        return view('admin.slideUpdate', ['data' => $data]);
     }
 
     public function update(Request $request, $id)
     {
-        $data = Slide::find($id);
-        $data->heading = $request->input('heading');
-        //$data->subheading = $request->input('subheading');
+        $request->validate([
+            'heading' => 'required|string|max:255',
+            'image' => app(ImageUploadService::class)->validationRules(true, false),
+        ]);
 
-        if(!$data){
-            return back()->with('Error','Image Not Found');
+        $data = Slide::find($id);
+        if (! $data) {
+            return back()->with('Error', 'Image Not Found');
         }
 
-        if ($request->hasFile('image') && request('image') != '') {
-            $dir = 'public/images/slides';
+        $data->heading = $request->input('heading');
+        if ($request->filled('subheading')) {
+            $data->subheading = $request->input('subheading');
+        }
 
-            if (File::exists($dir)) {
-                unlink($dir);
+        try {
+            if ($request->hasFile('image')) {
+                $data->image = $this->storeOptimizedImage(
+                    $request->file('image'),
+                    'images/slides',
+                    true,
+                    $data->image
+                );
             }
-            $path = $request->file('image')->store($dir);
-            $fileName = str_replace($dir, '', $path);
-
-            $data->image = $fileName;
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
 
         $data->update();
 
-        return redirect('slides')->with('success','Image has been updated');
+        return redirect('slides')->with('success', 'Image has been updated');
     }
 
     public function destroy($id)
     {
         $image = Slide::findOrFail($id);
-        // delete the image file
-        Storage::delete('public/images/gallery/'.$image);
+        if ($image->image) {
+            Storage::disk('public')->delete('images/slides/' . ltrim($image->image, '/'));
+        }
         $image->delete();
         return redirect()->back()->with('warning', 'Item has been deleted');
     }

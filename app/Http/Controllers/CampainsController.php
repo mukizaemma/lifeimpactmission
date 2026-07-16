@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\StoresOptimizedImages;
+use App\Services\ImageUploadService;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Str;
-use Symfony\Component\HttpFoundation\File\File;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Campain;
 use App\Models\Program;
+use InvalidArgumentException;
 
 class CampainsController extends Controller
 {
+    use StoresOptimizedImages;
+
     public function index()
     {
         $campain = Campain::latest()->get();
@@ -21,11 +24,17 @@ class CampainsController extends Controller
 
 public function store(Request $request)
 {
+    $request->validate([
+        'image' => app(ImageUploadService::class)->validationRules(true, false),
+    ]);
+
     $fileName = null;
-    if ($request->hasFile('image')) {
-        $file = $request->file('image');
-        $path = $file->store('public/images/campaigns');
-        $fileName = basename($path);
+    try {
+        if ($request->hasFile('image')) {
+            $fileName = $this->storeOptimizedImage($request->file('image'), 'images/campaigns');
+        }
+    } catch (InvalidArgumentException $e) {
+        return redirect()->back()->withInput()->with('error', $e->getMessage());
     }
 
     $slug = Str::slug($request->input('title'));
@@ -65,22 +74,33 @@ public function store(Request $request)
 
 public function update(Request $request, $id)
 {
+    $request->validate([
+        'image' => app(ImageUploadService::class)->validationRules(true, false),
+        'youtubeimg' => app(ImageUploadService::class)->validationRules(true, false),
+    ]);
+
     $post = Campain::findOrFail($id);
 
-    if ($request->hasFile('image')) {
-        $file = $request->file('image');
-        $path = $file->store('public/images/campains');
-        $fileName = basename($path);
-        Storage::delete('public/images/campains/' . $post->image);
-        $post->image = $fileName;
-    }
+    try {
+        if ($request->hasFile('image')) {
+            $post->image = $this->storeOptimizedImage(
+                $request->file('image'),
+                'images/campaigns',
+                true,
+                $post->image
+            );
+        }
 
-    if ($request->hasFile('youtubeimg')) {
-        $file = $request->file('youtubeimg');
-        $path = $file->store('public/images/campains');
-        $fileName = basename($path);
-        Storage::delete('public/images/campains/' . $post->youtubeimg);
-        $post->youtubeimg = $fileName;
+        if ($request->hasFile('youtubeimg')) {
+            $post->youtubeimg = $this->storeOptimizedImage(
+                $request->file('youtubeimg'),
+                'images/campaigns',
+                true,
+                $post->youtubeimg
+            );
+        }
+    } catch (InvalidArgumentException $e) {
+        return redirect()->back()->withInput()->with('error', $e->getMessage());
     }
 
     $post->title = $request->input('title');

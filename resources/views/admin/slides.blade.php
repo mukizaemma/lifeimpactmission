@@ -86,32 +86,33 @@
                                             @csrf
                                             <div class="form-body">
                                                 <div class="row mb-4">
-
                                                     <div class="col-lg-6 col-sm-12">
-                                                            <label>Select Slide Image <br><span style="color: red">(This image should be resized to 694x1894 pixels)</span></label>
-                                                            <label id="projectinput7" class="file center-block">
-                                                                <input type="file" id="image" name="image"
-                                                                    required="">
-                                                                <span class="file-custom"></span>
-                                                            </label>
+                                                        <label>Select Slide Image</label>
+                                                        <label id="projectinput7" class="file center-block">
+                                                            <input type="file" id="image" name="image" accept="image/*" required>
+                                                            <span class="file-custom"></span>
+                                                        </label>
                                                     </div>
                                                 </div>
 
-                                                <div class="row">
-
+                                                <div class="row mb-3">
                                                     <div class="col-12">
-                                                        <label for="projectinput8">Image Caption</label>
-                                                        <input type="text" class="form-control"
-                                                        placeholder="Image heading" name="heading">
+                                                        <label for="projectinput8">Title</label>
+                                                        <input type="text" class="form-control" placeholder="One clear hero title" name="heading" required>
+                                                    </div>
                                                 </div>
+                                                <div class="row mb-3">
+                                                    <div class="col-12">
+                                                        <label for="slide-subtitle">Subtitle</label>
+                                                        <input type="text" class="form-control" placeholder="One supporting subtitle" name="subheading">
+                                                    </div>
                                                 </div>
                                             </div>
 
-                                            <div class="form-actions mt-5">
+                                            <div class="form-actions mt-4">
                                                 <button type="submit" class="btn btn-primary text-black">
                                                     <i class="fa fa-save"></i> Add New Slide
                                                 </button>
-
                                             </div>
                                         </form>
                                     </div>

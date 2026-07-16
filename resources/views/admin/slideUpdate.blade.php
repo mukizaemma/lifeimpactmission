@@ -56,20 +56,28 @@
                                         </label>
                                 </div>
                                 <div class="col-lg-4 col-sm-12">
-                                        <label>Change Image <br><span style="color: red">(This image should be resized to 694x1894 pixels)</span></label>
+                                        <label>Change Image</label>
                                         <label id="projectinput7" class="file center-block">
-                                            <input type="file" id="image" name="image">
+                                            <input type="file" id="image" name="image" accept="image/*">
                                             <span class="file-custom"></span>
                                         </label>
                                 </div>
                             </div>
 
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <label for="projectinput8">Title</label>
+                                    <input type="text" class="form-control"
+                                    value="{{$data->heading}}" name="heading" required>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-12">
-                                    <label for="projectinput8">Image Caption </label>
+                                    <label for="slide-subtitle">Subtitle</label>
                                     <input type="text" class="form-control"
-                                    value="{{$data->heading}}" name="heading">
-                            </div>
+                                    value="{{ $data->subheading ?? '' }}" name="subheading"
+                                    placeholder="One supporting subtitle">
+                                </div>
                             </div>
 
                         </div>

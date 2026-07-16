@@ -37,6 +37,11 @@
         Programs
     </a>
 
+    <a class="nav-link" href="{{ route('mothersAdmin') }}">
+        <div class="sb-nav-link-icon"><i class="fa fa-female"></i></div>
+        Mothers
+    </a>
+
     {{-- <a class="nav-link" href="{{ route('getTestimonials') }}">
         <div class="sb-nav-link-icon"><i class="fa fa-comment-dots"></i></div>
         Testimonials
@@ -56,7 +61,12 @@
 
     <a class="nav-link" href="{{ route('images') }}">
         <div class="sb-nav-link-icon"><i class="fa fa-image"></i></div>
-        Gallery
+        Image Gallery
+    </a>
+
+    <a class="nav-link" href="{{ route('videosAdmin') }}">
+        <div class="sb-nav-link-icon"><i class="fa fa-video"></i></div>
+        Video Gallery
     </a>
 
     <a class="nav-link" href="{{ route('slides') }}">

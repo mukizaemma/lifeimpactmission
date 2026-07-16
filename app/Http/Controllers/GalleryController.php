@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\StoresOptimizedImages;
+use App\Services\ImageUploadService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Gallery;
 use App\Models\Branch;
 use App\Models\Image;
 use App\Models\Program;
+use InvalidArgumentException;
 
 class GalleryController extends Controller
 {
+    use StoresOptimizedImages;
+
     /**
      * Display a listing of the resource.
      *
@@ -43,16 +46,20 @@ class GalleryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'image' => app(ImageUploadService::class)->validationRules(true, false),
+        ]);
+
         $data = new Image();
         $data ->caption = $request->caption;
         $data ->program_id = $request->program_id;
 
-        // Uploading image
-        if ($request->hasFile('image')) {
-            $dir = 'public/images/gallery';
-            $path = $request->file('image')->store($dir);
-            $fileName = str_replace($dir, '', $path);
-            $data->image = $fileName;
+        try {
+            if ($request->hasFile('image')) {
+                $data->image = $this->storeOptimizedImage($request->file('image'), 'images/gallery');
+            }
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
 
         $stored = $data->save();
@@ -96,6 +103,10 @@ class GalleryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'image' => app(ImageUploadService::class)->validationRules(true, false),
+        ]);
+
         $data = Image::find($id);
         $data->caption = $request->input('caption');
         $data->program_id = $request->input('program_id');
@@ -104,16 +115,17 @@ class GalleryController extends Controller
             return back()->with('Error','Image Not Found');
         }
 
-        if ($request->hasFile('image') && request('image') != '') {
-            $dir = 'public/images/gallery';
-
-            if (File::exists($dir)) {
-                unlink($dir);
+        try {
+            if ($request->hasFile('image')) {
+                $data->image = $this->storeOptimizedImage(
+                    $request->file('image'),
+                    'images/gallery',
+                    true,
+                    $data->image
+                );
             }
-            $path = $request->file('image')->store($dir);
-            $fileName = str_replace($dir, '', $path);
-
-            $data->image = $fileName;
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
 
         $data->update();

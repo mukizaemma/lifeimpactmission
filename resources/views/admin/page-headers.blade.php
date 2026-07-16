@@ -26,8 +26,16 @@
                     @endif
 
                     <p class="text-muted mb-4">
-                        Set the full-screen header image, title, and caption for each page. Leave image unchanged to keep the current photo.
+                        Set one title, one subtitle, and a header image for each page.
+                        Images must be <strong>300KB–700KB</strong> and are resized automatically before upload.
                     </p>
+
+                    @if (session()->has('error'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ session()->get('error') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
 
                     <form action="{{ route('updatePageHeaders') }}" method="POST" enctype="multipart/form-data">
                         @csrf

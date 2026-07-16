@@ -1,96 +1,90 @@
 @extends('layouts.frontbase')
 
+@section('title', $blog->title ?? 'Update')
+
 @section('content')
 
+@php
+    $galleryImages = $images ?? collect();
+    $related = ($relatedBlogs instanceof \Illuminate\Support\Collection)
+        ? $relatedBlogs
+        : collect($relatedBlogs ?? []);
+@endphp
 
+    <section class="ilm-update-banner">
+        <div class="container">
+            <div class="ilm-update-banner__inner">
+                <p class="ilm-update-banner__eyebrow">
+                    <a href="{{ route('posts') }}">Updates</a>
+                    <span aria-hidden="true">/</span>
+                    Story
+                </p>
+                <h1 class="ilm-section-title">{{ $blog->title }}</h1>
+                <p class="ilm-section-subtitle">
+                    {{ optional($blog->created_at)->format('d M, Y') }}
+                    @if(!empty($blog->author))
+                        · {{ $blog->author }}
+                    @endif
+                </p>
+            </div>
+        </div>
+    </section>
 
-<!-- postbox area start -->
-<section class="postbox__area pt-120 pb-80">
-<div class="container">
-    <div class="row">
-        <div class="col-xxl-8 col-xl-8 col-lg-8">
-            <div class="postbox__wrapper">
-            <article class="postbox__item format-image mb-50 transition-3">
-                <div class="postbox__thumb p-relative m-img">
-                    <img src="{{ asset('storage/images/news/' . $blog->image) }}" alt="">
-                </div>
-                <div class="postbox__content">
-                    <h3 class="postbox__title">{{ $blog->title }}</h3>
-                    <div class="postbox__text">
-                        <p style="font-size: 20px; font-wight:700; text-align:left">
-                            {{ $blog->body }}
-                        </p>
+    <section class="ilm-update-article">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-8">
+                    @if(!empty($blog->image))
+                        <div class="ilm-update-article__hero">
+                            <img src="{{ asset('storage/images/news/' . $blog->image) }}" alt="{{ $blog->title }}" loading="eager" decoding="async">
+                        </div>
+                    @endif
+
+                    <div class="ilm-update-article__body">
+                        {!! nl2br(e($blog->body)) !!}
                     </div>
-                </div>
-            </article>
 
-        <div class="tp-gallery-3__area pt-120 pb-120">
-            <div class="container">
-                <div class="row">
-                    @if($images->count() == 0)
-                            <p class="text-muted">No images yet.</p>
-                        @else
-                        <h3 class="postbox__title">Blog Gallery</h3>
-                        @foreach ($images as $image)
-                        <div class="col-xl-6 col-lg-6 col-md-6 mb-30 wow tpfadeUp" data-wow-duration=".9s"
-
-                        data-wow-delay=".3s">
-                            <div class="tp-gallery-3__item p-relative">
-                                <img src="{{ asset('storage/images/projects/' . $image->image) }}" alt="">
-                                <div class="tp-gallery-3__icon">
-                                    <a class="popup-image" href="{{ asset('storage/images/news/' . $image->image) }}">
-                                        <svg id="body" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="49" height="51" viewBox="0 0 49 51">
-                                            <g id="gallery">
-                                            </g>
-                                        </svg>
-                                    </a>                        
-                                </div>
+                    @if($galleryImages->count())
+                        <div class="ilm-update-article__gallery">
+                            <h2 class="ilm-update-article__gallery-title">From this story</h2>
+                            <div class="row g-3">
+                                @foreach($galleryImages as $image)
+                                    <div class="col-md-6">
+                                        <a class="ilm-gallery-item popup-image" href="{{ $image->imageUrl() }}">
+                                            <img src="{{ $image->imageUrl() }}" alt="{{ $image->caption ?: $blog->title }}" loading="lazy" decoding="async">
+                                        </a>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
-                        @endforeach
-
                     @endif
                 </div>
-            </div>
-        </div>
-            </div>
-        </div>
-        <div class="col-xxl-4 col-xl-4 col-lg-4">
-            <div class="sidebar__wrapper">
 
-            <div class="sidebar__widget mb-30">
-                <h3 class="sidebar__widget-title">Related Projects</h3>
-                <div class="sidebar__widget-content">
-                    <div class="sidebar__post">
-
-                        @foreach ($relatedBlogs as $rs)
-                        <div class="rc__post mb-10 d-flex align-items-center">
-                        <div class="rc__post-thumb mr-20">
-                            <a href="{{route('postSingle',$rs->slug)}}"><img src="{{ asset('storage/images/news/' . $rs->image) }}" alt="" width="90px"></a>
+                <div class="col-lg-4">
+                    <aside class="ilm-update-sidebar">
+                        <h2 class="ilm-update-sidebar__title">More updates</h2>
+                        <div class="ilm-update-sidebar__list">
+                            @forelse($related as $rs)
+                                <a class="ilm-update-related" href="{{ route('postSingle', $rs->slug) }}">
+                                    <span class="ilm-update-related__media">
+                                        <img src="{{ asset('storage/images/news/' . $rs->image) }}" alt="" loading="lazy" decoding="async">
+                                    </span>
+                                    <span class="ilm-update-related__body">
+                                        <span class="ilm-update-related__date">{{ optional($rs->created_at)->format('d M, Y') }}</span>
+                                        <span class="ilm-update-related__title">{{ $rs->title }}</span>
+                                    </span>
+                                </a>
+                            @empty
+                                <p>More stories will appear here soon.</p>
+                            @endforelse
                         </div>
-                        <div class="rc__post-content">
-                            {{-- <div class="rc__meta">
-                                <span><i class="flaticon-comment"></i>
-                                02 Comments</span>
-                            </div> --}}
-                            <h3 class="rc__post-title">
-                                <a href="{{route('postSingle',$rs->slug)}}">{{ $rs->title }}</a>
-                            </h3>
-                        </div>
-                        </div>
-                        @endforeach
-
-
-                    </div>
+                        <a class="tp-btn ilm-btn-orange ilm-btn-sm mt-20" href="{{ route('posts') }}">All Updates</a>
+                    </aside>
                 </div>
             </div>
-            </div>
         </div>
-    </div>
-</div>
-</section>
-<!-- postbox area end -->
+    </section>
 
-
+    @include('frontend.includes.bottom')
 
 @endsection
