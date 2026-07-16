@@ -3,13 +3,10 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Background as BackgroundModel;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
-use Livewire\Component;
 
-#[Layout('layouts.adminbase')]
 #[Title('Project Background')]
-class Background extends Component
+class Background extends AdminComponent
 {
     public function render()
     {
@@ -21,6 +18,6 @@ class Background extends Component
             $data = BackgroundModel::first();
         }
 
-        return view('admin.background', ['data' => $data]);
+        return $this->adminView('admin.background', ['data' => $data]);
     }
 }

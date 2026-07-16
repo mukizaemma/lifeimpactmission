@@ -4,13 +4,10 @@ namespace App\Livewire\Admin;
 
 use App\Models\Campain;
 use App\Models\Program;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
-use Livewire\Component;
 
-#[Layout('layouts.adminbase')]
 #[Title('Edit Campaign')]
-class CampaignEdit extends Component
+class CampaignEdit extends AdminComponent
 {
     public $id;
 
@@ -21,7 +18,7 @@ class CampaignEdit extends Component
 
     public function render()
     {
-        return view('admin.campainUpdate', [
+        return $this->adminView('admin.campainUpdate', [
             'campain' => Campain::findOrFail($this->id),
             'programs' => Program::all(),
         ]);

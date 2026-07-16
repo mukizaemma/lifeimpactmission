@@ -3,17 +3,14 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Mother;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
-use Livewire\Component;
 
-#[Layout('layouts.adminbase')]
 #[Title('Mothers')]
-class Mothers extends Component
+class Mothers extends AdminComponent
 {
     public function render()
     {
-        return view('admin.mothers', [
+        return $this->adminView('admin.mothers', [
             'data' => Mother::oldest()->get(),
         ]);
     }

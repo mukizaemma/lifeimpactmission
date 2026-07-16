@@ -37,7 +37,9 @@ Route::get('/campaigns', Campaigns::class)->name('campaigns');
 Route::get('/campaigns/{slug}', CampaignShow::class)->name('campaign');
 Route::get('/upcoming-events', Events::class)->name('upcomingEvents');
 Route::get('/upcoming-events/{slug}', EventShow::class)->name('event');
-Route::get('/Messages',[App\Http\Controllers\HomeController::class,'messages'])->name('Messages');
+Route::get('/Messages', function () {
+    return redirect()->route('redirects');
+})->middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->name('Messages');
 Route::get('/Gallery', Gallery::class)->name('gallery');
 Route::get('/videos', Videos::class)->name('videos');
 Route::get('/contacts', Contact::class)->name('contacts');
@@ -83,7 +85,7 @@ Route::middleware('admin:admin')->group(function(){
 //     })->name('dashboard');
 // });
 
-Route::middleware(['auth:sanctum,admin', config('jetstream.auth_session'), 'verified'])->group(function () {
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('admin/dashboard', \App\Livewire\Admin\Dashboard::class)->name('dashboard');
 
     Route::get('/redirects', \App\Livewire\Admin\Dashboard::class)->name('redirects');

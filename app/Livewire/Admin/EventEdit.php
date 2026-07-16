@@ -3,13 +3,10 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Event;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
-use Livewire\Component;
 
-#[Layout('layouts.adminbase')]
 #[Title('Edit Event')]
-class EventEdit extends Component
+class EventEdit extends AdminComponent
 {
     public $id;
 
@@ -20,7 +17,7 @@ class EventEdit extends Component
 
     public function render()
     {
-        return view('admin.eventUpdate', [
+        return $this->adminView('admin.eventUpdate', [
             'data' => Event::findOrFail($this->id),
         ]);
     }

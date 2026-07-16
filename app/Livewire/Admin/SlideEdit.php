@@ -3,13 +3,10 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Slide;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
-use Livewire\Component;
 
-#[Layout('layouts.adminbase')]
 #[Title('Edit Slide')]
-class SlideEdit extends Component
+class SlideEdit extends AdminComponent
 {
     public $id;
 
@@ -20,7 +17,7 @@ class SlideEdit extends Component
 
     public function render()
     {
-        return view('admin.slideUpdate', [
+        return $this->adminView('admin.slideUpdate', [
             'data' => Slide::findOrFail($this->id),
         ]);
     }

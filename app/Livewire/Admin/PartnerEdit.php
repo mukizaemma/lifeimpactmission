@@ -3,13 +3,10 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Partner;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
-use Livewire\Component;
 
-#[Layout('layouts.adminbase')]
 #[Title('Edit Partner')]
-class PartnerEdit extends Component
+class PartnerEdit extends AdminComponent
 {
     public $id;
 
@@ -20,7 +17,7 @@ class PartnerEdit extends Component
 
     public function render()
     {
-        return view('admin.partnerUpdate', [
+        return $this->adminView('admin.partnerUpdate', [
             'data' => Partner::findOrFail($this->id),
         ]);
     }

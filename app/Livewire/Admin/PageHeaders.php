@@ -3,17 +3,14 @@
 namespace App\Livewire\Admin;
 
 use App\Models\PageHeader;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
-use Livewire\Component;
 
-#[Layout('layouts.adminbase')]
 #[Title('Page Headers')]
-class PageHeaders extends Component
+class PageHeaders extends AdminComponent
 {
     public function render()
     {
-        return view('admin.page-headers', [
+        return $this->adminView('admin.page-headers', [
             'headers' => PageHeader::orderBy('label')->get(),
         ]);
     }

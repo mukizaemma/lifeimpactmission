@@ -87,7 +87,20 @@
 
     </div>
     <div class="sb-sidenav-footer">
-        <div class="small">Logged in as:</div>
-        Susper Admin
+        @auth
+            <div class="small">Logged in as</div>
+            <div class="text-white text-truncate" title="{{ auth()->user()->email }}">
+                {{ auth()->user()->name ?? auth()->user()->email }}
+            </div>
+            <form method="POST" action="{{ route('logout') }}" class="mt-2">
+                @csrf
+                <button type="submit" class="btn btn-sm btn-outline-light w-100">
+                    <i class="fas fa-sign-out-alt"></i> Log out
+                </button>
+            </form>
+        @else
+            <div class="small">Not logged in</div>
+            <a class="btn btn-sm btn-outline-light w-100 mt-2" href="{{ route('login') }}">Login</a>
+        @endauth
     </div>
 </nav>

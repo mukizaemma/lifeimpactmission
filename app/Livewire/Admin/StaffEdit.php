@@ -3,13 +3,10 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Team;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
-use Livewire\Component;
 
-#[Layout('layouts.adminbase')]
 #[Title('Edit Staff')]
-class StaffEdit extends Component
+class StaffEdit extends AdminComponent
 {
     public $id;
 
@@ -20,7 +17,7 @@ class StaffEdit extends Component
 
     public function render()
     {
-        return view('admin.teamUpdate', [
+        return $this->adminView('admin.teamUpdate', [
             'data' => Team::findOrFail($this->id),
         ]);
     }

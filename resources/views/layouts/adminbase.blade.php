@@ -2,12 +2,14 @@
 <html lang="en">
     <head>
         @php
-            $data = App\Models\Setting::first();
+            $data = $data ?? App\Models\Setting::first();
+            $adminUser = auth()->user();
         @endphp
 
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="description" content="Impact Life Mission Admin" />
         <title>{{ $title ?? 'Impact Life Mission - Dashboard' }}</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
@@ -20,15 +22,39 @@
         @livewireStyles
     </head>
     <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" x-data>
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <a class="navbar-brand ps-3" href="{{ url('/redirects') }}" wire:navigate>Impact Life Mission</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" type="button">
                 <i class="fas fa-bars"></i>
             </button>
-            <ul class="navbar-nav ms-auto me-3 me-lg-4">
-                <li class="nav-item">
+            <ul class="navbar-nav ms-auto me-3 me-lg-4 align-items-center flex-row gap-2">
+                <li class="nav-item d-none d-md-block">
                     <a class="nav-link" href="{{ url('/') }}" target="_blank" rel="noopener">View Site</a>
                 </li>
+                @auth
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="adminUserDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user fa-fw"></i>
+                            <span class="ms-1 d-none d-sm-inline">{{ $adminUser->name ?? $adminUser->email }}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminUserDropdown">
+                            <li><h6 class="dropdown-header">{{ $adminUser->email }}</h6></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item text-danger">
+                                        <i class="fas fa-sign-out-alt me-1"></i> Log out
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">Login</a>
+                    </li>
+                @endauth
             </ul>
         </nav>
 
@@ -37,7 +63,10 @@
                 @include('admin.includes.sidenav')
             </div>
             <div id="layoutSidenav_content">
-                {{ $slot }}
+                {{ $slot ?? '' }}
+                @hasSection('content')
+                    @yield('content')
+                @endif
                 @include('admin.includes.footer')
             </div>
         </div>

@@ -4,13 +4,10 @@ namespace App\Livewire\Admin;
 
 use App\Models\Activity;
 use App\Models\Program;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
-use Livewire\Component;
 
-#[Layout('layouts.adminbase')]
 #[Title('Edit Program')]
-class ProjectEdit extends Component
+class ProjectEdit extends AdminComponent
 {
     public $id;
 
@@ -22,7 +19,7 @@ class ProjectEdit extends Component
     public function render()
     {
         $data = Activity::findOrFail($this->id);
-        return view('admin.activityUpdate', [
+        return $this->adminView('admin.activityUpdate', [
             'data' => $data,
             'programs' => Program::all(),
             'images' => $data->images,

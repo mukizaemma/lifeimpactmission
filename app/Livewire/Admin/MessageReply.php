@@ -3,13 +3,10 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Message;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
-use Livewire\Component;
 
-#[Layout('layouts.adminbase')]
 #[Title('Reply Message')]
-class MessageReply extends Component
+class MessageReply extends AdminComponent
 {
     public $id;
 
@@ -20,7 +17,7 @@ class MessageReply extends Component
 
     public function render()
     {
-        return view('admin.emails.messageReply', [
+        return $this->adminView('admin.emails.messageReply', [
             'data' => Message::findOrFail($this->id),
         ]);
     }

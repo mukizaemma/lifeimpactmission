@@ -3,13 +3,10 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Testimony;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
-use Livewire\Component;
 
-#[Layout('layouts.adminbase')]
 #[Title('Edit Testimony')]
-class TestimonyEdit extends Component
+class TestimonyEdit extends AdminComponent
 {
     public $id;
 
@@ -20,7 +17,7 @@ class TestimonyEdit extends Component
 
     public function render()
     {
-        return view('admin.testimonyUpdate', [
+        return $this->adminView('admin.testimonyUpdate', [
             'data' => Testimony::findOrFail($this->id),
         ]);
     }

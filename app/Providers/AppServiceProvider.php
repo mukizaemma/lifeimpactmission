@@ -35,5 +35,25 @@ class AppServiceProvider extends ServiceProvider
         }
         View::share('pageHeaders', $pageHeaders);
         View::share('socialLinks', SocialLinks::forSetting($setting));
+
+        // Ensure admin Livewire pages never fall back to the public frontbase layout.
+        if (function_exists('Livewire\\on')) {
+            \Livewire\on('render', function ($component, $view, $data = null) {
+                if (! is_object($component) || ! is_object($view)) {
+                    return;
+                }
+                if (! str_starts_with($component::class, 'App\\Livewire\\Admin\\')) {
+                    return;
+                }
+                if ($component::class === 'App\\Livewire\\Admin\\AdminComponent') {
+                    return;
+                }
+                try {
+                    $view->layout('layouts.adminbase');
+                } catch (\Throwable $e) {
+                    // Layout macro unavailable — AdminComponent::adminView() still sets it.
+                }
+            });
+        }
     }
 }

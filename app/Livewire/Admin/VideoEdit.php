@@ -4,13 +4,10 @@ namespace App\Livewire\Admin;
 
 use App\Models\Program;
 use App\Models\Video;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
-use Livewire\Component;
 
-#[Layout('layouts.adminbase')]
 #[Title('Edit Video')]
-class VideoEdit extends Component
+class VideoEdit extends AdminComponent
 {
     public $id;
 
@@ -21,7 +18,7 @@ class VideoEdit extends Component
 
     public function render()
     {
-        return view('admin.videoUpdate', [
+        return $this->adminView('admin.videoUpdate', [
             'data' => Video::findOrFail($this->id),
             'programs' => Program::latest()->get(),
         ]);

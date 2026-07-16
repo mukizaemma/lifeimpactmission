@@ -3,13 +3,10 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Image;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
-use Livewire\Component;
 
-#[Layout('layouts.adminbase')]
 #[Title('Edit Gallery Image')]
-class GalleryEdit extends Component
+class GalleryEdit extends AdminComponent
 {
     public $id;
 
@@ -20,7 +17,7 @@ class GalleryEdit extends Component
 
     public function render()
     {
-        return view('admin.galleryUpdate', [
+        return $this->adminView('admin.galleryUpdate', [
             'data' => Image::findOrFail($this->id),
         ]);
     }

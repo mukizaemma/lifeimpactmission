@@ -3,13 +3,10 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Mother;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
-use Livewire\Component;
 
-#[Layout('layouts.adminbase')]
 #[Title('Edit Mother')]
-class MotherEdit extends Component
+class MotherEdit extends AdminComponent
 {
     public $id;
 
@@ -20,7 +17,7 @@ class MotherEdit extends Component
 
     public function render()
     {
-        return view('admin.motherUpdate', [
+        return $this->adminView('admin.motherUpdate', [
             'data' => Mother::findOrFail($this->id),
         ]);
     }

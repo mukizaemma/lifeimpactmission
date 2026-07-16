@@ -3,17 +3,14 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Testimony;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
-use Livewire\Component;
 
-#[Layout('layouts.adminbase')]
 #[Title('Testimonials')]
-class Testimonials extends Component
+class Testimonials extends AdminComponent
 {
     public function render()
     {
-        return view('admin.testimonies', [
+        return $this->adminView('admin.testimonies', [
             'data' => Testimony::latest()->get(),
         ]);
     }

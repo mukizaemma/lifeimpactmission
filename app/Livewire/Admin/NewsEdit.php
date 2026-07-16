@@ -3,13 +3,10 @@
 namespace App\Livewire\Admin;
 
 use App\Models\News as NewsModel;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
-use Livewire\Component;
 
-#[Layout('layouts.adminbase')]
 #[Title('Edit Update')]
-class NewsEdit extends Component
+class NewsEdit extends AdminComponent
 {
     public $id;
 
@@ -20,7 +17,7 @@ class NewsEdit extends Component
 
     public function render()
     {
-        return view('admin.newsUpdate', [
+        return $this->adminView('admin.newsUpdate', [
             'blog' => NewsModel::findOrFail($this->id),
         ]);
     }

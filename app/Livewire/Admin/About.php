@@ -4,13 +4,10 @@ namespace App\Livewire\Admin;
 
 use App\Models\About as AboutModel;
 use App\Models\Background;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
-use Livewire\Component;
 
-#[Layout('layouts.adminbase')]
 #[Title('Mission & Vision')]
-class About extends Component
+class About extends AdminComponent
 {
     public function render()
     {
@@ -25,7 +22,7 @@ class About extends Component
         $background = Background::first();
         $ctaImage = $data->backImage ?: ($background->image1 ?? null);
 
-        return view('admin.about', [
+        return $this->adminView('admin.about', [
             'data' => $data,
             'ctaImage' => $ctaImage,
         ]);
