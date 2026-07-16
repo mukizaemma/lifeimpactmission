@@ -1,10 +1,5 @@
-@extends('layouts.frontbase')
-
-@section('title', 'Who We Are')
-
-@section('content')
-
-    @php
+<div class="ilm-page">
+@php
         $storyMilestones = [
             [
                 'icon' => 'flaticon-map',
@@ -253,5 +248,4 @@
 
     @include('frontend.includes.home-agriculture')
     @include('frontend.includes.backImage')
-
-@endsection
+</div>

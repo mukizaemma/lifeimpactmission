@@ -18,7 +18,7 @@
                                 <p class="ilm-mother-profile-card__text">
                                     {{ Str::limit(strip_tags($mother->description ?: $mother->story), 90, '...') }}
                                 </p>
-                                <a class="tp-btn ilm-btn-orange ilm-btn-sm" href="{{ route('mother', ['slug' => $mother->slug]) }}">View More</a>
+                                <a class="tp-btn ilm-btn-orange ilm-btn-sm" href="{{ route('mother', ['slug' => $mother->slug]) }}" wire:navigate>View More</a>
                             </div>
                         </article>
                     </div>
@@ -26,12 +26,12 @@
             </div>
 
             <div class="text-center mt-45">
-                <a class="tp-btn ilm-btn-orange" href="{{ route('mothers') }}">View More Mothers</a>
+                <a class="tp-btn ilm-btn-orange" href="{{ route('mothers') }}" wire:navigate>View More Mothers</a>
             </div>
         @else
             <div class="text-center">
                 <p class="ilm-section-subtitle">Mother profiles will appear here soon.</p>
-                <a class="tp-btn ilm-btn-orange" href="{{ route('mothers') }}">Explore Mothers Program</a>
+                <a class="tp-btn ilm-btn-orange" href="{{ route('mothers') }}" wire:navigate>Explore Mothers Program</a>
             </div>
         @endif
     </div>

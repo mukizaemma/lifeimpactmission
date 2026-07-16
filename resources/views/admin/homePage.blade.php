@@ -1,21 +1,5 @@
-@extends('layouts.adminbase')
-
-@section('title', 'Home Page')
-
-@section('sidebar')
-
-    @parent
-
-@endsection
-
-@section('content')
-
-    <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-            @include('admin.includes.sidenav')
-        </div>
-        <div id="layoutSidenav_content">
-            <main>
+<div class="ilm-admin-page">
+<main>
                 <div class="content">
                     <div class="container-fluid">
                         <div class="row">
@@ -142,17 +126,7 @@
 
 
                 </div>
-        </div>
         <!-- /.row -->
     </div><!-- /.container-fluid -->
-    </div>
     </main>
-    @include('admin.includes.footer')
-    </div>
-    </div>
-
-@section('scripts')
-
-    <script src="{{ asset('assets') }}/js/summernote.js"></script>
-
-@endsection
+</div>

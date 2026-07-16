@@ -1,14 +1,11 @@
-@extends('layouts.frontbase')
-
-@section('title', 'Contact')
-
-@section('content')
-
-    @include('frontend.includes.page-hero', ['pageKey' => 'contact'])
+<div class="ilm-page">
+@include('frontend.includes.page-hero', ['pageKey' => 'contact'])
 
     <section class="ilm-contact-info">
         <div class="container">
-            @if(session('success'))
+            @if(!empty($successMessage))
+                <div class="alert alert-success text-center mb-40">{{ $successMessage }}</div>
+            @elseif(session('success'))
                 <div class="alert alert-success text-center mb-40">{{ session('success') }}</div>
             @endif
 
@@ -55,7 +52,7 @@
                     <p class="ilm-section-subtitle">Tell us how you’d like to walk with young mothers and youth across Rwanda.</p>
                     <div class="ilm-contact-aside">
                         <p>Prefer a faster path? Explore ways to give, volunteer, or partner.</p>
-                        <a class="tp-btn ilm-btn-orange ilm-btn-sm" href="{{ route('getInvolved') }}">Get Involved</a>
+                        <a class="tp-btn ilm-btn-orange ilm-btn-sm" href="{{ route('getInvolved') }}" wire:navigate>Get Involved</a>
                     </div>
                     <div class="tp-contact-form__social-box mt-30">
                         @include('frontend.includes.social-links')
@@ -63,26 +60,31 @@
                 </div>
                 <div class="col-lg-7 wow tpfadeRight" data-wow-duration=".9s" data-wow-delay=".35s">
                     <div class="ilm-contact-form-box">
-                        <form class="form" action="{{ route('sendMessage') }}" method="POST">
-                            @csrf
+                        <form class="form" wire:submit="sendMessage">
                             <div class="row">
                                 <div class="col-md-6 mb-30">
                                     <div class="tp-contact-form__input-box">
-                                        <input type="text" placeholder="Your Name" name="names" value="{{ old('names') }}" required>
+                                        <input type="text" placeholder="Your Name" wire:model="names" required>
+                                        @error('names') <span class="text-danger">{{ $message }}</span> @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-30">
                                     <div class="tp-contact-form__input-box">
-                                        <input type="email" placeholder="Your Email" name="email" value="{{ old('email') }}" required>
+                                        <input type="email" placeholder="Your Email" wire:model="email" required>
+                                        @error('email') <span class="text-danger">{{ $message }}</span> @enderror
                                     </div>
                                 </div>
                                 <div class="col-12 mb-30">
                                     <div class="tp-contact-form__input-box">
-                                        <textarea name="message" placeholder="Your Message" required>{{ old('message') }}</textarea>
+                                        <textarea placeholder="Your Message" wire:model="message" required></textarea>
+                                        @error('message') <span class="text-danger">{{ $message }}</span> @enderror
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button type="submit" class="tp-btn ilm-btn-orange">Send Message</button>
+                                    <button type="submit" class="tp-btn ilm-btn-orange" wire:loading.attr="disabled">
+                                        <span wire:loading.remove wire:target="sendMessage">Send Message</span>
+                                        <span wire:loading wire:target="sendMessage">Sending…</span>
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -98,9 +100,8 @@
             <p class="ilm-section-subtitle text-white mb-30" style="opacity:.85">Your support helps young mothers rebuild with skills, health, and hope.</p>
             <div class="ilm-mother-cta-band__actions">
                 <a class="tp-btn ilm-btn-orange" href="https://secure.qgiv.com/for/impactlifemission" target="_blank" rel="noopener">Donate Now</a>
-                <a class="tp-btn ilm-btn-outline-light" href="{{ route('getInvolved') }}">Get Involved</a>
+                <a class="tp-btn ilm-btn-outline-light" href="{{ route('getInvolved') }}" wire:navigate>Get Involved</a>
             </div>
         </div>
     </section>
-
-@endsection
+</div>

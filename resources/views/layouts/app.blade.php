@@ -17,7 +17,7 @@
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
-        <x-jet-banner />
+        <x-banner />
 
         <div class="">
             @livewire('navigation-menu')

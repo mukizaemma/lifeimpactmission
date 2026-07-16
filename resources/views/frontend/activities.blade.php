@@ -1,11 +1,5 @@
-@extends('layouts.frontbase')
-
-@section('title', 'Home Page')
-
-@section('content')
-
-
-        @include('frontend.includes.page-hero', [
+<div class="ilm-page">
+@include('frontend.includes.page-hero', [
             'pageKey' => 'program_detail',
             'heroTitle' => $program->title,
             'heroImage' => $program->image
@@ -22,6 +16,4 @@
         <!-- cta-area-start -->
             @include('frontend.includes.backImage')
         <!-- cta-area-end -->
-
-
-@endsection
+</div>

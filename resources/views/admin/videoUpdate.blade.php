@@ -1,21 +1,8 @@
-@extends('layouts.adminbase')
-
-@section('title', 'Edit Video')
-
-@section('sidebar')
-    @parent
-@endsection
-
-@section('content')
-<div id="layoutSidenav">
-    <div id="layoutSidenav_nav">
-        @include('admin.includes.sidenav')
-    </div>
-    <div id="layoutSidenav_content">
-        <main>
+<div class="ilm-admin-page">
+<main>
             <div class="container-fluid px-4">
                 <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item"><a href="{{ route('videosAdmin') }}">Videos</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('videosAdmin') }}" wire:navigate>Videos</a></li>
                     <li class="breadcrumb-item active">Edit</li>
                 </ol>
 
@@ -68,7 +55,7 @@
                                 </div>
                                 <div class="col-12">
                                     <button type="submit" class="btn btn-primary">Update Video</button>
-                                    <a href="{{ route('videosAdmin') }}" class="btn btn-secondary">Cancel</a>
+                                    <a href="{{ route('videosAdmin') }}" class="btn btn-secondary" wire:navigate>Cancel</a>
                                 </div>
                             </div>
                         </form>
@@ -76,6 +63,4 @@
                 </div>
             </div>
         </main>
-    </div>
 </div>
-@endsection

@@ -29,13 +29,13 @@
                                         <a target="_blank" href=""><span><i class="fal fa-map-marker-alt"></i>
                                             {{$event->location}}</span></a>
                                     </div>
-                                    <a href="{{ route('event', ['slug' => $event->slug]) }}">
+                                    <a href="{{ route('event', ['slug' => $event->slug]) }}" wire:navigate>
                                         <h4 class="tp-event__title">{{$event->title}}</h4>
                                     </a>
                                     <div class="tp-event__link">
 
                                         @if(isset($event->slug))
-                                        <a href="{{ route('event', ['slug' => $event->slug]) }}">Read More<i class="fal fa-long-arrow-right"></i></a>
+                                        <a href="{{ route('event', ['slug' => $event->slug]) }}" wire:navigate>Read More<i class="fal fa-long-arrow-right"></i></a>
                                         @endif
 
 

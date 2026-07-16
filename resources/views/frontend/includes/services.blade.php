@@ -63,14 +63,14 @@
                 @endphp
                 <div class="col-lg-4 col-md-6 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".{{ $loop->iteration + 1 }}s">
                     <article class="ilm-key-card">
-                        <a href="{{ $href }}" class="ilm-key-card__media">
+                        <a href="{{ $href }}" class="ilm-key-card__media" wire:navigate>
                             <img src="{{ $img }}" alt="{{ $rs->title }}" loading="lazy" decoding="async" width="480" height="280">
                             <span class="ilm-key-card__shine" aria-hidden="true"></span>
                         </a>
                         <div class="ilm-key-card__body">
-                            <h3 class="ilm-key-card__title"><a href="{{ $href }}">{{ $rs->title }}</a></h3>
+                            <h3 class="ilm-key-card__title"><a href="{{ $href }}" wire:navigate>{{ $rs->title }}</a></h3>
                             <p class="ilm-key-card__text">{{ $excerpt }}</p>
-                            <a class="tp-btn ilm-btn-orange ilm-btn-sm" href="{{ $href }}">Learn More</a>
+                            <a class="tp-btn ilm-btn-orange ilm-btn-sm" href="{{ $href }}" wire:navigate>Learn More</a>
                         </div>
                     </article>
                 </div>

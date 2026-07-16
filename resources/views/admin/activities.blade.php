@@ -1,21 +1,5 @@
-@extends('layouts.adminbase')
-
-@section('title', 'Donations')
-
-@section('sidebar')
-
-    @parent
-
-@endsection
-
-@section('content')
-
-<div id="layoutSidenav">
-    <div id="layoutSidenav_nav">
-        @include('admin.includes.sidenav')
-    </div>
-    <div id="layoutSidenav_content">
-        <main>
+<div class="ilm-admin-page">
+<main>
             <div class="container-fluid px-4">
                 {{-- <h1 class="mt-4">Dashboard</h1> --}}
                 <ol class="breadcrumb mb-4">
@@ -59,7 +43,7 @@
                                     <td>   
                                         <div class="bg-light rounded ">
                                             <div class="btn-group" role="group">
-                                                <a href="{{ route('editProject',['id'=>$rs->id]) }}" class="btn btn-info"><i class="fa fa-images"></i></a>
+                                                <a href="{{ route('editProject',['id'=>$rs->id]) }}" class="btn btn-info" wire:navigate><i class="fa fa-images"></i></a>
                                                 <a href="{{ route('destroyProject',['id'=>$rs->id]) }}" class="btn btn-warning"  onclick="return confirm('Are you sure to delete this Project?')"><i class="fa fa-trash"></i></a>
                                             </div>
                                         </div>
@@ -148,12 +132,4 @@
 
             </div>
         </main>
-        @include('admin.includes.footer')
-    </div>
 </div>
-
-@section('scripts')
-
-<script src="{{asset('assets')}}/js/summernote.js"></script>
-
-@endsection

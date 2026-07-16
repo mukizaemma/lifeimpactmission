@@ -41,6 +41,7 @@
                             href="{{ $featuredEvent->slug ? route('event', ['slug' => $featuredEvent->slug]) : route('upcomingEvents') }}"
                             class="ilm-event-flyer"
                             aria-label="View {{ $featuredEvent->title }}"
+                            wire:navigate
                         >
                             <img
                                 src="{{ asset('storage/images/events/' . $featuredEvent->image) }}"
@@ -63,7 +64,7 @@
                             ? route('event', ['slug' => $featuredEvent->slug])
                             : route('upcomingEvents');
                     @endphp
-                    <a class="tp-btn theme-1-bg" href="{{ $eventViewUrl }}">
+                    <a class="tp-btn theme-1-bg" href="{{ $eventViewUrl }}" wire:navigate>
                         View More <i class="flaticon-arrow-right ms-1"></i>
                     </a>
                 </div>

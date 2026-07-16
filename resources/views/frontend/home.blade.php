@@ -1,8 +1,5 @@
-@extends('layouts.frontbase')
-
-@section('content')
-
-    {{-- 1. Hero --}}
+<div class="ilm-page">
+{{-- 1. Hero --}}
     @include('frontend.includes.slides')
 
     {{-- 2. About + Vision / Mission (mockup split) --}}
@@ -66,5 +63,4 @@
 
     {{-- 10. Get involved --}}
     @include('frontend.includes.bottom')
-
-@endsection
+</div>

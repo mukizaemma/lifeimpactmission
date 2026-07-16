@@ -1,10 +1,5 @@
-@extends('layouts.frontbase')
-
-@section('title', 'Our Team')
-
-@section('content')
-
-    @include('frontend.includes.page-hero', ['pageKey' => 'team'])
+<div class="ilm-page">
+@include('frontend.includes.page-hero', ['pageKey' => 'team'])
 
     <section class="ilm-team-section">
         <div class="container">
@@ -57,5 +52,4 @@
     @endif
 
     @include('frontend.includes.backImage')
-
-@endsection
+</div>

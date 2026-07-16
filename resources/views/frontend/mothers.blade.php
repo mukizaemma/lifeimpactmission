@@ -1,10 +1,5 @@
-@extends('layouts.frontbase')
-
-@section('title', 'Mothers Program')
-
-@section('content')
-
-    @include('frontend.includes.page-hero', [
+<div class="ilm-page">
+@include('frontend.includes.page-hero', [
         'pageKey' => 'mothers',
         'heroTitle' => $pageHeaders['mothers']->title ?? 'Empowered Mothers, Transformed Communities',
         'heroSubtitle' => $pageHeaders['mothers']->subtitle ?? 'Meet the inspiring mothers and discover how you can support their journey.',
@@ -32,7 +27,7 @@
                                 <p class="ilm-mother-profile-card__text">
                                     {{ Str::limit(strip_tags($mother->description ?: $mother->story), 100, '...') }}
                                 </p>
-                                <a class="tp-btn ilm-btn-orange ilm-btn-sm" href="{{ route('mother', ['slug' => $mother->slug]) }}">View More</a>
+                                <a class="tp-btn ilm-btn-orange ilm-btn-sm" href="{{ route('mother', ['slug' => $mother->slug]) }}" wire:navigate>View More</a>
                             </div>
                         </article>
                     </div>
@@ -76,11 +71,10 @@
             </div>
 
             <div class="text-center mt-45">
-                <a class="tp-btn ilm-btn-orange" href="{{ route('getInvolved') }}">Get Involved</a>
+                <a class="tp-btn ilm-btn-orange" href="{{ route('getInvolved') }}" wire:navigate>Get Involved</a>
             </div>
         </div>
     </section>
 
     @include('frontend.includes.bottom')
-
-@endsection
+</div>

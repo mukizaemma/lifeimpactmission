@@ -28,20 +28,12 @@
     <link rel="stylesheet" href="{{ asset('assets/css/spacing.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/ilm-home.css') }}">
+    @livewireStyles
 </head>
 
 <body>
 
-    <!-- preloader -->
-    <div id="preloader">
-        <div class="preloader">
-            <span></span>
-            <span></span>
-        </div>
-    </div>
-    <!-- preloader end  -->
-
-    <!-- back-to-top-start  -->
+<!-- back-to-top-start  -->
     <button class="scroll-top scroll-to-target" data-target="html">
         <i class="far fa-angle-double-up"></i>
     </button>
@@ -54,7 +46,7 @@
                 <button class="close-btn"><i class="fal fa-times"></i></button>
             </div>
             <div class="tpoffcanvas__logo">
-                <a href="{{ route('home') }}">
+                <a href="{{ route('home') }}" wire:navigate>
                     <img src="{{ asset('storage/images/' . ltrim($setting->logo ?? '', '/')) }}" alt="" width="120px">
                 </a>
             </div>
@@ -108,7 +100,7 @@
                 <div class="row align-items-center">
                     <div class="col-xl-1 col-lg-6 col-md-4 col-7">
                         <div class="tp-header-3__logo">
-                            <a href="{{route('home')}}">
+                            <a href="{{route('home')}}" wire:navigate>
                                 <img src="{{ asset('storage/images/' . ltrim($setting->logo ?? '', '/')) }}" alt="" width="90px">
                             </a>
                         </div>
@@ -117,35 +109,35 @@
                         <div class="tp-header-3__main-menu">
                             <nav class="tp-main-menu-content">
                                 <ul>
-                                    <li><a href="{{route('home')}}">Home</a>
+                                    <li><a href="{{route('home')}}" wire:navigate>Home</a>
                                     </li>
-                                    <li><a href="{{route('backgroundDetails')}}">Who We Are</a>
+                                    <li><a href="{{route('backgroundDetails')}}" wire:navigate>Who We Are</a>
                                     </li>
 
-                                    <li class="has-dropdown"><a href="{{ route('showPrograms') }}">Our Programs</a>
+                                    <li class="has-dropdown"><a href="{{ route('showPrograms') }}" wire:navigate>Our Programs</a>
                                         <ul class="submenu tp-submenu">
                                             @foreach ($ourPrograms as $program)
-                                                <li><a href="{{ route('project',['slug'=>$program->slug]) }}">{{ $program->title }}</a></li>           
+                                                <li><a href="{{ route('project',['slug'=>$program->slug]) }}" wire:navigate>{{ $program->title }}</a></li>           
                                             @endforeach
-                                            <li><a href="{{ route('mothers') }}">Mothers</a></li>
+                                            <li><a href="{{ route('mothers') }}" wire:navigate>Mothers</a></li>
                                         </ul>
                                     </li>
-                                    <li class="has-dropdown"><a href="{{ route('posts') }}">Stories & Updates</a>
+                                    <li class="has-dropdown"><a href="{{ route('posts') }}" wire:navigate>Stories & Updates</a>
                                         <ul class="submenu tp-submenu">
-                                            <li><a href="{{ route('testimonials') }}">Testimonials</a></li>
-                                            <li><a href="{{ route('upcomingEvents') }}">Events</a></li>
-                                            <li><a href="{{ route('posts') }}">Recent Updates</a></li>
-                                            <li><a href="{{ route('home') }}#events">Highlights</a></li>
+                                            <li><a href="{{ route('testimonials') }}" wire:navigate>Testimonials</a></li>
+                                            <li><a href="{{ route('upcomingEvents') }}" wire:navigate>Events</a></li>
+                                            <li><a href="{{ route('posts') }}" wire:navigate>Recent Updates</a></li>
+                                            <li><a href="{{ route('home') }}#events" wire:navigate>Highlights</a></li>
                                         </ul>
                                     </li>
-                                    <li class="has-dropdown"><a href="{{ route('gallery') }}">Gallery</a>
+                                    <li class="has-dropdown"><a href="{{ route('gallery') }}" wire:navigate>Gallery</a>
                                         <ul class="submenu tp-submenu">
-                                            <li><a href="{{ route('gallery') }}">Images</a></li>
-                                            <li><a href="{{ route('videos') }}">Videos</a></li>
+                                            <li><a href="{{ route('gallery') }}" wire:navigate>Images</a></li>
+                                            <li><a href="{{ route('videos') }}" wire:navigate>Videos</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="{{ route('getInvolved') }}">Get Involved</a></li>
-                                    <li><a href="{{route('contacts')}}">Contact</a></li>
+                                    <li><a href="{{ route('getInvolved') }}" wire:navigate>Get Involved</a></li>
+                                    <li><a href="{{route('contacts')}}" wire:navigate>Contact</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -156,7 +148,7 @@
                                 <ul class="d-flex align-items-center justify-content-end">
                                     {{-- <li>
                                         <div class="tp-header-3__icon-box d-none d-md-block">
-                                            <button class="search-open-btn"><i class="flaticon-loupe"></i></button><a href="{{ route('login') }}"><i class="flaticon-user"></i></a>
+                                            <button class="search-open-btn"><i class="flaticon-loupe"></i></button><a href="{{ route('login') }}" wire:navigate><i class="flaticon-user"></i></a>
                                         </div>
                                     </li>                                     --}}
                                     <li>
@@ -181,7 +173,7 @@
 
     <main>
         
-        @yield('content')
+        {{ $slot }}
     </main>
 
     <footer>
@@ -193,7 +185,7 @@
                         <div class="col-xl-4 col-lg-4 col-md-6 mb-45 ilm-footer-col-brand wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".3s">
                             <div class="tp-footer__widget footer-2-col-1">
                                 <div class="tp-footer__logo">
-                                    <a href="{{ route('home') }}">
+                                    <a href="{{ route('home') }}" wire:navigate>
                                         <img src="{{ asset('storage/images/' . ltrim($setting->logo ?? '', '/')) }}" alt="Impact Life Mission" height="120">
                                     </a>
                                 </div>
@@ -209,16 +201,16 @@
                                 <h4 class="tp-footer__widget-title-3">Quick Links</h4>
                                 <div class="tp-footer__list">
                                     <ul class="ilm-footer-quicklinks">
-                                        <li><a href="{{ route('home') }}">Home</a></li>
-                                        <li><a href="{{ route('backgroundDetails') }}">Who We Are</a></li>
-                                        <li><a href="{{ route('showPrograms') }}">Our Programs</a></li>
-                                        <li><a href="{{ route('mothers') }}">Mothers</a></li>
-                                        <li><a href="{{ route('upcomingEvents') }}">Events</a></li>
-                                        <li><a href="{{ route('posts') }}">Updates</a></li>
-                                        <li><a href="{{ route('gallery') }}">Images</a></li>
-                                        <li><a href="{{ route('videos') }}">Videos</a></li>
-                                        <li><a href="{{ route('getInvolved') }}">Get Involved</a></li>
-                                        <li><a href="{{ route('contacts') }}">Contact</a></li>
+                                        <li><a href="{{ route('home') }}" wire:navigate>Home</a></li>
+                                        <li><a href="{{ route('backgroundDetails') }}" wire:navigate>Who We Are</a></li>
+                                        <li><a href="{{ route('showPrograms') }}" wire:navigate>Our Programs</a></li>
+                                        <li><a href="{{ route('mothers') }}" wire:navigate>Mothers</a></li>
+                                        <li><a href="{{ route('upcomingEvents') }}" wire:navigate>Events</a></li>
+                                        <li><a href="{{ route('posts') }}" wire:navigate>Updates</a></li>
+                                        <li><a href="{{ route('gallery') }}" wire:navigate>Images</a></li>
+                                        <li><a href="{{ route('videos') }}" wire:navigate>Videos</a></li>
+                                        <li><a href="{{ route('getInvolved') }}" wire:navigate>Get Involved</a></li>
+                                        <li><a href="{{ route('contacts') }}" wire:navigate>Contact</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -283,10 +275,8 @@
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                         <div class="tp-copyright__text text-center text-sm-start">
                             <span style="color: #fff !important">
-                            &copy; Impact Life Mission 
-                            <script>
-                                document.write(new Date().getFullYear());
-                            </script>
+                            &copy; Impact Life Mission
+                            {{ date('Y') }}
                             | Site Developed by
                             </span>
                              <a href="https://iremetech.com"
@@ -306,20 +296,21 @@
 
     <!-- JS here -->
     <script src="{{ asset('assets/js/jquery.js') }}"></script>
-    <script src="{{ asset('assets/js/waypoints.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/js/slick.js') }}"></script>
-    <script src="{{ asset('assets/js/magnific-popup.js') }}"></script>
-    <script src="{{ asset('assets/js/purecounter.js') }}"></script>
-    <script src="{{ asset('assets/js/wow.js') }}"></script>
-    <script src="{{ asset('assets/js/nice-select.js') }}"></script>
-    <script src="{{ asset('assets/js/swiper-bundle.js') }}"></script>
-    <script src="{{ asset('assets/js/isotope-pkgd.js') }}"></script>
-    <script src="{{ asset('assets/js/imagesloaded-pkgd.js') }}"></script>
-    <script src="{{ asset('assets/js/ajax-form.js') }}"></script>
-    <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/waypoints.js') }}" defer></script>
+    <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" defer></script>
+    <script src="{{ asset('assets/js/slick.js') }}" defer></script>
+    <script src="{{ asset('assets/js/magnific-popup.js') }}" defer></script>
+    <script src="{{ asset('assets/js/purecounter.js') }}" defer></script>
+    <script src="{{ asset('assets/js/wow.js') }}" defer></script>
+    <script src="{{ asset('assets/js/nice-select.js') }}" defer></script>
+    <script src="{{ asset('assets/js/swiper-bundle.js') }}" defer></script>
+    <script src="{{ asset('assets/js/isotope-pkgd.js') }}" defer></script>
+    <script src="{{ asset('assets/js/imagesloaded-pkgd.js') }}" defer></script>
+    <script src="{{ asset('assets/js/ajax-form.js') }}" defer></script>
+    <script src="{{ asset('assets/js/main.js') }}" defer></script>
 
-
+    @livewireScripts
+    <script src="{{ asset('assets/js/ilm-spa.js') }}"></script>
 
 </body>
 

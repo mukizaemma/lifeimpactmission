@@ -1,22 +1,6 @@
-@extends('layouts.adminbase')
-
-@section('title', 'Edit Program')
-
-@section('sidebar')
-
-    @parent
-
-@endsection
-
-@section('content')
-
-<div id="layoutSidenav">
-    <div id="layoutSidenav_nav">
-        @include('admin.includes.sidenav')
-    </div>
-    <div id="layoutSidenav_content">
-        <div class="card-header">
-            <a href="{{route('getProjects')}}" class="btn btn-primary">Back</a>
+<div class="ilm-admin-page">
+<div class="card-header">
+            <a href="{{route('getProjects')}}" class="btn btn-primary" wire:navigate>Back</a>
             @if(session()->has('success'))
             <div class="arlert alert-success">
                 <button class="close" type="button" data-dismiss="alert">X</button>
@@ -30,7 +14,7 @@
                 <div class="row">
                 <ul class="nav mt-10">
                     <li class="nav-item mr-20 ">
-                        <a href="{{ route('getProjects') }}" class="btn btn-dark">Back</a>
+                        <a href="{{ route('getProjects') }}" class="btn btn-dark" wire:navigate>Back</a>
                     </li>
                     <li class="nav-item ">
                         
@@ -153,8 +137,7 @@
 
             </div>
         </main>
-        @include('admin.includes.footer')
-    </div>
+</div>
 </div>
 
     <!-- Add Image Modal -->
@@ -222,12 +205,6 @@
         </div>
     </div>
 
-
-
-@section('scripts')
-
-<script src="{{asset('assets')}}/js/summernote.js"></script>
-
 <script>
     function confirmDelete(deleteUrl) {
         document.getElementById('deleteConfirmBtn').setAttribute('href', deleteUrl);
@@ -235,4 +212,4 @@
         confirmModal.show();
     }
 </script>
-@endsection
+</div>

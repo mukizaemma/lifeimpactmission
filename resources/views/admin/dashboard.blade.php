@@ -1,21 +1,5 @@
-@extends('layouts.adminbase')
-
-@section('title', 'Home Page')
-
-@section('sidebar')
-
-    @parent
-
-@endsection
-
-@section('content')
-
-<div id="layoutSidenav">
-    <div id="layoutSidenav_nav">
-        @include('admin.includes.sidenav')
-    </div>
-    <div id="layoutSidenav_content">
-        <main>
+<div class="ilm-admin-page">
+<main>
             <div class="container-fluid px-4">
                 <h1 class="mt-4">Recent Messages</h1>
                 {{-- <div class="row">
@@ -103,7 +87,7 @@
                                     <td>{{$rs->message}}</td>
                                     <td>
                                         <div class="btn-group">
-                                            <a href="{{route('messageReply', $rs->id)}}" class="btn btn-primary"><i class="fa fa-envelope"></i></a>
+                                            <a href="{{route('messageReply', $rs->id)}}" class="btn btn-primary" wire:navigate><i class="fa fa-envelope"></i></a>
                                             <a href="" class="btn btn-warning"><i class="fa fa-trash"></i></a>
                                         </div>
                                     </td>
@@ -127,7 +111,4 @@
                 </div>
             </div>
         </footer>
-    </div>
 </div>
-
-@endsection

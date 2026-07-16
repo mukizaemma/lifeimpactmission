@@ -1,10 +1,5 @@
-@extends('layouts.frontbase')
-
-@section('title', 'Events')
-
-@section('content')
-
-    @include('frontend.includes.page-hero', ['pageKey' => 'events'])
+<div class="ilm-page">
+@include('frontend.includes.page-hero', ['pageKey' => 'events'])
 
     <section class="ilm-events-page">
         <div class="container">
@@ -17,7 +12,7 @@
                 @forelse ($events as $event)
                 <div class="col-lg-6 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".2s">
                     <article class="ilm-event-card">
-                        <a href="{{ route('event', ['slug' => $event->slug]) }}" class="ilm-event-card__media">
+                        <a href="{{ route('event', ['slug' => $event->slug]) }}" class="ilm-event-card__media" wire:navigate>
                             <img src="{{ asset('storage/images/events/') . $event->image }}" alt="{{ $event->title }}" loading="lazy" decoding="async">
                         </a>
                         <div class="ilm-event-card__body">
@@ -30,9 +25,9 @@
                                 @endif
                             </div>
                             <h3 class="ilm-event-card__title">
-                                <a href="{{ route('event', ['slug' => $event->slug]) }}">{{ $event->title }}</a>
+                                <a href="{{ route('event', ['slug' => $event->slug]) }}" wire:navigate>{{ $event->title }}</a>
                             </h3>
-                            <a class="ilm-program__link" href="{{ route('event', ['slug' => $event->slug]) }}">
+                            <a class="ilm-program__link" href="{{ route('event', ['slug' => $event->slug]) }}" wire:navigate>
                                 View details <i class="flaticon-arrow-right"></i>
                             </a>
                         </div>
@@ -41,7 +36,7 @@
                 @empty
                 <div class="col-12 text-center">
                     <p>No upcoming events right now. Check back soon or follow our updates.</p>
-                    <a class="tp-btn ilm-btn-orange mt-3" href="{{ route('posts') }}">Recent Updates</a>
+                    <a class="tp-btn ilm-btn-orange mt-3" href="{{ route('posts') }}" wire:navigate>Recent Updates</a>
                 </div>
                 @endforelse
             </div>
@@ -49,5 +44,4 @@
     </section>
 
     @include('frontend.includes.backImage')
-
-@endsection
+</div>

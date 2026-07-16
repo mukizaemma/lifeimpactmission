@@ -17,7 +17,7 @@
                 <li>Skills that strengthen community livelihoods</li>
                 <li>A pathway to lasting organizational independence</li>
             </ul>
-            <a class="tp-btn ilm-btn-orange" href="{{ route('contacts') }}">Partner on This Vision</a>
+            <a class="tp-btn ilm-btn-orange" href="{{ route('contacts') }}" wire:navigate>Partner on This Vision</a>
         </div>
         <div class="ilm-agriculture__media wow tpfadeRight" data-wow-duration=".9s" data-wow-delay=".35s">
             <img src="{{ $agriImage }}" alt="Agriculture independence vision" loading="lazy" decoding="async" width="720" height="560">

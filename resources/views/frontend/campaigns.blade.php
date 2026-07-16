@@ -1,9 +1,5 @@
-@extends('layouts.frontbase')
-
-
-@section('content')
-
-    <!-- service-area-start -->
+<div class="ilm-page">
+<!-- service-area-start -->
 
     
     <div class="tp-donate__area p-relative fix">
@@ -70,7 +66,7 @@
                                 </div>
                                 <div class="tp-donate__content">
                                     <div class="tp-donate__text">
-                                        <a href="{{ route('campaign',['slug'=>$campaign->slug]) }}">
+                                        <a href="{{ route('campaign',['slug'=>$campaign->slug]) }}" wire:navigate>
                                             <h5 class="tp-donate__title">{{ $campaign->title }}
                                             </h5>
                                         </a>
@@ -93,7 +89,7 @@
                                         </div>
                                     </div>
                                     <div class="tp-donate__button">
-                                        <a class="tp-grey-btn" href="{{ route('campaigns') }}">Donate Now</a>
+                                        <a class="tp-grey-btn" href="{{ route('campaigns') }}" wire:navigate>Donate Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -111,6 +107,4 @@
         <!-- cta-area-start -->
             @include('frontend.includes.backImage')
         <!-- cta-area-end -->
-
-
-@endsection
+</div>

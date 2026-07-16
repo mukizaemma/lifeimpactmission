@@ -1,7 +1,4 @@
-@extends('layouts.frontbase')
-
-@section('content')
-
+<div class="ilm-page">
 @php
     $isYoungMothers = str_contains(strtolower($activity->title ?? ''), 'mother');
 @endphp
@@ -75,7 +72,7 @@
                 <div class="ilm-activity-sidebar wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".4s">
                     <h3 class="ilm-activity-sidebar__title">More Programs</h3>
                     @foreach ($relatedActivities as $rs)
-                        <a href="{{ route('project', ['slug' => $rs->slug]) }}" class="ilm-activity-sidebar__item">
+                        <a href="{{ route('project', ['slug' => $rs->slug]) }}" class="ilm-activity-sidebar__item" wire:navigate>
                             <span class="ilm-activity-sidebar__thumb">
                                 <img
                                     src="{{ asset('storage/images/projects') . $rs->image }}"
@@ -97,5 +94,4 @@
         </div>
     </div>
 </section>
-
-@endsection
+</div>

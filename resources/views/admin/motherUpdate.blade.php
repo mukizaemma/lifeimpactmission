@@ -1,22 +1,9 @@
-@extends('layouts.adminbase')
-
-@section('title', 'Edit Mother')
-
-@section('sidebar')
-    @parent
-@endsection
-
-@section('content')
-<div id="layoutSidenav">
-    <div id="layoutSidenav_nav">
-        @include('admin.includes.sidenav')
-    </div>
-    <div id="layoutSidenav_content">
-        <main>
+<div class="ilm-admin-page">
+<main>
             <div class="container-fluid px-4">
                 <div class="card mb-4">
                     <div class="card-header">
-                        <a href="{{ route('mothersAdmin') }}" class="btn btn-primary">Back</a>
+                        <a href="{{ route('mothersAdmin') }}" class="btn btn-primary" wire:navigate>Back</a>
                     </div>
                     <div class="card-body">
                         @if (session()->has('error'))
@@ -84,7 +71,4 @@
                 </div>
             </div>
         </main>
-        @include('admin.includes.footer')
-    </div>
 </div>
-@endsection

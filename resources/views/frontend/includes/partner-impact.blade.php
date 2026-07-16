@@ -55,7 +55,7 @@
         </div>
         <div class="row mt-40">
             <div class="col-12 text-center">
-                <a class="tp-btn me-2" href="{{ route('contacts') }}">Become a Partner</a>
+                <a class="tp-btn me-2" href="{{ route('contacts') }}" wire:navigate>Become a Partner</a>
                 <a class="tp-btn theme-1-bg" href="https://secure.qgiv.com/for/impactlifemission" target="_blank" rel="noopener">Support Our Work</a>
             </div>
         </div>

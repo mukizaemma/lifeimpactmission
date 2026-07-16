@@ -1,21 +1,5 @@
-@extends('layouts.adminbase')
-
-@section('title', 'Partners')
-
-@section('sidebar')
-
-    @parent
-
-@endsection
-
-@section('content')
-
-    <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-            @include('admin.includes.sidenav')
-        </div>
-        <div id="layoutSidenav_content">
-            <main>
+<div class="ilm-admin-page">
+<main>
                 <div class="container-fluid px-4">
                     {{-- <h1 class="mt-4">Dashboard</h1> --}}
                     <ol class="breadcrumb mb-4">
@@ -59,7 +43,7 @@
                                             <td>
                                                 <div class="btn-btn-group ">
                                                     <a type="button" href="{{ route('editPartner', $rs->id) }}"
-                                                        class="btn btn-primary text-black">Edit</a>
+                                                        class="btn btn-primary text-black" wire:navigate>Edit</a>
                                                     <a type="button" href="{{ route('destroyPartner', $rs->id) }}"
                                                         class="btn btn-danger text-black"
                                                         onclick="return confirm('Are you sure to delete this item?')">Delete</a>
@@ -145,12 +129,4 @@
 
                 </div>
             </main>
-            @include('admin.includes.footer')
-        </div>
-    </div>
-
-@section('scripts')
-
-    <script src="{{ asset('assets') }}/js/summernote.js"></script>
-
-@endsection
+</div>

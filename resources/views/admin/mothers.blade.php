@@ -1,18 +1,5 @@
-@extends('layouts.adminbase')
-
-@section('title', 'Mothers')
-
-@section('sidebar')
-    @parent
-@endsection
-
-@section('content')
-<div id="layoutSidenav">
-    <div id="layoutSidenav_nav">
-        @include('admin.includes.sidenav')
-    </div>
-    <div id="layoutSidenav_content">
-        <main>
+<div class="ilm-admin-page">
+<main>
             <div class="container-fluid px-4">
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item active">Mothers</li>
@@ -56,7 +43,7 @@
                                         <td>{{ Str::limit(strip_tags($rs->description), 90) }}</td>
                                         <td>{{ $rs->status }}</td>
                                         <td>
-                                            <a href="{{ route('editMother', $rs->id) }}" class="btn btn-primary btn-sm text-black">Edit</a>
+                                            <a href="{{ route('editMother', $rs->id) }}" class="btn btn-primary btn-sm text-black" wire:navigate>Edit</a>
                                             <a href="{{ route('destroyMother', $rs->id) }}" class="btn btn-danger btn-sm text-black"
                                                onclick="return confirm('Delete this mother profile?')">Delete</a>
                                         </td>
@@ -136,7 +123,4 @@
                 </div>
             </div>
         </main>
-        @include('admin.includes.footer')
-    </div>
 </div>
-@endsection

@@ -1,10 +1,5 @@
-@extends('layouts.frontbase')
-
-@section('title', 'Get Involved')
-
-@section('content')
-
-    @include('frontend.includes.page-hero', ['pageKey' => 'get_involved'])
+<div class="ilm-page">
+@include('frontend.includes.page-hero', ['pageKey' => 'get_involved'])
 
     <section class="ilm-get-involved-intro">
         <div class="container">
@@ -34,13 +29,13 @@
                     <div class="ilm-mother-tile__icon" aria-hidden="true"><i class="flaticon-handshake"></i></div>
                     <h3 class="ilm-mother-tile__title">Partner</h3>
                     <p class="ilm-mother-tile__text">Churches, organizations, and friends who want to build long-term pathways of hope.</p>
-                    <a class="tp-btn ilm-btn-sm" href="{{ route('contacts') }}">Start a Conversation</a>
+                    <a class="tp-btn ilm-btn-sm" href="{{ route('contacts') }}" wire:navigate>Start a Conversation</a>
                 </article>
                 <article class="ilm-mother-tile ilm-mother-tile--sand">
                     <div class="ilm-mother-tile__icon" aria-hidden="true"><i class="flaticon-pray"></i></div>
                     <h3 class="ilm-mother-tile__title">Pray & Share</h3>
                     <p class="ilm-mother-tile__text">Cover our mothers and youth in prayer, and share their stories with your network.</p>
-                    <a class="tp-btn ilm-btn-sm" href="{{ route('posts') }}">See Stories</a>
+                    <a class="tp-btn ilm-btn-sm" href="{{ route('posts') }}" wire:navigate>See Stories</a>
                 </article>
             </div>
         </div>
@@ -93,40 +88,39 @@
                 </div>
                 <div class="col-lg-7">
                     <div class="ilm-contact-form-box">
-                        @if(session('success'))
+                        @if(!empty($successMessage))
+                            <div class="alert alert-success">{{ $successMessage }}</div>
+                        @elseif(session('success'))
                             <div class="alert alert-success">{{ session('success') }}</div>
                         @endif
-                        <form action="{{ route('sendMessage') }}" method="POST" id="ilm-volunteer-form">
-                            @csrf
+                        <form wire:submit="submitVolunteer">
                             <div class="row">
                                 <div class="col-md-6 mb-30">
                                     <div class="tp-contact-form__input-box">
-                                        <input type="text" name="names" placeholder="Your Name" required>
+                                        <input type="text" wire:model="names" placeholder="Your Name" required>
+                                        @error('names') <span class="text-danger">{{ $message }}</span> @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-30">
                                     <div class="tp-contact-form__input-box">
-                                        <input type="email" name="email" placeholder="Your Email" required>
+                                        <input type="email" wire:model="email" placeholder="Your Email" required>
+                                        @error('email') <span class="text-danger">{{ $message }}</span> @enderror
                                     </div>
                                 </div>
                                 <div class="col-12 mb-30">
                                     <div class="tp-contact-form__input-box">
-                                        <textarea name="message" id="vol_message" placeholder="How would you like to volunteer?" required></textarea>
+                                        <textarea wire:model="message" placeholder="How would you like to volunteer?" required></textarea>
+                                        @error('message') <span class="text-danger">{{ $message }}</span> @enderror
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button type="submit" class="tp-btn ilm-btn-orange">Submit Interest</button>
+                                    <button type="submit" class="tp-btn ilm-btn-orange" wire:loading.attr="disabled">
+                                        <span wire:loading.remove wire:target="submitVolunteer">Submit Interest</span>
+                                        <span wire:loading wire:target="submitVolunteer">Submitting…</span>
+                                    </button>
                                 </div>
                             </div>
                         </form>
-                        <script>
-                            document.getElementById('ilm-volunteer-form')?.addEventListener('submit', function () {
-                                var field = document.getElementById('vol_message');
-                                if (field && field.value && field.value.indexOf('[Volunteer]') !== 0) {
-                                    field.value = '[Volunteer] ' + field.value;
-                                }
-                            });
-                        </script>
                     </div>
                 </div>
             </div>
@@ -139,9 +133,8 @@
             <p class="ilm-section-subtitle text-white mb-30" style="opacity:.85">Join Impact Life Mission in restoring hope across Rwanda.</p>
             <div class="ilm-mother-cta-band__actions">
                 <a class="tp-btn ilm-btn-orange" href="https://secure.qgiv.com/for/impactlifemission" target="_blank" rel="noopener">Donate Now</a>
-                <a class="tp-btn ilm-btn-outline-light" href="{{ route('contacts') }}">Contact Us</a>
+                <a class="tp-btn ilm-btn-outline-light" href="{{ route('contacts') }}" wire:navigate>Contact Us</a>
             </div>
         </div>
     </section>
-
-@endsection
+</div>

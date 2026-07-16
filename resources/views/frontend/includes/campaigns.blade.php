@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="tp-donate__content">
                                     <div class="tp-donate__text">
-                                        <a href="{{ route('campaign',['slug'=>$campaign->slug]) }}">
+                                        <a href="{{ route('campaign',['slug'=>$campaign->slug]) }}" wire:navigate>
                                             <h5 class="tp-donate__title">{{ $campaign->title }}
                                             </h5>
                                         </a>

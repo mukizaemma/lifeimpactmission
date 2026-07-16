@@ -12,7 +12,7 @@
                 <div class="col-lg-5">
                     <div class="ilm-involve__actions">
                         <a class="tp-btn ilm-btn-orange" href="https://secure.qgiv.com/for/impactlifemission" target="_blank" rel="noopener">Donate Now</a>
-                        <a class="tp-btn ilm-btn-outline" href="{{ route('getInvolved') }}">Get Involved</a>
+                        <a class="tp-btn ilm-btn-outline" href="{{ route('getInvolved') }}" wire:navigate>Get Involved</a>
                     </div>
                 </div>
             </div>

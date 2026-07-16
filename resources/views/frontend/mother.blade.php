@@ -1,9 +1,4 @@
-@extends('layouts.frontbase')
-
-@section('title', $mother->names . ' | Mother\'s Story')
-
-@section('content')
-
+<div class="ilm-page">
 @php
     $supportWays = [
         [
@@ -153,10 +148,9 @@
             </div>
             <div class="ilm-mother-cta-band__actions">
                 <a class="tp-btn ilm-btn-outline" href="https://secure.qgiv.com/for/impactlifemission" target="_blank" rel="noopener">Donate</a>
-                <a class="tp-btn ilm-btn-outline" href="{{ route('contacts') }}">Become a Partner</a>
+                <a class="tp-btn ilm-btn-outline" href="{{ route('contacts') }}" wire:navigate>Become a Partner</a>
                 <a class="tp-btn ilm-btn-orange" href="https://secure.qgiv.com/for/impactlifemission" target="_blank" rel="noopener">Get Involved</a>
             </div>
         </div>
     </section>
-
-@endsection
+</div>

@@ -1,8 +1,4 @@
-@extends('layouts.frontbase')
-
-@section('content')
-
-
+<div class="ilm-page">
 <!-- postbox area start -->
 <section class="postbox__area pt-120 pb-80">
 <div class="container">
@@ -70,7 +66,7 @@
                         @foreach ($news as $rs)
                         <div class="rc__post mb-10 d-flex align-items-center">
                         <div class="rc__post-thumb mr-20">
-                            <a href="{{route('postSingle',$rs->slug)}}"><img src="{{ asset('storage/images/news/' . $rs->image) }}" alt="" width="90px"></a>
+                            <a href="{{route('postSingle',$rs->slug)}}" wire:navigate><img src="{{ asset('storage/images/news/' . $rs->image) }}" alt="" width="90px"></a>
                         </div>
                         <div class="rc__post-content">
                             {{-- <div class="rc__meta">
@@ -78,7 +74,7 @@
                                 02 Comments</span>
                             </div> --}}
                             <h3 class="rc__post-title">
-                                <a href="{{route('postSingle',$rs->slug)}}">{{ $rs->title }}</a>
+                                <a href="{{route('postSingle',$rs->slug)}}" wire:navigate>{{ $rs->title }}</a>
                             </h3>
                         </div>
                         </div>
@@ -94,7 +90,4 @@
 </div>
 </section>
 <!-- postbox area end -->
-
-
-
-@endsection
+</div>

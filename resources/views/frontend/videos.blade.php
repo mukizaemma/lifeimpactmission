@@ -1,10 +1,5 @@
-@extends('layouts.frontbase')
-
-@section('title', 'Videos Gallery')
-
-@section('content')
-
-    @include('frontend.includes.page-hero', ['pageKey' => 'videos'])
+<div class="ilm-page">
+@include('frontend.includes.page-hero', ['pageKey' => 'videos'])
 
     <section class="ilm-videos-page">
         <div class="container">
@@ -14,8 +9,8 @@
             </div>
 
             <div class="ilm-gallery-switch text-center mb-50">
-                <a class="ilm-gallery-switch__link" href="{{ route('gallery') }}">Images</a>
-                <a class="ilm-gallery-switch__link is-active" href="{{ route('videos') }}">Videos</a>
+                <a class="ilm-gallery-switch__link" href="{{ route('gallery') }}" wire:navigate>Images</a>
+                <a class="ilm-gallery-switch__link is-active" href="{{ route('videos') }}" wire:navigate>Videos</a>
             </div>
 
             <div class="row g-4">
@@ -55,7 +50,7 @@
                         <div class="ilm-empty-state text-center">
                             <h3>Videos coming soon</h3>
                             <p>Program stories and field highlights will be published here. Meanwhile, explore our image gallery.</p>
-                            <a class="tp-btn ilm-btn-orange" href="{{ route('gallery') }}">View Images</a>
+                            <a class="tp-btn ilm-btn-orange" href="{{ route('gallery') }}" wire:navigate>View Images</a>
                         </div>
                     </div>
                 @endforelse
@@ -64,5 +59,4 @@
     </section>
 
     @include('frontend.includes.bottom')
-
-@endsection
+</div>

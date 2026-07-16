@@ -1,21 +1,5 @@
-@extends('layouts.adminbase')
-
-@section('title', 'Home Page')
-
-@section('sidebar')
-
-    @parent
-
-@endsection
-
-@section('content')
-
-<div id="layoutSidenav">
-    <div id="layoutSidenav_nav">
-        @include('admin.includes.sidenav')
-    </div>
-    <div id="layoutSidenav_content">
-        <main>
+<div class="ilm-admin-page">
+<main>
             <div class="container-fluid px-4">
                 {{-- <h1 class="mt-4">Dashboard</h1> --}}
                 <ol class="breadcrumb mb-4">
@@ -39,7 +23,7 @@
 
                 <div class="card mb-4">
                     <div class="card-header">
-                        <a href="{{route('images')}}" class="btn btn-primary">Back</a>
+                        <a href="{{route('images')}}" class="btn btn-primary" wire:navigate>Back</a>
                     </div>
                     <div class="card-body">
                         <form class="form" action="{{ route('updateGallery', $data->id) }}" method="POST"
@@ -121,12 +105,4 @@
 
             </div>
         </main>
-        @include('admin.includes.footer')
-    </div>
 </div>
-
-@section('scripts')
-
-<script src="{{asset('assets')}}/js/summernote.js"></script>
-
-@endsection

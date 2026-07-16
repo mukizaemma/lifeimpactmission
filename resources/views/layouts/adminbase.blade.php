@@ -2,75 +2,52 @@
 <html lang="en">
     <head>
         @php
-        $data = App\Models\Setting::first()
+            $data = App\Models\Setting::first();
         @endphp
 
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" /> 
-        <title>Impact Life Mission - Dashboard</title>
+        <meta name="description" content="Impact Life Mission Admin" />
+        <title>{{ $title ?? 'Impact Life Mission - Dashboard' }}</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link href="{{asset('assets')}}/admin/css/styles.css" rel="stylesheet" />
+        <link href="{{ asset('assets/admin/css/styles.css') }}" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-
-        {{-- summernote --}}
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" >
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
-
-
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
         <link href="{{ asset('assets/css/ilm-admin-upload.css') }}" rel="stylesheet">
-
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-
+        @livewireStyles
     </head>
     <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">Impact Life Mission</a>
-            <!-- Sidebar Toggle-->
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-            <!-- Navbar Search-->
-            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-                </div>
-            </form>
-            <!-- Navbar-->
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <li class="nav-item dropdown">
-                    <x-app-layout>
-
-                    </x-app-layout>
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" x-data>
+            <a class="navbar-brand ps-3" href="{{ url('/redirects') }}" wire:navigate>Impact Life Mission</a>
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" type="button">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="navbar-nav ms-auto me-3 me-lg-4">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/') }}" target="_blank" rel="noopener">View Site</a>
                 </li>
             </ul>
         </nav>
 
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                @include('admin.includes.sidenav')
+            </div>
+            <div id="layoutSidenav_content">
+                {{ $slot }}
+                @include('admin.includes.footer')
+            </div>
+        </div>
 
-    <div class="container-fluid">
-        {{-- @show --}}
-        @yield('content')
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="{{asset('assets')}}/admin/js/scripts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="{{asset('assets')}}/admin/assets/demo/chart-area-demo.js"></script>
-    <script src="{{asset('assets')}}/admin/assets/demo/chart-bar-demo.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-    <script src="{{asset('assets')}}/admin/js/datatables-simple-demo.js"></script>
-
-        {{-- summernote --}}
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-
-        {{-- <script src="{{asset('assets')}}/js/summernote.js"></script> --}}
-
-        @yield('scripts')
-    <script src="{{ asset('assets/js/ilm-image-upload.js') }}"></script>
-</body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{{ asset('assets/admin/js/scripts.js') }}"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+        <script src="{{ asset('assets/js/ilm-image-upload.js') }}"></script>
+        @livewireScripts
+        <script src="{{ asset('assets/js/ilm-admin-spa.js') }}"></script>
+    </body>
 </html>

@@ -1,9 +1,4 @@
-@extends('layouts.frontbase')
-
-@section('title', $blog->title ?? 'Update')
-
-@section('content')
-
+<div class="ilm-page">
 @php
     $galleryImages = $images ?? collect();
     $related = ($relatedBlogs instanceof \Illuminate\Support\Collection)
@@ -15,7 +10,7 @@
         <div class="container">
             <div class="ilm-update-banner__inner">
                 <p class="ilm-update-banner__eyebrow">
-                    <a href="{{ route('posts') }}">Updates</a>
+                    <a href="{{ route('posts') }}" wire:navigate>Updates</a>
                     <span aria-hidden="true">/</span>
                     Story
                 </p>
@@ -65,7 +60,7 @@
                         <h2 class="ilm-update-sidebar__title">More updates</h2>
                         <div class="ilm-update-sidebar__list">
                             @forelse($related as $rs)
-                                <a class="ilm-update-related" href="{{ route('postSingle', $rs->slug) }}">
+                                <a class="ilm-update-related" href="{{ route('postSingle', $rs->slug) }}" wire:navigate>
                                     <span class="ilm-update-related__media">
                                         <img src="{{ asset('storage/images/news/' . $rs->image) }}" alt="" loading="lazy" decoding="async">
                                     </span>
@@ -78,7 +73,7 @@
                                 <p>More stories will appear here soon.</p>
                             @endforelse
                         </div>
-                        <a class="tp-btn ilm-btn-orange ilm-btn-sm mt-20" href="{{ route('posts') }}">All Updates</a>
+                        <a class="tp-btn ilm-btn-orange ilm-btn-sm mt-20" href="{{ route('posts') }}" wire:navigate>All Updates</a>
                     </aside>
                 </div>
             </div>
@@ -86,5 +81,4 @@
     </section>
 
     @include('frontend.includes.bottom')
-
-@endsection
+</div>

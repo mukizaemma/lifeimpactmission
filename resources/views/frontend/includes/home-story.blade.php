@@ -25,8 +25,8 @@
                         </blockquote>
                         <p class="ilm-story__name">{{ $story->names }}</p>
                         <div class="ilm-story__actions">
-                            <a class="tp-btn ilm-btn-orange" href="{{ route('testimony', ['id' => $story->id]) }}">Read Full Story</a>
-                            <a class="tp-btn ilm-btn-ghost" href="{{ route('testimonials') }}">More Testimonials</a>
+                            <a class="tp-btn ilm-btn-orange" href="{{ route('testimony', ['id' => $story->id]) }}" wire:navigate>Read Full Story</a>
+                            <a class="tp-btn ilm-btn-ghost" href="{{ route('testimonials') }}" wire:navigate>More Testimonials</a>
                         </div>
                     </div>
                 </div>

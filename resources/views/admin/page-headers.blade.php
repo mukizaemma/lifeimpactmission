@@ -1,18 +1,5 @@
-@extends('layouts.adminbase')
-
-@section('title', 'Page Headers')
-
-@section('sidebar')
-    @parent
-@endsection
-
-@section('content')
-    <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-            @include('admin.includes.sidenav')
-        </div>
-        <div id="layoutSidenav_content">
-            <main>
+<div class="ilm-admin-page">
+<main>
                 <div class="container-fluid px-4 py-4">
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h1 class="h3 mb-0">Page Headers</h1>
@@ -83,7 +70,4 @@
                     </form>
                 </div>
             </main>
-            @include('admin.includes.footer')
-        </div>
-    </div>
-@endsection
+</div>

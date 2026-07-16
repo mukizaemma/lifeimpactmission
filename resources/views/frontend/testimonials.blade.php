@@ -1,10 +1,5 @@
-@extends('layouts.frontbase')
-
-@section('title', 'Testimonials')
-
-@section('content')
-
-    @include('frontend.includes.page-hero', ['pageKey' => 'testimonials'])
+<div class="ilm-page">
+@include('frontend.includes.page-hero', ['pageKey' => 'testimonials'])
 
     <section class="ilm-testimonials-page">
         <div class="container">
@@ -17,16 +12,16 @@
                 @forelse ($testimonials as $rs)
                 <div class="col-xl-4 col-lg-4 col-md-6 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".2s">
                     <article class="ilm-key-card">
-                        <a href="{{ route('testimony', ['id' => $rs->id]) }}" class="ilm-key-card__media">
+                        <a href="{{ route('testimony', ['id' => $rs->id]) }}" class="ilm-key-card__media" wire:navigate>
                             <img src="{{ asset('storage/images/testimonies') . $rs->image }}" alt="{{ $rs->names }}" loading="lazy" decoding="async">
                             <span class="ilm-key-card__shine" aria-hidden="true"></span>
                         </a>
                         <div class="ilm-key-card__body">
                             <h3 class="ilm-key-card__title">
-                                <a href="{{ route('testimony', ['id' => $rs->id]) }}">{{ $rs->names }}</a>
+                                <a href="{{ route('testimony', ['id' => $rs->id]) }}" wire:navigate>{{ $rs->names }}</a>
                             </h3>
                             <p class="ilm-key-card__text">{{ Str::limit(strip_tags($rs->testimony), 120, '...') }}</p>
-                            <a class="tp-btn ilm-btn-orange ilm-btn-sm" href="{{ route('testimony', ['id' => $rs->id]) }}">Read Story</a>
+                            <a class="tp-btn ilm-btn-orange ilm-btn-sm" href="{{ route('testimony', ['id' => $rs->id]) }}" wire:navigate>Read Story</a>
                         </div>
                     </article>
                 </div>
@@ -38,5 +33,4 @@
     </section>
 
     @include('frontend.includes.backImage')
-
-@endsection
+</div>

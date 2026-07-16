@@ -2,38 +2,52 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Livewire\Frontend\About;
+use App\Livewire\Frontend\CampaignShow;
+use App\Livewire\Frontend\Campaigns;
+use App\Livewire\Frontend\Contact;
+use App\Livewire\Frontend\EventShow;
+use App\Livewire\Frontend\Events;
+use App\Livewire\Frontend\Gallery;
+use App\Livewire\Frontend\GetInvolved;
+use App\Livewire\Frontend\Home;
+use App\Livewire\Frontend\MotherShow;
+use App\Livewire\Frontend\Mothers;
+use App\Livewire\Frontend\ProgramShow;
+use App\Livewire\Frontend\Programs;
+use App\Livewire\Frontend\Team;
+use App\Livewire\Frontend\Testimonials;
+use App\Livewire\Frontend\TestimonyShow;
+use App\Livewire\Frontend\UpdateShow;
+use App\Livewire\Frontend\Updates;
+use App\Livewire\Frontend\Videos;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
 */
 
-Route::get('/',[App\Http\Controllers\HomeController::class,'index'])->name('home');
-Route::get('/about-us',[App\Http\Controllers\HomeController::class,'backgroundDetails'])->name('backgroundDetails');
-Route::get('/team',[App\Http\Controllers\HomeController::class,'team'])->name('team');
-Route::get('/our-programs',[App\Http\Controllers\HomeController::class,'showPrograms'])->name('showPrograms');
-Route::get('/programs/{slug}',[App\Http\Controllers\HomeController::class,'project'])->name('project');
-Route::get('/campaigns',[App\Http\Controllers\HomeController::class,'campaigns'])->name('campaigns');
-Route::get('/campaigns/{slug}',[App\Http\Controllers\HomeController::class,'campaign'])->name('campaign');
-Route::get('/upcoming-events',[App\Http\Controllers\HomeController::class,'upcomingEvents'])->name('upcomingEvents');
-Route::get('/upcoming-events/{slug}',[App\Http\Controllers\HomeController::class,'event'])->name('event');
+Route::get('/', Home::class)->name('home');
+Route::get('/about-us', About::class)->name('backgroundDetails');
+Route::get('/team', Team::class)->name('team');
+Route::get('/our-programs', Programs::class)->name('showPrograms');
+Route::get('/programs/{slug}', ProgramShow::class)->name('project');
+Route::get('/campaigns', Campaigns::class)->name('campaigns');
+Route::get('/campaigns/{slug}', CampaignShow::class)->name('campaign');
+Route::get('/upcoming-events', Events::class)->name('upcomingEvents');
+Route::get('/upcoming-events/{slug}', EventShow::class)->name('event');
 Route::get('/Messages',[App\Http\Controllers\HomeController::class,'messages'])->name('Messages');
-Route::get('/Gallery',[App\Http\Controllers\HomeController::class,'gallery'])->name('gallery');
-Route::get('/videos',[App\Http\Controllers\HomeController::class,'videos'])->name('videos');
-Route::get('/contacts',[App\Http\Controllers\HomeController::class,'contacts'])->name('contacts');
-Route::get('/testimonials',[App\Http\Controllers\HomeController::class,'testimonials'])->name('testimonials');
-Route::get('/testimonials/{id}',[App\Http\Controllers\HomeController::class,'testimony'])->name('testimony');
-Route::get('/mothers',[App\Http\Controllers\HomeController::class,'mothers'])->name('mothers');
-Route::get('/mothers/{slug}',[App\Http\Controllers\HomeController::class,'mother'])->name('mother');
-Route::get('/updates',[App\Http\Controllers\HomeController::class,'posts'])->name('posts');
-Route::get('/updates/{slug}',[App\Http\Controllers\HomeController::class,'postSingle'])->name('postSingle');
-Route::get('/get-involved',[App\Http\Controllers\HomeController::class,'getInvolved'])->name('getInvolved');
+Route::get('/Gallery', Gallery::class)->name('gallery');
+Route::get('/videos', Videos::class)->name('videos');
+Route::get('/contacts', Contact::class)->name('contacts');
+Route::get('/testimonials', Testimonials::class)->name('testimonials');
+Route::get('/testimonials/{id}', TestimonyShow::class)->name('testimony');
+Route::get('/mothers', Mothers::class)->name('mothers');
+Route::get('/mothers/{slug}', MotherShow::class)->name('mother');
+Route::get('/updates', Updates::class)->name('posts');
+Route::get('/updates/{slug}', UpdateShow::class)->name('postSingle');
+Route::get('/get-involved', GetInvolved::class)->name('getInvolved');
 
 // Users Action
 Route::get('/donate',[App\Http\Controllers\HomeController::class,'donate'])->name('donate');
@@ -69,127 +83,121 @@ Route::middleware('admin:admin')->group(function(){
 //     })->name('dashboard');
 // });
 
-Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verified'
-])->group(function () {
-    Route::get('admin/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('dashboard')->middleware('auth:admin');
+Route::middleware(['auth:sanctum,admin', config('jetstream.auth_session'), 'verified'])->group(function () {
+    Route::get('admin/dashboard', \App\Livewire\Admin\Dashboard::class)->name('dashboard');
 
-    // Route::get('branches', [App\Http\Controllers\BranchController::class, 'index'])->name('branch.index');
+    Route::get('/redirects', \App\Livewire\Admin\Dashboard::class)->name('redirects');
+    Route::get('/webMessages', \App\Livewire\Admin\Dashboard::class)->name('webMessages');
 
-    Route::get('/redirects',[App\Http\Controllers\HomeController::class,'redirects'])->name('redirects');
+    Route::get('/setting', \App\Livewire\Admin\Settings::class)->name('settings');
+    Route::post('/saveSetting/{id}', [App\Http\Controllers\HomeController::class, 'saveSetting'])->name('saveSetting');
 
-    Route::get('/setting',[App\Http\Controllers\HomeController::class,'setting'])->name('settings');
-    Route::post('/saveSetting/{id}',[App\Http\Controllers\HomeController::class,'saveSetting'])->name('saveSetting');
-
-    Route::get('/page-headers', [App\Http\Controllers\PageHeaderController::class, 'index'])->name('pageHeaders');
+    Route::get('/page-headers', \App\Livewire\Admin\PageHeaders::class)->name('pageHeaders');
     Route::post('/page-headers', [App\Http\Controllers\PageHeaderController::class, 'update'])->name('updatePageHeaders');
 
-    Route::get('/about',[App\Http\Controllers\HomeController::class,'about'])->name('about');
-    Route::POST('/saveAbout/{id}',[App\Http\Controllers\HomeController::class,'saveAbout'])->name('saveAbout');
+    Route::get('/about', \App\Livewire\Admin\About::class)->name('about');
+    Route::post('/saveAbout/{id}', [App\Http\Controllers\HomeController::class, 'saveAbout'])->name('saveAbout');
 
-    Route::get('/aboutUs',[App\Http\Controllers\BackgroundController::class,'background'])->name('background');
-    Route::POST('/saveBackg',[App\Http\Controllers\BackgroundController::class,'saveBackg'])->name('saveBackg');
+    Route::get('/aboutUs', \App\Livewire\Admin\Background::class)->name('background');
+    Route::post('/saveBackg', [App\Http\Controllers\BackgroundController::class, 'saveBackg'])->name('saveBackg');
 
-    Route::get('/homePage',[App\Http\Controllers\BackgroundController::class,'homePage'])->name('homePage');
-    Route::POST('/saveHom',[App\Http\Controllers\BackgroundController::class,'saveHom'])->name('saveHom');
+    Route::get('/homePage', [App\Http\Controllers\BackgroundController::class, 'homePage'])->name('homePage');
+    Route::post('/saveHom', [App\Http\Controllers\BackgroundController::class, 'saveHom'])->name('saveHom');
 
-
-
-    // Programs
+    // Programs (legacy CRUD)
     Route::get('/progras', [App\Http\Controllers\ProgramController::class, 'index'])->name('programs');
     Route::post('/saveProgram', [App\Http\Controllers\ProgramController::class, 'store'])->name('saveProgram');
     Route::get('/editProgram/{id}', [App\Http\Controllers\ProgramController::class, 'edit'])->name('editProgram');
     Route::post('/updateProgram/{id}', [App\Http\Controllers\ProgramController::class, 'update'])->name('updateProgram');
     Route::get('/destroyProgram/{id}', [App\Http\Controllers\ProgramController::class, 'destroy'])->name('destroyProgram');
 
-    // CHildren
-    Route::get('/get-projects', [App\Http\Controllers\ProjectsController::class, 'index'])->name('getProjects');
+    // Activities / Projects
+    Route::get('/get-projects', \App\Livewire\Admin\Projects::class)->name('getProjects');
     Route::post('/saveProject', [App\Http\Controllers\ProjectsController::class, 'store'])->name('saveProject');
-    Route::get('/editProject/{id}', [App\Http\Controllers\ProjectsController::class, 'edit'])->name('editProject');
+    Route::get('/editProject/{id}', \App\Livewire\Admin\ProjectEdit::class)->name('editProject');
     Route::post('/updateProject/{id}', [App\Http\Controllers\ProjectsController::class, 'update'])->name('updateProject');
     Route::get('/destroyProject/{id}', [App\Http\Controllers\ProjectsController::class, 'destroy'])->name('destroyProject');
-        Route::post('/addProjectImage', [App\Http\Controllers\ProjectsController::class, 'addProjectImage'])->name('addProjectImage');
+    Route::post('/addProjectImage', [App\Http\Controllers\ProjectsController::class, 'addProjectImage'])->name('addProjectImage');
     Route::get('/deleteProjectImage/{id}', [App\Http\Controllers\ProjectsController::class, 'deleteProjectImage'])->name('deleteProjectImage');
 
     // Gallery
-    Route::get('/images', [App\Http\Controllers\GalleryController::class, 'index'])->name('images');
+    Route::get('/images', \App\Livewire\Admin\Gallery::class)->name('images');
     Route::post('/saveGallery', [App\Http\Controllers\GalleryController::class, 'store'])->name('saveGallery');
-    Route::get('/editGallery/{id}', [App\Http\Controllers\GalleryController::class, 'edit'])->name('editGallery');
+    Route::get('/editGallery/{id}', \App\Livewire\Admin\GalleryEdit::class)->name('editGallery');
     Route::post('/updateGallery/{id}', [App\Http\Controllers\GalleryController::class, 'update'])->name('updateGallery');
     Route::get('/destroyGallery/{id}', [App\Http\Controllers\GalleryController::class, 'destroy'])->name('destroyGallery');
 
-    // Gallery
-    Route::get('/slides', [App\Http\Controllers\SlidesController::class, 'index'])->name('slides');
+    // Slides
+    Route::get('/slides', \App\Livewire\Admin\Slides::class)->name('slides');
     Route::post('/saveSlide', [App\Http\Controllers\SlidesController::class, 'store'])->name('saveSlide');
-    Route::get('/editSlide/{id}', [App\Http\Controllers\SlidesController::class, 'edit'])->name('editSlide');
+    Route::get('/editSlide/{id}', \App\Livewire\Admin\SlideEdit::class)->name('editSlide');
     Route::post('/updateSlide/{id}', [App\Http\Controllers\SlidesController::class, 'update'])->name('updateSlide');
     Route::get('/destroySlide/{id}', [App\Http\Controllers\SlidesController::class, 'destroy'])->name('destroySlide');
 
     // Events
-    Route::get('/events', [App\Http\Controllers\EventController::class, 'index'])->name('events');
+    Route::get('/events', \App\Livewire\Admin\Events::class)->name('events');
     Route::post('/saveEvent', [App\Http\Controllers\EventController::class, 'store'])->name('saveEvent');
-    Route::get('/editEvent/{id}', [App\Http\Controllers\EventController::class, 'edit'])->name('editEvent');
+    Route::get('/editEvent/{id}', \App\Livewire\Admin\EventEdit::class)->name('editEvent');
     Route::post('/updateEvent/{id}', [App\Http\Controllers\EventController::class, 'update'])->name('updateEvent');
     Route::get('/destroyEvent/{id}', [App\Http\Controllers\EventController::class, 'destroy'])->name('destroyEvent');
 
-        // Team
-    Route::get('/staff', [App\Http\Controllers\StaffController::class, 'index'])->name('staff');
+    // Team
+    Route::get('/staff', \App\Livewire\Admin\Staff::class)->name('staff');
     Route::post('/saveStaff', [App\Http\Controllers\StaffController::class, 'store'])->name('saveStaff');
-    Route::get('/editStaff/{id}', [App\Http\Controllers\StaffController::class, 'edit'])->name('editStaff');
+    Route::get('/editStaff/{id}', \App\Livewire\Admin\StaffEdit::class)->name('editStaff');
     Route::post('/updateStaff/{id}', [App\Http\Controllers\StaffController::class, 'update'])->name('updateStaff');
     Route::get('/destroyStaff/{id}', [App\Http\Controllers\StaffController::class, 'destroy'])->name('destroyStaff');
 
     // Testimonies
-    Route::get('/getTestimonials', [App\Http\Controllers\TestimoniesController::class, 'index'])->name('getTestimonials');
+    Route::get('/getTestimonials', \App\Livewire\Admin\Testimonials::class)->name('getTestimonials');
     Route::post('/saveTestimony', [App\Http\Controllers\TestimoniesController::class, 'store'])->name('saveTestimony');
-    Route::get('/editTestimony/{id}', [App\Http\Controllers\TestimoniesController::class, 'edit'])->name('editTestimony');
+    Route::get('/editTestimony/{id}', \App\Livewire\Admin\TestimonyEdit::class)->name('editTestimony');
     Route::post('/updateTestimony/{id}', [App\Http\Controllers\TestimoniesController::class, 'update'])->name('updateTestimony');
     Route::get('/destroyTestimony/{id}', [App\Http\Controllers\TestimoniesController::class, 'destroy'])->name('destroyTestimony');
 
     // Partners
-    Route::get('/partner', [App\Http\Controllers\PartnersController::class, 'index'])->name('partner');
+    Route::get('/partner', \App\Livewire\Admin\Partners::class)->name('partner');
     Route::post('/savePartner', [App\Http\Controllers\PartnersController::class, 'store'])->name('savePartner');
-    Route::get('/editPartner/{id}', [App\Http\Controllers\PartnersController::class, 'edit'])->name('editPartner');
+    Route::get('/editPartner/{id}', \App\Livewire\Admin\PartnerEdit::class)->name('editPartner');
     Route::post('/updatePartner/{id}', [App\Http\Controllers\PartnersController::class, 'update'])->name('updatePartner');
     Route::get('/destroyPartner/{id}', [App\Http\Controllers\PartnersController::class, 'destroy'])->name('destroyPartner');
 
     // Mothers
-    Route::get('/admin-mothers', [App\Http\Controllers\MothersController::class, 'index'])->name('mothersAdmin');
+    Route::get('/admin-mothers', \App\Livewire\Admin\Mothers::class)->name('mothersAdmin');
     Route::post('/saveMother', [App\Http\Controllers\MothersController::class, 'store'])->name('saveMother');
-    Route::get('/editMother/{id}', [App\Http\Controllers\MothersController::class, 'edit'])->name('editMother');
+    Route::get('/editMother/{id}', \App\Livewire\Admin\MotherEdit::class)->name('editMother');
     Route::post('/updateMother/{id}', [App\Http\Controllers\MothersController::class, 'update'])->name('updateMother');
     Route::get('/destroyMother/{id}', [App\Http\Controllers\MothersController::class, 'destroy'])->name('destroyMother');
 
-    Route::get('/admin-videos', [App\Http\Controllers\VideosController::class, 'index'])->name('videosAdmin');
+    // Videos
+    Route::get('/admin-videos', \App\Livewire\Admin\Videos::class)->name('videosAdmin');
     Route::post('/saveVideo', [App\Http\Controllers\VideosController::class, 'store'])->name('saveVideo');
-    Route::get('/editVideo/{id}', [App\Http\Controllers\VideosController::class, 'edit'])->name('editVideo');
+    Route::get('/editVideo/{id}', \App\Livewire\Admin\VideoEdit::class)->name('editVideo');
     Route::post('/updateVideo/{id}', [App\Http\Controllers\VideosController::class, 'update'])->name('updateVideo');
     Route::get('/destroyVideo/{id}', [App\Http\Controllers\VideosController::class, 'destroy'])->name('destroyVideo');
 
-        Route::get('/get-campaigns',[App\Http\Controllers\CampainsController::class,'index'])->name('campainCrud');
-        Route::post('/saveCampaign',[App\Http\Controllers\CampainsController::class,'store'])->name('saveCampain');
-        Route::get('/editCampaign/{id}',[App\Http\Controllers\CampainsController::class,'edit'])->name('editCampain');
-        Route::post('/updateCampaign/{id}',[App\Http\Controllers\CampainsController::class,'update'])->name('updateCampain');
-        Route::post('/updateRaised/{id}',[App\Http\Controllers\CampainsController::class,'updateRaised'])->name('updateRaised');
-        Route::get('/deleteCampaign/{id}',[App\Http\Controllers\CampainsController::class,'destroy'])->name('deleteCampain');
+    // Campaigns
+    Route::get('/get-campaigns', \App\Livewire\Admin\Campaigns::class)->name('campainCrud');
+    Route::post('/saveCampaign', [App\Http\Controllers\CampainsController::class, 'store'])->name('saveCampain');
+    Route::get('/editCampaign/{id}', \App\Livewire\Admin\CampaignEdit::class)->name('editCampain');
+    Route::post('/updateCampaign/{id}', [App\Http\Controllers\CampainsController::class, 'update'])->name('updateCampain');
+    Route::post('/updateRaised/{id}', [App\Http\Controllers\CampainsController::class, 'updateRaised'])->name('updateRaised');
+    Route::get('/deleteCampaign/{id}', [App\Http\Controllers\CampainsController::class, 'destroy'])->name('deleteCampain');
 
-    // BLogs
-    Route::get('/blogs', [App\Http\Controllers\NewsController::class, 'index'])->name('blog.index');
+    // Updates / News
+    Route::get('/blogs', \App\Livewire\Admin\News::class)->name('blog.index');
     Route::post('/saveBlog', [App\Http\Controllers\NewsController::class, 'store'])->name('saveBlog');
-    Route::get('/blog/{id}', [App\Http\Controllers\NewsController::class, 'edit'])->name('editBlog');
+    Route::get('/blog/{id}', \App\Livewire\Admin\NewsEdit::class)->name('editBlog');
     Route::post('/updateBlog/{id}', [App\Http\Controllers\NewsController::class, 'update'])->name('updateBlog');
     Route::get('/deleteBlog/{id}', [App\Http\Controllers\NewsController::class, 'destroy'])->name('deleteBlog');
     Route::get('/blogs/{blog}/publish', [App\Http\Controllers\NewsController::class, 'publish'])->name('publishBlog');
 
-    Route::get('/AllMembers',[App\Http\Controllers\MembersController::class,'AllMembers'])->name('AllMembers');
-    Route::get('/saveMemb',[App\Http\Controllers\MembersController::class,'saveMemb'])->name('saveMemb');
+    Route::get('/AllMembers', [App\Http\Controllers\MembersController::class, 'AllMembers'])->name('AllMembers');
+    Route::get('/saveMemb', [App\Http\Controllers\MembersController::class, 'saveMemb'])->name('saveMemb');
 
     // Emails
-    Route::get('/webMessages',[App\Http\Controllers\HomeController::class,'webMessages'])->name('webMessages');
-    Route::get('/messageReply/{id}',[App\Http\Controllers\HomeController::class,'messageReply'])->name('messageReply');
-    Route::post('/sendReply',[App\Http\Controllers\HomeController::class,'sendReply'])->name('sendReply');
-
+    Route::get('/messageReply/{id}', \App\Livewire\Admin\MessageReply::class)->name('messageReply');
+    Route::post('/sendReply', [App\Http\Controllers\HomeController::class, 'sendReply'])->name('sendReply');
 });
 
 

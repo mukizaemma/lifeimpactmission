@@ -1,18 +1,5 @@
-@extends('layouts.adminbase')
-
-@section('title', 'Videos')
-
-@section('sidebar')
-    @parent
-@endsection
-
-@section('content')
-<div id="layoutSidenav">
-    <div id="layoutSidenav_nav">
-        @include('admin.includes.sidenav')
-    </div>
-    <div id="layoutSidenav_content">
-        <main>
+<div class="ilm-admin-page">
+<main>
             <div class="container-fluid px-4">
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item active">Videos Gallery</li>
@@ -53,7 +40,7 @@
                                         <td>{{ $rs->program->title ?? '—' }}</td>
                                         <td>{{ $rs->status }}</td>
                                         <td>
-                                            <a href="{{ route('editVideo', $rs->id) }}" class="btn btn-primary btn-sm text-black">Edit</a>
+                                            <a href="{{ route('editVideo', $rs->id) }}" class="btn btn-primary btn-sm text-black" wire:navigate>Edit</a>
                                             <a href="{{ route('destroyVideo', $rs->id) }}" class="btn btn-danger btn-sm text-black"
                                                onclick="return confirm('Delete this video?')">Delete</a>
                                         </td>
@@ -119,6 +106,4 @@
                 </div>
             </div>
         </main>
-    </div>
 </div>
-@endsection

@@ -1,21 +1,5 @@
-@extends('layouts.adminbase')
-
-@section('title', 'Home Page')
-
-@section('sidebar')
-
-    @parent
-
-@endsection
-
-@section('content')
-
-<div id="layoutSidenav">
-    <div id="layoutSidenav_nav">
-        @include('admin.includes.sidenav')
-    </div>
-    <div id="layoutSidenav_content">
-        <main>
+<div class="ilm-admin-page">
+<main>
             <div class="container-fluid px-4">
                 {{-- <h1 class="mt-4">Dashboard</h1> --}}
                 <ol class="breadcrumb mb-4">
@@ -54,7 +38,7 @@
                             <tbody>
                                 @foreach ($campain as $rs)
                                 <tr>
-                                    <td><a href="{{ route('editCampain', $rs->id) }}">{{ $rs->title }}</a> </td>
+                                    <td><a href="{{ route('editCampain', $rs->id) }}" wire:navigate>{{ $rs->title }}</a> </td>
                                     <td><img src="{{ asset('storage/images/campaigns/' . $rs->image) }}" alt="" width="150px"></td>
                                     <td>{{ $rs->program->title ?? '' }}</td>
                                     <td>{!! \Illuminate\Support\Str::limit(strip_tags($rs->description), 100) !!}</td>
@@ -120,7 +104,7 @@
                                     </td>
                                     <td>
                                         <div class="btn-group">
-                                            <a type="button" href="{{ route('editCampain', $rs->id) }}" class="btn btn-primary" style="color:black">Edit</a>
+                                            <a type="button" href="{{ route('editCampain', $rs->id) }}" class="btn btn-primary" style="color:black" wire:navigate>Edit</a>
                                             <a type="button" href="{{ route('deleteCampain', $rs->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure to delete this item?')" style="color:black">Delete</a>
                                         </div>
                                     </td>
@@ -221,12 +205,4 @@
 
             </div>
         </main>
-        @include('admin.includes.footer')
-    </div>
 </div>
-
-@section('scripts')
-
-<script src="{{asset('assets')}}/js/summernote.js"></script>
-
-@endsection

@@ -46,7 +46,7 @@
                         </article>
                     </div>
 
-                    <a class="tp-btn ilm-btn-orange" href="{{ route('backgroundDetails') }}">Learn More</a>
+                    <a class="tp-btn ilm-btn-orange" href="{{ route('backgroundDetails') }}" wire:navigate>Learn More</a>
                 </div>
             </div>
         </div>

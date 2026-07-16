@@ -1,22 +1,6 @@
-@extends('layouts.adminbase')
-
-@section('title', 'Edit Events')
-
-@section('sidebar')
-
-    @parent
-
-@endsection
-
-@section('content')
-
-<div id="layoutSidenav">
-    <div id="layoutSidenav_nav">
-        @include('admin.includes.sidenav')
-    </div>
-    <div id="layoutSidenav_content">
-        <div class="card-header">
-            <a href="{{route('campainCrud')}}" class="btn btn-primary">Back</a>
+<div class="ilm-admin-page">
+<div class="card-header">
+            <a href="{{route('campainCrud')}}" class="btn btn-primary" wire:navigate>Back</a>
             @if(session()->has('success'))
             <div class="arlert alert-success">
                 <button class="close" type="button" data-dismiss="alert">X</button>
@@ -131,11 +115,4 @@
 
             </div>
         </main>
-        @include('admin.includes.footer')
-    </div>
 </div>
-
-@section('scripts')
-
-<script src="{{asset('assets')}}/js/summernote.js"></script>
-@endsection

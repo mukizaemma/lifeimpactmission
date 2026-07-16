@@ -12,7 +12,7 @@
                                 <h4 class="tp-cta-2__title wow tpfadeUp" data-wow-duration=".9s"
                                 data-wow-delay=".5s">When a young heart kneels, a might future is born.</h4>
                                 <a href="{{ route('getInvolved') }}" class="tp-btn theme-1-bg wow tpfadeUp" data-wow-duration=".9s"
-                                data-wow-delay=".7s">Get Involved</a>
+                                data-wow-delay=".7s" wire:navigate>Get Involved</a>
                             </div>
                         </div>
                     </div>

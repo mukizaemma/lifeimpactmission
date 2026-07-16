@@ -52,9 +52,9 @@
                 });
             @endphp
             @if($mothersProgram)
-                <a class="tp-btn ilm-btn-orange" href="{{ route('project', ['slug' => $mothersProgram->slug]) }}">Explore This Program</a>
+                <a class="tp-btn ilm-btn-orange" href="{{ route('project', ['slug' => $mothersProgram->slug]) }}" wire:navigate>Explore This Program</a>
             @else
-                <a class="tp-btn ilm-btn-orange" href="{{ route('showPrograms') }}">Explore Our Programs</a>
+                <a class="tp-btn ilm-btn-orange" href="{{ route('showPrograms') }}" wire:navigate>Explore Our Programs</a>
             @endif
         </div>
     </div>

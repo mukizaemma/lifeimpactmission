@@ -18,7 +18,7 @@
         <div class="ilm-page-hero__content text-{{ $heroAlign }}">
             @if($showHomeCrumb)
                 <nav class="ilm-page-hero__crumb" aria-label="Breadcrumb">
-                    <a href="{{ route('home') }}">Home</a>
+                    <a href="{{ route('home') }}" wire:navigate>Home</a>
                     <span class="ilm-page-hero__crumb-sep" aria-hidden="true">/</span>
                     <span class="ilm-page-hero__crumb-current">{{ $heroTitle }}</span>
                 </nav>

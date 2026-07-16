@@ -1,10 +1,5 @@
-@extends('layouts.frontbase')
-
-@section('content')
-
-
-
-        <div class="tp-event-details__area pt-120 pb-120">
+<div class="ilm-page">
+<div class="tp-event-details__area pt-120 pb-120">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-8 col-lg-8">
@@ -32,7 +27,7 @@
                                         @foreach ($testimonials as $rs)
                                         <div class="rc__post mb-10 d-flex align-items-center">
                                         <div class="rc__post-thumb mr-20">
-                                            <a href="{{ route('testimony',['id'=>$rs->id]) }}"><img src="{{ asset('storage/images/testimonies/' . $rs->image) }}" alt="" width="100px"></a>
+                                            <a href="{{ route('testimony',['id'=>$rs->id]) }}" wire:navigate><img src="{{ asset('storage/images/testimonies/' . $rs->image) }}" alt="" width="100px"></a>
                                         </div>
                                         <div class="rc__post-content">
                                             {{-- <div class="rc__meta">
@@ -40,7 +35,7 @@
                                                 02 Comments</span>
                                             </div> --}}
                                             <h3 class="rc__post-title">
-                                                <a href="{{ route('testimony',['id'=>$rs->id]) }}">{{ $rs->title }}</a>
+                                                <a href="{{ route('testimony',['id'=>$rs->id]) }}" wire:navigate>{{ $rs->title }}</a>
                                             </h3>
                                         </div>
                                         </div>
@@ -58,4 +53,4 @@
 
 
     @include('frontend.includes.backImage')
-@endsection
+</div>

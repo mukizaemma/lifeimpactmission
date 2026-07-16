@@ -1,10 +1,5 @@
-@extends('layouts.frontbase')
-
-@section('content')
-
-
-
-        <!-- event-area-atart -->
+<div class="ilm-page">
+<!-- event-area-atart -->
         <div class="tp-event-details__area pt-120 pb-120">
             <div class="container">
                 <div class="row">
@@ -90,7 +85,4 @@
             </div>
         </div>
         <!-- event-area-end -->
-
-
-
-@endsection
+</div>
