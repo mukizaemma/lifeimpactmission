@@ -320,14 +320,14 @@ class HomeController extends Controller
 
         $validatedData = $request->validate([
             'names' => 'required|max:255',
-            'email' => 'required|max:255',
+            'email' => ['required', 'max:255', new \App\Rules\ValidPublicEmail()],
             'message' => 'required'
         ]);
         $blog = Message::firstOrCreate(
             [
-                'names' => $request->input('names'),
-                'email' => $request->input('email'),
-                'message' => $request->input('message'),
+                'names' => $validatedData['names'],
+                'email' => $validatedData['email'],
+                'message' => $validatedData['message'],
             ]
         );
         return redirect()->back()->with('success', 'Your Message has been well submitted. We will get back to you soon');

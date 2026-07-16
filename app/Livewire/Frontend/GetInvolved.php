@@ -4,6 +4,7 @@ namespace App\Livewire\Frontend;
 
 use App\Models\Background;
 use App\Models\Message;
+use App\Rules\ValidPublicEmail;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
@@ -19,7 +20,7 @@ class GetInvolved extends Component
     {
         $validated = $this->validate([
             'names' => 'required|max:255',
-            'email' => 'required|email|max:255',
+            'email' => ['required', 'max:255', new ValidPublicEmail()],
             'message' => 'required',
         ]);
 
