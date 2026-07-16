@@ -57,11 +57,11 @@
 
                                     <div  class="row mt-3">
                                         <div class="col-lg-4 col-sm-12">
-                                            <label for="image" class="form-label">Blog Cover Image<br> <span style="color: red">(This image should be resized to 500X800 pixels)</span></label>
+                                            <label for="image" class="form-label">Blog Cover Image</label>
                                             <img src="{{ asset('storage/images/news') . $blog->image }}" alt="" width="120px">
                                         </div>
                                         <div class="col-lg-4 col-sm-12">
-                                            <label for="image" class="form-label">Blog Cover Image<br> <span style="color: red">(This image should be resized to 500X800 pixels)</span></label>
+                                            <label for="image" class="form-label">Blog Cover Image</label>
                                             <div class="input-group">
 
                                                 <input type="file" name="image" class="form-control" id="image">
@@ -69,7 +69,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-sm-12">
-                                            <label for="image" class="form-label">Change Gallery Images<br> <span style="color: red">(This image should be resized to 500X800 pixels)</span></label>
+                                            <label for="image" class="form-label">Change Gallery Images</label>
                                             <div class="input-group">
 
                                                 <input type="file" class="form-control" name="gallery[]" multiple>

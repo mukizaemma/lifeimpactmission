@@ -142,8 +142,9 @@ class GalleryController extends Controller
     public function destroy($id)
     {
         $image = Image::findOrFail($id);
-        // delete the image file
-        Storage::delete('public/images/gallery/'.$image);
+        if ($image->image) {
+            Storage::disk('public')->delete('images/gallery/' . ltrim($image->image, '/'));
+        }
         $image->delete();
         return redirect()->back()->with('warning', 'Item has been deleted');
     }

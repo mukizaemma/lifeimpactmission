@@ -1,6 +1,6 @@
 @php
     $authSetting = $setting ?? \App\Models\Setting::first();
-    $logoUrl = $authSetting?->logo ? asset('storage/images') . $authSetting->logo : null;
+    $logoUrl = $authSetting?->logo ? asset('storage/images/' . ltrim($authSetting->logo, '/')) : null;
 @endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">

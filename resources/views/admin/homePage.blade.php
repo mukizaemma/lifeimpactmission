@@ -80,9 +80,7 @@
                                                     </div>
 
                                                     <div class="col-lg-6 col-sm-12">
-                                                        <label>Change the Image on the left of Welcome note <br><span
-                                                                style="color: red">(This image should be resized to 120x90
-                                                                pixels)</span></label>
+                                                        <label>Change the Image on the left of Welcome note </label>
                                                         <label id="projectinput7" class="file center-block">
                                                             <input type="file" id="aboutImage" name="aboutImage">
                                                             <span class="file-custom"></span>
@@ -100,8 +98,7 @@
 
                                                     <div class="col-lg-6 col-sm-12">
                                                         <label>Change the Backgound Image behind Vision & Mission row
-                                                            <br><span style="color: red">(This image should be resized to
-                                                                120x90 pixels)</span></label>
+                                                            </label>
                                                         <label id="projectinput7" class="file center-block">
                                                             <input type="file" id="back1" name="back1">
                                                             <span class="file-custom"></span>
@@ -118,9 +115,7 @@
                                                     </div>
 
                                                     <div class="col-lg-6 col-sm-12">
-                                                        <label>Change the Backgound Image below Programs <br><span
-                                                                style="color: red">(This image should be resized to 120x90
-                                                                pixels)</span></label>
+                                                        <label>Change the Backgound Image below Programs </label>
                                                         <label id="projectinput7" class="file center-block">
                                                             <input type="file" id="back2" name="back2">
                                                             <span class="file-custom"></span>

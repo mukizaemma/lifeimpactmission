@@ -104,7 +104,7 @@
                                     <img src="{{ asset('storage/images/sponsorship') . $data->image }}" alt="" width="120px">
                                 </div>
                                 <div class="col-lg-6 col-sm-12">
-                                    <label>Change the Child's Picture <br><span style="color: red">(This image should be resized to 540x600 pixels)</span></label>
+                                    <label>Change the Child's Picture </label>
                                     <label id="projectinput7" class="file center-block">
                                         <input type="file" id="image" name="image">
                                         <span class="file-custom"></span>

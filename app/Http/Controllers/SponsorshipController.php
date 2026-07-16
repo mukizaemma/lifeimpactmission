@@ -2,98 +2,74 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Concerns\StoresOptimizedImages;
 use App\Models\Sponsorship;
+use App\Services\ImageUploadService;
+use Illuminate\Http\Request;
+use InvalidArgumentException;
 
 class SponsorshipController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    use StoresOptimizedImages;
+
     public function index()
     {
         $children = Sponsorship::latest()->get();
-        return view('admin.sponsorship',['children'=>$children]);
+        return view('admin.sponsorship', ['children' => $children]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
+        $request->validate([
+            'image' => app(ImageUploadService::class)->validationRules(true, false),
+        ]);
+
         $data = new Sponsorship();
         $data->names = $request->names;
-        $data ->age = $request->age;
-        $data ->sex = $request->sex;
-        $data ->testimany = $request->testimany;
-        $data ->phone = $request->phone;
-        $data ->address = $request->address;
+        $data->age = $request->age;
+        $data->sex = $request->sex;
+        $data->testimany = $request->testimany;
+        $data->phone = $request->phone;
+        $data->address = $request->address;
 
-        // Uploading image
-        if ($request->hasFile('image')) {
-            $dir = 'public/images/sponsorship';
-            $path = $request->file('image')->store($dir);
-            $fileName = str_replace($dir, '', $path);
-            $data->image = $fileName;
+        try {
+            if ($request->hasFile('image')) {
+                $data->image = $this->storeOptimizedImage($request->file('image'), 'images/sponsorship');
+            }
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
 
-        $stored = $data->save();
-
-        if($stored){
-            return redirect('children')->with('success', 'New Child has been added successfuly');
+        if ($data->save()) {
+            return redirect('children')->with('success', 'New Child has been added successfully');
         }
 
-        return redirect()->back()->with('error','Failed to add new Child');
+        return redirect()->back()->with('error', 'Failed to add new Child');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $data = Sponsorship::find($id);
-        return view('admin.sponsorshipUpdate',['data'=>$data]);
+        return view('admin.sponsorshipUpdate', ['data' => $data]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        $data = Sponsorship::find($id);
+        $request->validate([
+            'image' => app(ImageUploadService::class)->validationRules(true, false),
+        ]);
+
+        $data = Sponsorship::findOrFail($id);
         $data->names = $request->input('names');
         $data->age = $request->input('age');
         $data->sex = $request->input('sex');
@@ -101,37 +77,28 @@ class SponsorshipController extends Controller
         $data->phone = $request->input('phone');
         $data->address = $request->input('address');
 
-        if(!$data){
-            return back()->with('Error','Child Not Found');
-        }
-
-        if ($request->hasFile('image') && request('image') != '') {
-            $dir = 'public/images/sponsorship';
-
-            if (File::exists($dir)) {
-                unlink($dir);
+        try {
+            if ($request->hasFile('image')) {
+                $data->image = $this->storeOptimizedImage(
+                    $request->file('image'),
+                    'images/sponsorship',
+                    true,
+                    $data->image
+                );
             }
-            $path = $request->file('image')->store($dir);
-            $fileName = str_replace($dir, '', $path);
-
-            $data->image = $fileName;
+        } catch (InvalidArgumentException $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
 
-        $data->update();
+        $data->save();
 
-        return redirect('children')->with('success','Child has been updated');
+        return redirect('children')->with('success', 'Child has been updated');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        $data = Sponsorship::find($id);
-        $data->delete($id);
+        $data = Sponsorship::findOrFail($id);
+        $data->delete();
         return redirect()->back()->with('success', 'Item has been deleted');
     }
 }

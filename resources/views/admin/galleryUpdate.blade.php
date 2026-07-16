@@ -101,7 +101,7 @@
                                 </div>
 
                                 <div class="col-lg-6 col-sm-12">
-                                        <label for="projectinput8">Image Caption <br><span style="color: red">(This image should be resized to 540x600 pixels)</span></label>
+                                        <label for="projectinput8">Image Caption </label>
                                         <input type="text" class="form-control"
                                         value="{{$data->caption}}" name="caption">
                                 </div>

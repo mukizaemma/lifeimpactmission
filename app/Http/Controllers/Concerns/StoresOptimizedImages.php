@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Concerns;
 use App\Services\ImageUploadService;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use InvalidArgumentException;
 
 trait StoresOptimizedImages
 {
@@ -19,15 +18,15 @@ trait StoresOptimizedImages
         $service = app(ImageUploadService::class);
         $directory = trim(str_replace(['public/', 'storage/'], '', $directory), '/');
 
-        try {
-            $filename = $service->store($file, $directory, $disk, $enforceMin);
-        } catch (InvalidArgumentException $e) {
-            throw $e;
-        }
+        $filename = $service->store($file, $directory, $disk, $enforceMin);
 
         if ($oldFilename) {
-            $oldPath = $directory . '/' . ltrim($oldFilename, '/');
-            if (Storage::disk($disk)->exists($oldPath)) {
+            $oldBasename = ltrim(str_replace(['\\', 'storage/', 'public/'], ['/', '', ''], $oldFilename), '/');
+            if (str_starts_with($oldBasename, $directory . '/')) {
+                $oldBasename = substr($oldBasename, strlen($directory) + 1);
+            }
+            $oldPath = $directory . '/' . ltrim($oldBasename, '/');
+            if ($oldBasename !== '' && Storage::disk($disk)->exists($oldPath)) {
                 Storage::disk($disk)->delete($oldPath);
             }
         }

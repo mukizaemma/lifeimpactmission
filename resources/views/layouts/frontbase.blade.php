@@ -12,7 +12,7 @@
     @stack('head')
 
     <!-- Place favicon.ico in the root directory -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('storage\images').$setting->logo}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('storage/images/' . ltrim($setting->logo ?? '', '/')) }}">
 
     <!-- CSS here -->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
@@ -55,7 +55,7 @@
             </div>
             <div class="tpoffcanvas__logo">
                 <a href="{{ route('home') }}">
-                    <img src="{{asset('storage\images').$setting->logo}}" alt="" width="120px">
+                    <img src="{{ asset('storage/images/' . ltrim($setting->logo ?? '', '/')) }}" alt="" width="120px">
                 </a>
             </div>
             <div class="tpoffcanvas__title">
@@ -109,7 +109,7 @@
                     <div class="col-xl-1 col-lg-6 col-md-4 col-7">
                         <div class="tp-header-3__logo">
                             <a href="{{route('home')}}">
-                                <img src="{{asset('storage\images').$setting->logo}}" alt="" width="90px">
+                                <img src="{{ asset('storage/images/' . ltrim($setting->logo ?? '', '/')) }}" alt="" width="90px">
                             </a>
                         </div>
                     </div>
@@ -194,7 +194,7 @@
                             <div class="tp-footer__widget footer-2-col-1">
                                 <div class="tp-footer__logo">
                                     <a href="{{ route('home') }}">
-                                        <img src="{{ asset('storage/images') . $setting->logo }}" alt="Impact Life Mission" height="120">
+                                        <img src="{{ asset('storage/images/' . ltrim($setting->logo ?? '', '/')) }}" alt="Impact Life Mission" height="120">
                                     </a>
                                 </div>
                                 <div class="tp-footer__text">

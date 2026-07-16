@@ -37,6 +37,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use InvalidArgumentException;
 
 class HomeController extends Controller
@@ -450,18 +451,20 @@ class HomeController extends Controller
 
         try {
             if ($request->hasFile('logo')) {
-                $data->logo = $this->storeOptimizedImage(
+                $filename = $this->storeOptimizedImage(
                     $request->file('logo'),
                     'images',
                     false,
                     $data->logo
                 );
+                // Keep leading slash so legacy views that concatenate paths still work.
+                $data->logo = '/' . ltrim($filename, '/');
             }
         } catch (InvalidArgumentException $e) {
             return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
 
-        $data->update();
+        $data->save();
 
         return redirect()->back()->with('success', 'Setting has been updated successfully');
     }
@@ -476,7 +479,13 @@ class HomeController extends Controller
             $data = About::first();
         }
 
-        return view('admin.about', ['data'=>$data]);
+        $background = Background::first();
+        $ctaImage = $data->backImage ?: ($background->image1 ?? null);
+
+        return view('admin.about', [
+            'data' => $data,
+            'ctaImage' => $ctaImage,
+        ]);
     }
 
     public function saveAbout(Request $request, $id){
@@ -484,27 +493,46 @@ class HomeController extends Controller
             'backImage' => app(ImageUploadService::class)->validationRules(true, false),
         ]);
 
-        $data = About::first();
+        $data = About::firstOrFail();
         $data->mission = $request->input('mission');
         $data->vision = $request->input('vision');
         $data->values = $request->input('values');
 
         try {
             if ($request->hasFile('backImage')) {
-                $data->backImage = $this->storeOptimizedImage(
+                $previousAbout = $data->backImage;
+                $background = Background::first();
+                $previousBg = $background?->image1;
+
+                $filename = $this->storeOptimizedImage(
                     $request->file('backImage'),
                     'images',
                     true,
-                    $data->backImage
+                    $previousAbout
                 );
+
+                $data->backImage = $filename;
+
+                // Keep frontend CTA band (Background.image1) in sync with this upload.
+                if ($background) {
+                    if (
+                        $previousBg
+                        && ltrim($previousBg, '/') !== ltrim((string) $previousAbout, '/')
+                        && ltrim($previousBg, '/') !== ltrim($filename, '/')
+                    ) {
+                        Storage::disk('public')->delete('images/' . ltrim($previousBg, '/'));
+                    }
+                    $background->image1 = $filename;
+                    $background->save();
+                }
             }
         } catch (InvalidArgumentException $e) {
             return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
 
-        $data->update();
+        $data->save();
 
-        return redirect()->back()->with('success', 'Setting has been updated successfully');
+        return redirect()->back()->with('success', 'About content and image have been updated successfully');
     }
 
     public function logoutUser(Request $request){

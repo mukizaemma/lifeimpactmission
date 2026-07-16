@@ -140,14 +140,13 @@
                                                     <div class="col-lg-6 col-sm-12">
                                                         <label>Company Logo </label><br>
                                                         <label id="projectinput7" class="file center-block">
-                                                            <img src="{{ asset('storage/images') . $data->logo }}"
-                                                                alt="" width="150px">
+                                                            <img src="{{ asset('storage/images/' . ltrim($data->logo ?? '', '/')) }}"
+                                                                alt="Company logo" width="150">
                                                         </label>
                                                     </div>
 
                                                     <div class="col-lg-6 col-sm-12">
-                                                        <label>Change the Company Logo <br><span style="color: red">(This
-                                                                image should be resized to 120x90 pixels)</span></label>
+                                                        <label>Change the Company Logo </label>
                                                         <label id="projectinput7" class="file center-block">
                                                             <input type="file" id="image" name="logo" data-ilm-allow-small="1">
                                                             <span class="file-custom"></span>

@@ -90,7 +90,7 @@
                                         </label>
                                 </div>
                                 <div class="col-lg-4 col-sm-12">
-                                        <label>Select Event Banner <br><span style="color: red">(This image should be resized to 540x600 pixels)</span></label>
+                                        <label>Select Event Banner </label>
                                         <label id="projectinput7" class="file center-block">
                                             <input type="file" id="image" name="image">
                                             <span class="file-custom"></span>
