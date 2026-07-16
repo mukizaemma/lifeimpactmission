@@ -127,7 +127,6 @@
                                             <li><a href="{{ route('testimonials') }}" wire:navigate>Testimonials</a></li>
                                             <li><a href="{{ route('upcomingEvents') }}" wire:navigate>Events</a></li>
                                             <li><a href="{{ route('posts') }}" wire:navigate>Recent Updates</a></li>
-                                            <li><a href="{{ route('home') }}#events" wire:navigate>Highlights</a></li>
                                         </ul>
                                     </li>
                                     <li class="has-dropdown"><a href="{{ route('gallery') }}" wire:navigate>Gallery</a>
@@ -136,7 +135,6 @@
                                             <li><a href="{{ route('videos') }}" wire:navigate>Videos</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="{{ route('getInvolved') }}" wire:navigate>Get Involved</a></li>
                                     <li><a href="{{route('contacts')}}" wire:navigate>Contact</a></li>
                                 </ul>
                             </nav>
