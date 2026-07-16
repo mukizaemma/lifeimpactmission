@@ -42,39 +42,66 @@
                                                 </div>
                                             </div>
 
-                                            <div class="row mt-3">
-                                                <div class="col-lg-6 col-sm-12">
-                                                    <label>About cover image</label><br>
-                                                    @if(!empty($data->image))
-                                                        <img src="{{ ilm_image_url('images', $data->image) }}" width="150" alt="About cover">
-                                                    @else
-                                                        <p class="text-muted mb-0">No image uploaded yet.</p>
-                                                    @endif
-                                                </div>
-                                                <div class="col-lg-6 col-sm-12">
-                                                    <label for="image">Change the about image</label>
-                                                    <div class="ilm-upload-field">
-                                                        <input type="file" id="image" name="image" accept="image/*">
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <hr class="my-4">
+                                            <h5 class="mb-3">Homepage images</h5>
+                                            <p class="text-muted small mb-4">Each homepage band has its own image so they do not share the same photo.</p>
 
                                             <div class="row mt-3">
                                                 <div class="col-lg-6 col-sm-12">
-                                                    <label>Home / CTA background image</label><br>
-                                                    @if(!empty($data->image1))
-                                                        <img src="{{ ilm_image_url('images', $data->image1) }}" width="150" alt="CTA background">
+                                                    <label>About section image (homepage)</label><br>
+                                                    @if(!empty($data->image))
+                                                        <img src="{{ function_exists('ilm_image_url') ? ilm_image_url('images', $data->image) : asset('storage/images/' . ltrim($data->image, '/')) }}" width="150" alt="About cover">
                                                     @else
                                                         <p class="text-muted mb-0">No image uploaded yet.</p>
                                                     @endif
                                                 </div>
                                                 <div class="col-lg-6 col-sm-12">
-                                                    <label for="image1">Change the home background image</label>
+                                                    <label for="image">Change about section image</label>
+                                                    <div class="ilm-upload-field">
+                                                        <input type="file" id="image" name="image" accept="image/*">
+                                                    </div>
+                                                    <small class="text-muted">Used in the About / Vision block near the top of the homepage.</small>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mt-4">
+                                                <div class="col-lg-6 col-sm-12">
+                                                    <label>Agriculture band image (homepage)</label><br>
+                                                    @if(!empty($data->image3))
+                                                        <img src="{{ function_exists('ilm_image_url') ? ilm_image_url('images', $data->image3) : asset('storage/images/' . ltrim($data->image3, '/')) }}" width="150" alt="Agriculture band">
+                                                    @else
+                                                        <p class="text-muted mb-0">No image uploaded yet.</p>
+                                                    @endif
+                                                </div>
+                                                <div class="col-lg-6 col-sm-12">
+                                                    <label for="image3">Change agriculture band image</label>
+                                                    <div class="ilm-upload-field">
+                                                        <input type="file" id="image3" name="image3" accept="image/*">
+                                                    </div>
+                                                    <small class="text-muted">Used in “Growing Independence through Agriculture”.</small>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mt-4">
+                                                <div class="col-lg-6 col-sm-12">
+                                                    <label>Donate CTA band image (homepage)</label><br>
+                                                    @if(!empty($data->image1))
+                                                        <img src="{{ function_exists('ilm_image_url') ? ilm_image_url('images', $data->image1) : asset('storage/images/' . ltrim($data->image1, '/')) }}" width="150" alt="Donate CTA background">
+                                                    @else
+                                                        <p class="text-muted mb-0">No image uploaded yet.</p>
+                                                    @endif
+                                                </div>
+                                                <div class="col-lg-6 col-sm-12">
+                                                    <label for="image1">Change donate CTA band image</label>
                                                     <div class="ilm-upload-field">
                                                         <input type="file" id="image1" name="image1" accept="image/*">
                                                     </div>
+                                                    <small class="text-muted">Full-width band with “When a young heart kneels…” / Donate Now.</small>
                                                 </div>
                                             </div>
+
+                                            <hr class="my-4">
+                                            <h5 class="mb-3">Site-wide page headers</h5>
 
                                             <div class="row mt-3">
                                                 <div class="col-lg-6 col-sm-12">
@@ -90,7 +117,8 @@
                                                     <div class="ilm-upload-field">
                                                         <input type="file" id="image2" name="image2" accept="image/*">
                                                     </div>
-                                                    <small class="text-muted">Used on every page that does not have its own header image in Page Headers.</small>
+                                                    <small class="text-muted">Used on inner pages that do not have their own image in Page Headers.</small>
+                                                </div>
                                             </div>
                                         </div>
 

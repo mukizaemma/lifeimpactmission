@@ -32,5 +32,52 @@
         </div>
     </section>
 
+    @if(isset($videos) && $videos->count())
+    <section class="ilm-testimonials-videos">
+        <div class="container">
+            <div class="text-center mb-50">
+                <h2 class="ilm-section-title">Stories on video</h2>
+                <p class="ilm-section-subtitle">Watch shared YouTube stories from our community.</p>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                @foreach ($videos as $video)
+                    @php $embed = $video->videoEmbedUrl(); @endphp
+                    <div class="col-xl-4 col-lg-4 col-md-6 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".2s">
+                        <article class="ilm-video-card ilm-video-card--portrait">
+                            @if($embed)
+                                <div class="ilm-video-card__frame">
+                                    <iframe
+                                        src="{{ $embed }}"
+                                        title="{{ $video->title }}"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen
+                                        loading="lazy"
+                                    ></iframe>
+                                </div>
+                            @else
+                                <a class="ilm-video-card__thumb" href="{{ $video->video_url }}" target="_blank" rel="noopener">
+                                    <img src="{{ $video->thumbnailUrl() }}" alt="{{ $video->title }}" loading="lazy" decoding="async">
+                                    <span class="ilm-video-card__play" aria-hidden="true">▶</span>
+                                </a>
+                            @endif
+                            <div class="ilm-video-card__body">
+                                <h3 class="ilm-video-card__title">{{ $video->title }}</h3>
+                                @if(!empty($video->caption))
+                                    <p class="ilm-video-card__caption">{{ $video->caption }}</p>
+                                @endif
+                            </div>
+                        </article>
+                    </div>
+                @endforeach
+            </div>
+
+            <div class="text-center mt-40">
+                <a class="tp-btn ilm-btn-outline" href="{{ route('videos') }}" wire:navigate>View all videos</a>
+            </div>
+        </div>
+    </section>
+    @endif
+
     @include('frontend.includes.backImage')
 </div>

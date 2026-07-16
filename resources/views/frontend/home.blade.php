@@ -43,7 +43,7 @@
 
     {{-- 8. Donate band --}}
     <div class="tp-cta-2__area pb-15">
-        <div class="tp-cta-2__bg p-relative fix" data-background="{{ ilm_image_url('images', $about->image1 ?? $about->image) }}">
+        <div class="tp-cta-2__bg p-relative fix" data-background="{{ !empty($about->image1) ? ilm_image_url('images', $about->image1) : asset('assets/img/cta/cta-bg.jpg') }}">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">

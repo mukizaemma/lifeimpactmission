@@ -33,6 +33,7 @@ public function saveBackg(Request $request)
         'image' => app(ImageUploadService::class)->validationRules(true, false),
         'image1' => app(ImageUploadService::class)->validationRules(true, false),
         'image2' => app(ImageUploadService::class)->validationRules(true, false),
+        'image3' => app(ImageUploadService::class)->validationRules(true, false),
     ]);
 
     $data = background::first();
@@ -64,6 +65,15 @@ public function saveBackg(Request $request)
                 'images',
                 true,
                 $data->image2
+            );
+        }
+
+        if ($request->hasFile('image3')) {
+            $data->image3 = $this->storeOptimizedImage(
+                $request->file('image3'),
+                'images',
+                true,
+                $data->image3
             );
         }
     } catch (InvalidArgumentException $e) {

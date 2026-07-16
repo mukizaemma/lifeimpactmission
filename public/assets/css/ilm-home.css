@@ -3221,6 +3221,31 @@
   color: #8f5524;
 }
 
+.ilm-testimonials-videos {
+  padding: clamp(50px, 7vw, 90px) 0;
+  background: #faf6f1;
+}
+
+.ilm-video-card--portrait {
+  max-width: 380px;
+  margin-inline: auto;
+}
+
+.ilm-video-card--portrait .ilm-video-card__frame,
+.ilm-video-card--portrait .ilm-video-card__thumb {
+  aspect-ratio: 9 / 16;
+}
+
+.ilm-video-card--portrait .ilm-video-card__body {
+  text-align: center;
+}
+
+@media (max-width: 767.98px) {
+  .ilm-video-card--portrait {
+    max-width: 320px;
+  }
+}
+
 .ilm-empty-state {
   padding: 48px 24px;
   background: #f6f0e8;

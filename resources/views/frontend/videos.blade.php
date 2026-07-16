@@ -13,11 +13,11 @@
                 <a class="ilm-gallery-switch__link is-active" href="{{ route('videos') }}" wire:navigate>Videos</a>
             </div>
 
-            <div class="row g-4">
+            <div class="row g-4 justify-content-center">
                 @forelse($videos as $video)
                     @php $embed = $video->videoEmbedUrl(); @endphp
-                    <div class="col-lg-6 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".2s">
-                        <article class="ilm-video-card">
+                    <div class="col-xl-4 col-lg-4 col-md-6 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".2s">
+                        <article class="ilm-video-card ilm-video-card--portrait">
                             @if($embed)
                                 <div class="ilm-video-card__frame">
                                     <iframe
