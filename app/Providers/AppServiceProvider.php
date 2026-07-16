@@ -16,15 +16,19 @@ class AppServiceProvider extends ServiceProvider
 
     public function register()
     {
-        //
+        $helpers = app_path('Support/helpers.php');
+        if (is_file($helpers)) {
+            require_once $helpers;
+        }
     }
-
 
     public function boot()
     {
         $setting = Setting::first();
+        $about = Background::first();
+
         View::share('setting', $setting);
-        View::share('about', Background::first());
+        View::share('about', $about);
         View::share('ourPrograms', Activity::with('images')->oldest()->get());
         try {
             $pageHeaders = Schema::hasTable('page_headers')
@@ -34,6 +38,9 @@ class AppServiceProvider extends ServiceProvider
             $pageHeaders = collect();
         }
         View::share('pageHeaders', $pageHeaders);
+        View::share('defaultPageHeaderImage', function_exists('ilm_default_page_header_url')
+            ? ilm_default_page_header_url()
+            : asset('assets/img/cta/cta-bg-3.jpg'));
         View::share('socialLinks', SocialLinks::forSetting($setting));
 
         // Ensure admin Livewire pages never fall back to the public frontbase layout.

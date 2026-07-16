@@ -78,19 +78,19 @@
 
                                             <div class="row mt-3">
                                                 <div class="col-lg-6 col-sm-12">
-                                                    <label>Pages header image</label><br>
+                                                    <label>Default page header image</label><br>
                                                     @if(!empty($data->image2))
-                                                        <img src="{{ ilm_image_url('images', $data->image2) }}" width="150" alt="Page header">
+                                                        <img src="{{ function_exists('ilm_image_url') ? ilm_image_url('images', $data->image2) : asset('storage/images/' . ltrim($data->image2, '/')) }}" width="150" alt="Default page header">
                                                     @else
-                                                        <p class="text-muted mb-0">No image uploaded yet.</p>
+                                                        <p class="text-muted mb-0">No default image yet. Pages without their own header will use a theme fallback.</p>
                                                     @endif
                                                 </div>
                                                 <div class="col-lg-6 col-sm-12">
-                                                    <label for="image2">Change the pages header image</label>
+                                                    <label for="image2">Change default page header image</label>
                                                     <div class="ilm-upload-field">
                                                         <input type="file" id="image2" name="image2" accept="image/*">
                                                     </div>
-                                                </div>
+                                                    <small class="text-muted">Used on every page that does not have its own header image in Page Headers.</small>
                                             </div>
                                         </div>
 

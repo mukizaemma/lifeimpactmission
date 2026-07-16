@@ -3,7 +3,16 @@
 
     $heroTitle = $heroTitle ?? $header?->title ?? ($title ?? 'Page');
     $heroSubtitle = $heroSubtitle ?? $header?->subtitle;
-    $heroImage = $heroImage ?? $header?->imageUrl() ?? ilm_image_url('images', $about->image2 ?? '');
+
+    // Page-specific image → site default page header → theme fallback
+    if (empty($heroImage)) {
+        $heroImage = function_exists('ilm_page_header_url')
+            ? ilm_page_header_url($header)
+            : ($header?->imageUrl()
+                ?? (!empty($about->image2) ? asset('storage/images/' . ltrim($about->image2, '/')) : null)
+                ?? (!empty($about->image1) ? asset('storage/images/' . ltrim($about->image1, '/')) : null)
+                ?? asset('assets/img/cta/cta-bg-3.jpg'));
+    }
 
     $showHomeCrumb = $showHomeCrumb ?? true;
     $heroAlign = $heroAlign ?? 'center';

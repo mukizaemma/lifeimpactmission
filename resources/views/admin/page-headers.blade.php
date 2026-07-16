@@ -32,8 +32,10 @@
                     @endif
 
                     <p class="text-muted mb-4">
-                        Set one title, one subtitle, and a header image for each page.
-                        Images are resized automatically before upload (final size about 300KB–700KB).
+                        Set one title, one subtitle, and an optional header image for each page.
+                        If a page has no image, the site uses the <strong>default page header</strong>
+                        from <em>Project Background → Pages header image</em>.
+                        Uploaded images are resized automatically (about 300KB–700KB).
                     </p>
 
                     {{-- wire:ignore keeps Livewire from resetting file inputs after SPA navigation --}}

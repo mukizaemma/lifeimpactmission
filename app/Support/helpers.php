@@ -59,3 +59,60 @@ if (! function_exists('ilm_image_url')) {
         return asset('storage/' . $folder . '/' . $file);
     }
 }
+
+if (! function_exists('ilm_default_page_header_url')) {
+    /**
+     * Site-wide default page hero image when a page has no header image set.
+     * Prefers Background.image2 ("pages header image"), then other background photos,
+     * then a built-in theme image.
+     */
+    function ilm_default_page_header_url(): string
+    {
+        $about = null;
+
+        try {
+            if (function_exists('view') && app()->bound('view')) {
+                $shared = \Illuminate\Support\Facades\View::shared('about');
+                if (is_object($shared)) {
+                    $about = $shared;
+                }
+            }
+        } catch (\Throwable $e) {
+            $about = null;
+        }
+
+        if (! $about && class_exists(\App\Models\Background::class)) {
+            try {
+                $about = \App\Models\Background::query()->first();
+            } catch (\Throwable $e) {
+                $about = null;
+            }
+        }
+
+        foreach (['image2', 'image1', 'image'] as $field) {
+            $value = is_object($about) ? ($about->{$field} ?? null) : null;
+            if (! empty($value)) {
+                return ilm_image_url('images', $value);
+            }
+        }
+
+        return asset('assets/img/cta/cta-bg-3.jpg');
+    }
+}
+
+if (! function_exists('ilm_page_header_url')) {
+    /**
+     * Resolve hero image: page-specific header → site default → theme fallback.
+     */
+    function ilm_page_header_url($header = null): string
+    {
+        if (is_object($header) && method_exists($header, 'imageUrl')) {
+            $url = $header->imageUrl();
+            if (! empty($url)) {
+                return $url;
+            }
+        }
+
+        return ilm_default_page_header_url();
+    }
+}
