@@ -2018,6 +2018,8 @@
   position: relative;
   min-height: 360px;
   overflow: hidden;
+  background: #1a1410;
+  align-self: stretch;
 }
 
 .ilm-agriculture__media img {
@@ -2026,6 +2028,23 @@
   object-fit: cover;
   display: block;
   transition: transform 1s ease;
+}
+
+.ilm-agriculture__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #0d0b09;
+}
+
+.ilm-agriculture__video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
 }
 
 .ilm-agriculture:hover .ilm-agriculture__media img {
@@ -2047,8 +2066,9 @@
   }
 
   .ilm-agriculture__media {
-    min-height: 320px;
+    min-height: 0;
     order: -1;
+    aspect-ratio: 16 / 9;
   }
 }
 

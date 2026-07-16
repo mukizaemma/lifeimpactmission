@@ -30,6 +30,7 @@ public function saveBackg(Request $request)
 {
     $request->validate([
         'description' => 'required|string',
+        'agriculture_video_url' => 'nullable|url|max:500',
         'image' => app(ImageUploadService::class)->validationRules(true, false),
         'image1' => app(ImageUploadService::class)->validationRules(true, false),
         'image2' => app(ImageUploadService::class)->validationRules(true, false),
@@ -39,6 +40,7 @@ public function saveBackg(Request $request)
     $data = background::first();
     $data->description = $request->input('description');
     $data->donations = $request->input('donations');
+    $data->agriculture_video_url = $request->input('agriculture_video_url') ?: null;
 
     try {
         if ($request->hasFile('image')) {

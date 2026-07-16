@@ -116,3 +116,26 @@ if (! function_exists('ilm_page_header_url')) {
         return ilm_default_page_header_url();
     }
 }
+
+if (! function_exists('ilm_youtube_embed_url')) {
+    /**
+     * Convert a YouTube watch/shorts/share URL into an embeddable iframe src.
+     */
+    function ilm_youtube_embed_url(?string $url): ?string
+    {
+        $url = trim((string) $url);
+        if ($url === '') {
+            return null;
+        }
+
+        if (preg_match('/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/|live\/))([A-Za-z0-9_-]{6,})/', $url, $matches)) {
+            return 'https://www.youtube.com/embed/' . $matches[1] . '?rel=0&modestbranding=1';
+        }
+
+        if (str_contains($url, 'youtube.com/embed/')) {
+            return $url;
+        }
+
+        return null;
+    }
+}

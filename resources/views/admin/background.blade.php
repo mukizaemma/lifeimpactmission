@@ -78,7 +78,25 @@
                                                     <div class="ilm-upload-field">
                                                         <input type="file" id="image3" name="image3" accept="image/*">
                                                     </div>
-                                                    <small class="text-muted">Used in “Growing Independence through Agriculture”.</small>
+                                                    <small class="text-muted">Fallback photo if no YouTube URL is set below.</small>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mt-3">
+                                                <div class="col-12">
+                                                    <label for="agriculture_video_url">Agriculture band YouTube video (landscape)</label>
+                                                    <input
+                                                        type="url"
+                                                        id="agriculture_video_url"
+                                                        name="agriculture_video_url"
+                                                        class="form-control"
+                                                        value="{{ old('agriculture_video_url', $data->agriculture_video_url) }}"
+                                                        placeholder="https://www.youtube.com/watch?v=…"
+                                                    >
+                                                    <small class="text-muted">Paste a YouTube link. It fills the right-hand box on the homepage agriculture section.</small>
+                                                    @error('agriculture_video_url')
+                                                        <div class="text-danger small mt-1">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                             </div>
 

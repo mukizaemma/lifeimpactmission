@@ -1,7 +1,9 @@
 @php
-    // Dedicated agriculture image (image3). Do not reuse donate CTA image1.
+    $agriEmbed = function_exists('ilm_youtube_embed_url')
+        ? ilm_youtube_embed_url($about->agriculture_video_url ?? null)
+        : null;
     $agriImage = !empty($about->image3)
-        ? ilm_image_url('images', $about->image3)
+        ? (function_exists('ilm_image_url') ? ilm_image_url('images', $about->image3) : asset('storage/images/' . ltrim($about->image3, '/')))
         : asset('assets/img/cta/cta-bg-3.jpg');
 @endphp
 
@@ -21,8 +23,20 @@
             <a class="tp-btn ilm-btn-orange" href="{{ route('contacts') }}" wire:navigate>Partner on This Vision</a>
         </div>
         <div class="ilm-agriculture__media wow tpfadeRight" data-wow-duration=".9s" data-wow-delay=".35s">
-            <img src="{{ $agriImage }}" alt="Agriculture independence vision" loading="lazy" decoding="async" width="720" height="560">
-            <div class="ilm-agriculture__overlay" aria-hidden="true"></div>
+            @if($agriEmbed)
+                <div class="ilm-agriculture__video">
+                    <iframe
+                        src="{{ $agriEmbed }}"
+                        title="Growing Independence through Agriculture"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen
+                        loading="lazy"
+                    ></iframe>
+                </div>
+            @else
+                <img src="{{ $agriImage }}" alt="Agriculture independence vision" loading="lazy" decoding="async" width="720" height="560">
+                <div class="ilm-agriculture__overlay" aria-hidden="true"></div>
+            @endif
         </div>
     </div>
 </section>
