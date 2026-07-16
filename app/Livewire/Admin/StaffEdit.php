@@ -8,17 +8,17 @@ use Livewire\Attributes\Title;
 #[Title('Edit Staff')]
 class StaffEdit extends AdminComponent
 {
-    public $id;
+    public $recordId;
 
     public function mount($id): void
     {
-        $this->id = $id;
+        $this->recordId = $id;
     }
 
     public function render()
     {
         return $this->adminView('admin.teamUpdate', [
-            'data' => Team::findOrFail($this->id),
+            'data' => Team::findOrFail($this->recordId),
         ]);
     }
 }

@@ -9,17 +9,17 @@ use Livewire\Attributes\Title;
 #[Title('Edit Campaign')]
 class CampaignEdit extends AdminComponent
 {
-    public $id;
+    public $recordId;
 
     public function mount($id): void
     {
-        $this->id = $id;
+        $this->recordId = $id;
     }
 
     public function render()
     {
         return $this->adminView('admin.campainUpdate', [
-            'campain' => Campain::findOrFail($this->id),
+            'campain' => Campain::findOrFail($this->recordId),
             'programs' => Program::all(),
         ]);
     }

@@ -8,17 +8,17 @@ use Livewire\Attributes\Title;
 #[Title('Edit Partner')]
 class PartnerEdit extends AdminComponent
 {
-    public $id;
+    public $recordId;
 
     public function mount($id): void
     {
-        $this->id = $id;
+        $this->recordId = $id;
     }
 
     public function render()
     {
         return $this->adminView('admin.partnerUpdate', [
-            'data' => Partner::findOrFail($this->id),
+            'data' => Partner::findOrFail($this->recordId),
         ]);
     }
 }

@@ -8,17 +8,17 @@ use Livewire\Attributes\Title;
 #[Title('Edit Slide')]
 class SlideEdit extends AdminComponent
 {
-    public $id;
+    public $recordId;
 
     public function mount($id): void
     {
-        $this->id = $id;
+        $this->recordId = $id;
     }
 
     public function render()
     {
         return $this->adminView('admin.slideUpdate', [
-            'data' => Slide::findOrFail($this->id),
+            'data' => Slide::findOrFail($this->recordId),
         ]);
     }
 }

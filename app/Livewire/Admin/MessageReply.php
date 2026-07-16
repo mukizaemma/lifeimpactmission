@@ -8,17 +8,17 @@ use Livewire\Attributes\Title;
 #[Title('Reply Message')]
 class MessageReply extends AdminComponent
 {
-    public $id;
+    public $recordId;
 
     public function mount($id): void
     {
-        $this->id = $id;
+        $this->recordId = $id;
     }
 
     public function render()
     {
         return $this->adminView('admin.emails.messageReply', [
-            'data' => Message::findOrFail($this->id),
+            'data' => Message::findOrFail($this->recordId),
         ]);
     }
 }

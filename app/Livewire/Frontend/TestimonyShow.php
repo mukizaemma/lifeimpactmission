@@ -14,16 +14,16 @@ class TestimonyShow extends Component
 {
     use WithPagination;
 
-    public $id;
+    public $recordId;
 
     public function mount($id): void
     {
-        $this->id = $id;
+        $this->recordId = $id;
     }
 
     public function render()
     {
-        $testimony = Testimony::where('id', $this->id)->firstOrFail();
+        $testimony = Testimony::where('id', $this->recordId)->firstOrFail();
 
         view()->share('title', $testimony->names ?? 'Testimony');
 

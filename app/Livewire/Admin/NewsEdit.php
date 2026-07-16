@@ -8,17 +8,17 @@ use Livewire\Attributes\Title;
 #[Title('Edit Update')]
 class NewsEdit extends AdminComponent
 {
-    public $id;
+    public $recordId;
 
     public function mount($id): void
     {
-        $this->id = $id;
+        $this->recordId = $id;
     }
 
     public function render()
     {
         return $this->adminView('admin.newsUpdate', [
-            'blog' => NewsModel::findOrFail($this->id),
+            'blog' => NewsModel::findOrFail($this->recordId),
         ]);
     }
 }

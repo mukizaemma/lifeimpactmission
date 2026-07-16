@@ -9,16 +9,16 @@ use Livewire\Attributes\Title;
 #[Title('Edit Program')]
 class ProjectEdit extends AdminComponent
 {
-    public $id;
+    public $recordId;
 
     public function mount($id): void
     {
-        $this->id = $id;
+        $this->recordId = $id;
     }
 
     public function render()
     {
-        $data = Activity::findOrFail($this->id);
+        $data = Activity::findOrFail($this->recordId);
         return $this->adminView('admin.activityUpdate', [
             'data' => $data,
             'programs' => Program::all(),

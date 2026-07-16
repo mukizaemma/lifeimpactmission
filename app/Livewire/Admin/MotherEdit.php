@@ -8,17 +8,17 @@ use Livewire\Attributes\Title;
 #[Title('Edit Mother')]
 class MotherEdit extends AdminComponent
 {
-    public $id;
+    public $recordId;
 
     public function mount($id): void
     {
-        $this->id = $id;
+        $this->recordId = $id;
     }
 
     public function render()
     {
         return $this->adminView('admin.motherUpdate', [
-            'data' => Mother::findOrFail($this->id),
+            'data' => Mother::findOrFail($this->recordId),
         ]);
     }
 }

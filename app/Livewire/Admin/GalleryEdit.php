@@ -8,17 +8,17 @@ use Livewire\Attributes\Title;
 #[Title('Edit Gallery Image')]
 class GalleryEdit extends AdminComponent
 {
-    public $id;
+    public $recordId;
 
     public function mount($id): void
     {
-        $this->id = $id;
+        $this->recordId = $id;
     }
 
     public function render()
     {
         return $this->adminView('admin.galleryUpdate', [
-            'data' => Image::findOrFail($this->id),
+            'data' => Image::findOrFail($this->recordId),
         ]);
     }
 }
