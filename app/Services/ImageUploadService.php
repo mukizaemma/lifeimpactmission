@@ -29,12 +29,14 @@ class ImageUploadService
         int $maxWidth = 1600,
         int $maxHeight = 1600
     ): string {
-        $binary = $this->optimize($file, $maxWidth, $maxHeight, $enforceMin);
-        $extension = 'jpg';
-        $filename = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) ?: 'image')
-            . '_' . time() . '_' . Str::random(5) . '.' . $extension;
-
         $directory = trim(str_replace('public/', '', $directory), '/');
+
+        if (! extension_loaded('gd')) {
+            return $this->storeOriginal($file, $directory, $disk, $enforceMin);
+        }
+
+        $binary = $this->optimize($file, $maxWidth, $maxHeight, $enforceMin);
+        $filename = $this->makeFilename($file, 'jpg');
         $path = trim($directory . '/' . $filename, '/');
 
         Storage::disk($disk)->put($path, $binary);
@@ -115,6 +117,48 @@ class ImageUploadService
         }
 
         return 'Maximum size: ' . self::MAX_KB . 'KB. Images are resized automatically before upload.';
+    }
+
+    /**
+     * Store the original file when GD is unavailable (e.g. some production hosts).
+     */
+    private function storeOriginal(
+        UploadedFile $file,
+        string $directory,
+        string $disk,
+        bool $enforceMin
+    ): string {
+        $size = $file->getSize() ?: 0;
+
+        if ($size > self::MAX_BYTES) {
+            throw new InvalidArgumentException(
+                'Image must be under ' . self::MAX_KB . 'KB. Please compress it and try again.'
+            );
+        }
+
+        if ($enforceMin && $size < self::MIN_BYTES) {
+            throw new InvalidArgumentException(
+                'Image must be at least ' . self::MIN_KB . 'KB. Please upload a higher-resolution photo.'
+            );
+        }
+
+        $extension = strtolower($file->getClientOriginalExtension() ?: $file->extension() ?: 'jpg');
+        if (! in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'webp'], true)) {
+            $extension = 'jpg';
+        }
+
+        $filename = $this->makeFilename($file, $extension === 'jpeg' ? 'jpg' : $extension);
+        $path = trim($directory . '/' . $filename, '/');
+
+        Storage::disk($disk)->put($path, file_get_contents($file->getRealPath()));
+
+        return $filename;
+    }
+
+    private function makeFilename(UploadedFile $file, string $extension): string
+    {
+        return Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) ?: 'image')
+            . '_' . time() . '_' . Str::random(5) . '.' . $extension;
     }
 
     private function createImageResource(string $path, ?string $mime)
