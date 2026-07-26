@@ -48,11 +48,11 @@
     <div class="container">
         <div class="text-center mb-50">
             <h2 class="ilm-section-title">Key Programs</h2>
-            <p class="ilm-section-subtitle">Three pathways of hope—reaching students, empowering young mothers, and raising community leaders.</p>
+            <p class="ilm-section-subtitle">Pathways of hope—reaching students, empowering young mothers, and raising community leaders.</p>
         </div>
 
         <div class="row g-4">
-            @foreach ($orderedPrograms->take(3) as $rs)
+            @foreach ($orderedPrograms as $rs)
                 @php
                     $desc = trim(strip_tags($rs->description ?? ''));
                     $excerpt = $desc !== '' ? Str::limit($desc, 130, '...') : '';
@@ -60,7 +60,7 @@
                     $img = !empty($rs->image)
                         ? ilm_image_url('images/projects', $rs->image) : ($rs->fallback_image ?? asset('assets/img/blog/blog-1.jpg'));
                 @endphp
-                <div class="col-lg-4 col-md-6 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".{{ $loop->iteration + 1 }}s">
+                <div class="col-6 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".{{ min($loop->iteration + 1, 5) }}s">
                     <article class="ilm-key-card">
                         <a href="{{ $href }}" class="ilm-key-card__media" wire:navigate>
                             <img src="{{ $img }}" alt="{{ $rs->title }}" loading="lazy" decoding="async" width="480" height="280">

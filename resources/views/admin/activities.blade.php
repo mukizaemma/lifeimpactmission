@@ -28,6 +28,7 @@
                                     <th>Project Title</th>
                                     <th>Description</th>
                                     <th>Image</th>
+                                    <th>Visibility</th>
                                     <th>Created_at</th>
                                     <th>Action</th>
                                 </tr>
@@ -39,6 +40,13 @@
                                     <td>{{$rs->title}}</td>
                                     <td>{!!$rs->description!!}</td>
                                     <td><img src="{{ ilm_image_url('images/projects', $rs->image)}}" alt="" width="150px"></td>
+                                    <td>
+                                        @if(($rs->status ?? 'Active') === 'Hidden')
+                                            <span class="badge bg-secondary">Hidden</span>
+                                        @else
+                                            <span class="badge bg-success">Public</span>
+                                        @endif
+                                    </td>
                                     <td>{{ $rs->created_at }}</td>
                                     <td>   
                                         <div class="bg-light rounded ">
@@ -83,11 +91,20 @@
                                                     </select>
                                                 </div> --}}
 
-                                                    <div class="col-12">
+                                                    <div class="col-lg-8 col-sm-12">
                                                         <div class="form-group">
                                                             <label for="projectinput1">Project Title</label>
                                                             <input type="text" class="form-control"
                                                                 placeholder="Project/Activity Title" name="title" required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="status">Public Visibility</label>
+                                                            <select name="status" id="status" class="form-control">
+                                                                <option value="Active" selected>Show on public pages</option>
+                                                                <option value="Hidden">Hidden (not shown publicly)</option>
+                                                            </select>
                                                         </div>
                                                     </div>
 

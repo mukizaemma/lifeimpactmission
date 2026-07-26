@@ -13,7 +13,7 @@ class Programs extends Component
     public function render()
     {
         return view('frontend.programs', [
-            'programs' => Activity::oldest()->get(),
+            'programs' => Activity::visible()->oldest()->get(),
             'about' => Background::first(),
         ]);
     }

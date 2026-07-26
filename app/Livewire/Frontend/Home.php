@@ -61,7 +61,7 @@ class Home extends Component
 
         return view('frontend.home', [
             'background' => Background::latest()->get(),
-            'programs' => Activity::oldest()->get(),
+            'programs' => Activity::visible()->oldest()->get(),
             'homeGallery' => Gallery::latest()->get(),
             'featuredEvent' => $featuredEvent,
             'eventIsUpcoming' => $eventIsUpcoming,

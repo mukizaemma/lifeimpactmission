@@ -81,7 +81,7 @@ class HomeController extends Controller
 
     public function index(InstagramService $instagramService){
         $background = Background::latest()->get();
-        $programs = Activity::oldest()->get();
+        $programs = Activity::visible()->oldest()->get();
         $about = background::first();
         $mission = About::first();
         $homeGallery = Gallery::latest()->get();
@@ -210,7 +210,7 @@ class HomeController extends Controller
         return view('frontend.testimony',['testimony'=>$testimony, 'programs'=>$programs,'testimonials'=>$testimonials,'about'=>$about]);
     }
     public function showPrograms(){
-        $programs = Activity::oldest()->get();
+        $programs = Activity::visible()->oldest()->get();
         $about = background::first();
         return view('frontend.programs',['programs'=>$programs, 'about'=>$about]);
     }
@@ -224,9 +224,9 @@ class HomeController extends Controller
     }
 
     public function project($slug){
-        $activity = Activity::with('images')->where('slug',$slug)->firstOrFail();
+        $activity = Activity::visible()->with('images')->where('slug',$slug)->firstOrFail();
         $images = $activity->images;
-        $relatedActivities = Activity::where('id' ,'!=',$activity->id)->oldest()->get();
+        $relatedActivities = Activity::visible()->where('id' ,'!=',$activity->id)->oldest()->get();
         $about = background::first();
         $gallery = Gallery::latest()->get();
         $news = News::latest()->paginate(9);

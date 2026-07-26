@@ -36,6 +36,7 @@ class ProjectsController extends Controller
         $activity->title = $request->input('title');
         $activity->description = $request->input('description');
         $activity->program_id = $request->input('program_id');
+        $activity->status = $request->input('status', 'Active') === 'Hidden' ? 'Hidden' : 'Active';
         $activity->slug = $slug;
 
         try {
@@ -83,6 +84,7 @@ class ProjectsController extends Controller
         $data->title = $request->input('title');
         $data->description = $request->input('description');
         $data->program_id = $request->input('program_id');
+        $data->status = $request->input('status', 'Active') === 'Hidden' ? 'Hidden' : 'Active';
         $data->created_at = $request->input('created_at');
 
         if(!$data){

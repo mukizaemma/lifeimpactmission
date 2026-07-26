@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
 
         View::share('setting', $setting);
         View::share('about', $about);
-        View::share('ourPrograms', Activity::with('images')->oldest()->get());
+        View::share('ourPrograms', Activity::visible()->with('images')->oldest()->get());
         try {
             $pageHeaders = Schema::hasTable('page_headers')
                 ? PageHeader::all()->keyBy('page_key')

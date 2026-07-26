@@ -15,6 +15,7 @@ class Activity extends Model
         'slug',
         'image',
         'program_id',
+        'status',
         'created_at'
     ];
 
@@ -24,5 +25,16 @@ class Activity extends Model
 
     public function images(){
         return $this->hasMany(Projectimage::class);
+    }
+
+    /** Programs shown on public pages (nav, listings, detail). */
+    public function scopeVisible($query)
+    {
+        return $query->where('status', 'Active');
+    }
+
+    public function isVisible(): bool
+    {
+        return ($this->status ?? 'Active') === 'Active';
     }
 }

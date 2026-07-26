@@ -24,13 +24,13 @@ class ProgramShow extends Component
 
     public function render()
     {
-        $activity = Activity::with('images')->where('slug', $this->slug)->firstOrFail();
+        $activity = Activity::visible()->with('images')->where('slug', $this->slug)->firstOrFail();
 
         view()->share('title', $activity->title);
 
         return view('frontend.activity', [
             'activity' => $activity,
-            'relatedActivities' => Activity::where('id', '!=', $activity->id)->oldest()->get(),
+            'relatedActivities' => Activity::visible()->where('id', '!=', $activity->id)->oldest()->get(),
             'about' => Background::first(),
             'gallery' => Gallery::latest()->get(),
             'images' => $activity->images,

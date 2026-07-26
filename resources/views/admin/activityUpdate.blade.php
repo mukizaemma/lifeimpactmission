@@ -48,13 +48,22 @@
                                     </select>
                                 </div> --}}
 
-                                <div class="col-lg-8 col-sm-12">
+                                <div class="col-lg-6 col-sm-12">
                                     <div class="form-group">
                                         <label for="projectinput1">Project Title</label>
                                         <input type="text" class="form-control" name="title" value="{{$data->title}}">
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-sm-12">
+                                <div class="col-lg-3 col-sm-12">
+                                    <div class="form-group">
+                                        <label for="status">Public Visibility</label>
+                                        <select name="status" id="status" class="form-control">
+                                            <option value="Active" {{ ($data->status ?? 'Active') === 'Active' ? 'selected' : '' }}>Show on public pages</option>
+                                            <option value="Hidden" {{ ($data->status ?? 'Active') === 'Hidden' ? 'selected' : '' }}>Hidden (not shown publicly)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-12">
                                     <div class="form-group">
                                         <label for="projectinput4">Created at</label>
                                         <input type="datetime" class="form-control"
