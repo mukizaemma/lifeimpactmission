@@ -6,14 +6,13 @@ use App\Models\Gallery;
 use App\Models\Image;
 use App\Models\Impact as ImpactModel;
 use App\Models\Partner;
-use App\Services\InstagramService;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
 #[Title('Our Impact')]
 class Impact extends Component
 {
-    public function render(InstagramService $instagramService)
+    public function render()
     {
         $impacts = ImpactModel::where('status', 'Active')->latest()->get();
         if ($impacts->isEmpty()) {
@@ -29,7 +28,6 @@ class Impact extends Component
             'impacts' => $impacts,
             'gallery' => $gallery,
             'partners' => Partner::oldest()->get(),
-            'instagramPost' => $instagramService->getLatestPost(),
         ]);
     }
 }

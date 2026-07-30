@@ -17,6 +17,39 @@ class InstagramService
     }
 
     /**
+     * Lightweight card preview for page paint — no outbound HTTP.
+     * Uses cached feed data when available; otherwise parses the first settings URL.
+     */
+    public function getCardPreview(): ?array
+    {
+        foreach ([6, 1, 3, 12] as $limit) {
+            $cached = Cache::get("instagram_feed_posts_{$limit}");
+            if (is_array($cached) && ! empty($cached[0])) {
+                return $cached[0];
+            }
+        }
+
+        $urls = $this->settingPostUrls();
+        if ($urls === []) {
+            return null;
+        }
+
+        $parsed = $this->parseUrl($urls[0]);
+        if (empty($parsed['embed_url'])) {
+            return null;
+        }
+
+        return [
+            'permalink' => $parsed['permalink'],
+            'media_type' => $parsed['type'],
+            'embed_url' => $parsed['embed_url'],
+            'shortcode' => $parsed['shortcode'],
+            'image' => null,
+            'caption' => '',
+        ];
+    }
+
+    /**
      * Recent posts from the org Instagram account for on-page viewing.
      * Prefer Graph API (true account feed). Fall back to admin-curated post URLs.
      *

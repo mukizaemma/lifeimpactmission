@@ -179,122 +179,109 @@
         {{ $slot }}
     </main>
 
-    <footer>
-        <!-- footer-area-start -->
-        <div class="tp-footer__area">
-            <div class="tp-footer__bg" data-background="#">
-                <div class="container">
-                    <div class="row ilm-footer-row">
-                        <div class="col-xl-4 col-lg-4 col-md-6 mb-45 ilm-footer-col-brand wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".3s">
-                            <div class="tp-footer__widget footer-2-col-1">
-                                <div class="tp-footer__logo">
-                                    <a href="{{ route('home') }}" wire:navigate>
-                                        <img src="{{ ilm_image_url('images', $setting->logo ?? '') }}" alt="Impact Life Mission" height="120">
-                                    </a>
-                                </div>
-                                <div class="tp-footer__text">
-                                    <p style="color:#fff">Empowering young mothers and youth to live with dignity, purpose, and hope.</p>
-                                </div>
-                                <a class="tp-btn mt-15" href="https://secure.qgiv.com/for/impactlifemission" target="_blank" rel="noopener">Donate Now</a>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-4 col-lg-4 col-md-6 mb-45 ilm-footer-col-links wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".5s">
-                            <div class="tp-footer__widget">
-                                <h4 class="tp-footer__widget-title-3">Quick Links</h4>
-                                <div class="tp-footer__list">
-                                    <ul class="ilm-footer-quicklinks">
-                                        <li><a href="{{ route('home') }}" wire:navigate>Home</a></li>
-                                        <li><a href="{{ route('backgroundDetails') }}" wire:navigate>Who We Are</a></li>
-                                        <li><a href="{{ route('impact') }}" wire:navigate>Our Impact</a></li>
-                                        <li><a href="{{ route('showPrograms') }}" wire:navigate>Our Programs</a></li>
-                                        <li><a href="{{ route('mothers') }}" wire:navigate>Mothers</a></li>
-                                        <li><a href="{{ route('upcomingEvents') }}" wire:navigate>Events</a></li>
-                                        <li><a href="{{ route('posts') }}" wire:navigate>Updates</a></li>
-                                        <li><a href="{{ route('gallery') }}" wire:navigate>Images</a></li>
-                                        <li><a href="{{ route('videos') }}" wire:navigate>Videos</a></li>
-                                        <li><a href="{{ route('getInvolved') }}" wire:navigate>Get Involved</a></li>
-                                        <li><a href="{{ route('contacts') }}" wire:navigate>Contact</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-4 col-lg-4 col-md-12 mb-45 wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".7s">
-                            <div class="tp-footer__widget ilm-footer-connect">
-                                <h4 class="tp-footer__widget-title-3">Connect With Us</h4>
-
-                                <div class="ilm-footer-connect__cards">
-                                    @if(!empty($setting->email))
-                                        <a href="mailto:{{ $setting->email }}" class="ilm-footer-connect__card">
-                                            <span class="ilm-footer-connect__icon"><i class="flaticon-mail"></i></span>
-                                            <span class="ilm-footer-connect__text">
-                                                <small>Email</small>
-                                                {{ $setting->email }}
-                                            </span>
-                                        </a>
-                                    @endif
-                                    @if(!empty($setting->phone))
-                                        <a href="tel:{{ $setting->phone }}" class="ilm-footer-connect__card">
-                                            <span class="ilm-footer-connect__icon"><i class="flaticon-phone"></i></span>
-                                            <span class="ilm-footer-connect__text">
-                                                <small>Phone</small>
-                                                {{ $setting->phone }}
-                                            </span>
-                                        </a>
-                                    @endif
-                                    @if(!empty($setting->phone1))
-                                        <a href="tel:{{ $setting->phone1 }}" class="ilm-footer-connect__card">
-                                            <span class="ilm-footer-connect__icon"><i class="flaticon-phone"></i></span>
-                                            <span class="ilm-footer-connect__text">
-                                                <small>Phone 2</small>
-                                                {{ $setting->phone1 }}
-                                            </span>
-                                        </a>
-                                    @endif
-                                    @if(!empty($setting->address))
-                                        <div class="ilm-footer-connect__card ilm-footer-connect__card--static">
-                                            <span class="ilm-footer-connect__icon"><i class="flaticon-location"></i></span>
-                                            <span class="ilm-footer-connect__text">
-                                                <small>Address</small>
-                                                {{ $setting->address }}
-                                            </span>
-                                        </div>
-                                    @endif
-                                </div>
-
-                                @include('frontend.includes.social-links')
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- footer-area-end -->
-
-        <!-- copyright-area-start -->
-        <div class="tp-copyright__area tp-copyright__bg">
+    <footer class="ilm-footer">
+        <div class="ilm-footer__main">
             <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                        <div class="tp-copyright__text text-center text-sm-start">
-                            <span style="color: #fff !important">
-                            &copy; Impact Life Mission
-                            {{ date('Y') }}
-                            | Site Developed by
-                            </span>
-                             <a href="https://iremetech.com"
-                                target="_blank" style="color: #fff">Ireme Technologies</a>
+                <div class="ilm-footer__grid">
+                    <div class="ilm-footer__brand wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".2s">
+                        <a href="{{ route('home') }}" class="ilm-footer__logo" wire:navigate>
+                            <img src="{{ ilm_image_url('images', $setting->logo ?? '') }}" alt="Impact Life Mission" height="96" width="auto">
+                        </a>
+                        <p class="ilm-footer__tagline">
+                            Empowering young mothers and youth to live with dignity, purpose, and hope.
+                        </p>
+                        <div class="ilm-footer__actions">
+                            <a class="tp-btn ilm-btn-orange" href="https://secure.qgiv.com/for/impactlifemission" target="_blank" rel="noopener">Donate Now</a>
+                            <a class="tp-btn ilm-btn-ghost ilm-footer__ghost" href="{{ route('getInvolved') }}" wire:navigate>Get Involved</a>
+                        </div>
+                        @include('frontend.includes.social-links')
+                    </div>
+
+                    <div class="ilm-footer__nav wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".35s">
+                        <div class="ilm-footer__nav-col">
+                            <h4 class="ilm-footer__heading">Explore</h4>
+                            <ul class="ilm-footer__links">
+                                <li><a href="{{ route('home') }}" wire:navigate>Home</a></li>
+                                <li><a href="{{ route('backgroundDetails') }}" wire:navigate>Who We Are</a></li>
+                                <li><a href="{{ route('impact') }}" wire:navigate>Our Impact</a></li>
+                                <li><a href="{{ route('showPrograms') }}" wire:navigate>Our Programs</a></li>
+                                <li><a href="{{ route('mothers') }}" wire:navigate>Mothers</a></li>
+                                <li><a href="{{ route('team') }}" wire:navigate>Our Team</a></li>
+                            </ul>
+                        </div>
+                        <div class="ilm-footer__nav-col">
+                            <h4 class="ilm-footer__heading">Stories &amp; Media</h4>
+                            <ul class="ilm-footer__links">
+                                <li><a href="{{ route('testimonials') }}" wire:navigate>Testimonials</a></li>
+                                <li><a href="{{ route('upcomingEvents') }}" wire:navigate>Events</a></li>
+                                <li><a href="{{ route('posts') }}" wire:navigate>Updates</a></li>
+                                <li><a href="{{ route('gallery') }}" wire:navigate>Images</a></li>
+                                <li><a href="{{ route('videos') }}" wire:navigate>Videos</a></li>
+                                <li><a href="{{ route('contacts') }}" wire:navigate>Contact</a></li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 
+                    <div class="ilm-footer__connect wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".5s">
+                        <h4 class="ilm-footer__heading">Connect With Us</h4>
+                        <div class="ilm-footer__contact">
+                            @if(!empty($setting->email))
+                                <a href="mailto:{{ $setting->email }}" class="ilm-footer__contact-item">
+                                    <span class="ilm-footer__contact-icon" aria-hidden="true"><i class="flaticon-mail"></i></span>
+                                    <span class="ilm-footer__contact-copy">
+                                        <small>Email</small>
+                                        <span>{{ $setting->email }}</span>
+                                    </span>
+                                </a>
+                            @endif
+                            @if(!empty($setting->phone))
+                                <a href="tel:{{ $setting->phone }}" class="ilm-footer__contact-item">
+                                    <span class="ilm-footer__contact-icon" aria-hidden="true"><i class="flaticon-phone"></i></span>
+                                    <span class="ilm-footer__contact-copy">
+                                        <small>Phone</small>
+                                        <span>{{ $setting->phone }}</span>
+                                    </span>
+                                </a>
+                            @endif
+                            @if(!empty($setting->phone1))
+                                <a href="tel:{{ $setting->phone1 }}" class="ilm-footer__contact-item">
+                                    <span class="ilm-footer__contact-icon" aria-hidden="true"><i class="flaticon-phone"></i></span>
+                                    <span class="ilm-footer__contact-copy">
+                                        <small>Phone 2</small>
+                                        <span>{{ $setting->phone1 }}</span>
+                                    </span>
+                                </a>
+                            @endif
+                            @if(!empty($setting->address))
+                                <div class="ilm-footer__contact-item ilm-footer__contact-item--static">
+                                    <span class="ilm-footer__contact-icon" aria-hidden="true"><i class="flaticon-location"></i></span>
+                                    <span class="ilm-footer__contact-copy">
+                                        <small>Address</small>
+                                        <span>{{ $setting->address }}</span>
+                                    </span>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- copyright-area-end -->
 
+        <div class="ilm-footer__bottom">
+            <div class="container">
+                <div class="ilm-footer__bottom-inner">
+                    <p class="ilm-footer__copyright">
+                        &copy; {{ date('Y') }} Impact Life Mission.
+                        Site developed by
+                        <a href="https://iremetech.com" target="_blank" rel="noopener noreferrer">Ireme Technologies</a>
+                    </p>
+                    <div class="ilm-footer__bottom-links">
+                        <a href="{{ route('getInvolved') }}" wire:navigate>Partner With Us</a>
+                        <a href="{{ route('contacts') }}" wire:navigate>Say Hello</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </footer>
 
 

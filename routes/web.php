@@ -52,6 +52,7 @@ Route::get('/updates', Updates::class)->name('posts');
 Route::get('/updates/{slug}', UpdateShow::class)->name('postSingle');
 Route::get('/get-involved', GetInvolved::class)->name('getInvolved');
 Route::get('/impact', Impact::class)->name('impact');
+Route::get('/instagram/feed', \App\Http\Controllers\InstagramFeedController::class)->name('instagram.feed');
 
 // Users Action
 Route::get('/donate',[App\Http\Controllers\HomeController::class,'donate'])->name('donate');

@@ -116,7 +116,7 @@ class HomeController extends Controller
                 ->first();
         }
 
-        $instagramPost = $instagramService->getLatestPost();
+        $instagramPost = $instagramService->getCardPreview();
         $mothers = collect();
         try {
             if (\Illuminate\Support\Facades\Schema::hasTable('mothers')) {
