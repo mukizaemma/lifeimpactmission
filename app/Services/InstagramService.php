@@ -11,14 +11,33 @@ class InstagramService
 {
     public function getLatestPost(): ?array
     {
-        return Cache::remember('instagram_latest_post', now()->addHour(), function () {
-            return $this->fetchLatestPost();
+        $posts = $this->getFeedPosts(1);
+
+        return $posts[0] ?? null;
+    }
+
+    /**
+     * Recent posts from the org Instagram account for on-page viewing.
+     * Prefer Graph API (true account feed). Fall back to admin-curated post URLs.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    public function getFeedPosts(int $limit = 6): array
+    {
+        $limit = max(1, min($limit, 12));
+
+        return Cache::remember("instagram_feed_posts_{$limit}", now()->addHour(), function () use ($limit) {
+            return $this->fetchFeedPosts($limit);
         });
     }
 
     public function clearCache(): void
     {
         Cache::forget('instagram_latest_post');
+
+        for ($i = 1; $i <= 12; $i++) {
+            Cache::forget("instagram_feed_posts_{$i}");
+        }
     }
 
     public function parseUrl(string $url): array
@@ -30,7 +49,7 @@ class InstagramService
         if (preg_match('#instagram\.com/(?:reel|reels)/([A-Za-z0-9_-]+)#i', $url, $matches)) {
             $type = 'reel';
             $shortcode = $matches[1];
-        } elseif (preg_match('#instagram\.com/p/([A-Za-z0-9_-]+)#i', $url, $matches)) {
+        } elseif (preg_match('#instagram\.com/p/([A-Za-z0-9_-]+)/?#i', $url, $matches)) {
             $type = 'post';
             $shortcode = $matches[1];
         }
@@ -49,31 +68,68 @@ class InstagramService
         ];
     }
 
-    protected function fetchLatestPost(): ?array
+    /**
+     * @return array<int, string>
+     */
+    public function settingPostUrls(?Setting $setting = null): array
+    {
+        $setting ??= Setting::first();
+        $raw = (string) ($setting?->instagram_post_url ?? '');
+
+        if (trim($raw) === '') {
+            return [];
+        }
+
+        $parts = preg_split('/[\s,]+/', $raw) ?: [];
+
+        return collect($parts)
+            ->map(fn ($url) => trim($url))
+            ->filter(fn ($url) => $url !== '' && $this->isInstagramPostUrl($url))
+            ->unique()
+            ->values()
+            ->all();
+    }
+
+    public function isInstagramPostUrl(string $url): bool
+    {
+        return (bool) preg_match('#^https?://(www\.)?instagram\.com/(p|reel|reels)/[A-Za-z0-9_-]+#i', trim($url));
+    }
+
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    protected function fetchFeedPosts(int $limit): array
     {
         $token = config('services.instagram.access_token');
         $userId = config('services.instagram.user_id');
 
         if ($token && $userId) {
-            $fromApi = $this->fetchFromGraphApi($token, $userId);
-            if ($fromApi) {
+            $fromApi = $this->fetchManyFromGraphApi($token, $userId, $limit);
+            if (! empty($fromApi)) {
                 return $fromApi;
             }
         }
 
-        $setting = Setting::first();
-        $postUrl = $setting?->instagram_post_url;
+        $urls = $this->settingPostUrls();
+        $posts = [];
 
-        if ($postUrl) {
-            return $this->fetchFromUrl($postUrl);
+        foreach (array_slice($urls, 0, $limit) as $url) {
+            $post = $this->fetchFromUrl($url);
+            if ($post) {
+                $posts[] = $post;
+            }
         }
 
-        return null;
+        return $posts;
     }
 
     protected function fetchFromUrl(string $postUrl): ?array
     {
         $parsed = $this->parseUrl($postUrl);
+        if (empty($parsed['embed_url'])) {
+            return null;
+        }
+
         $oembed = $this->fetchFromOembed($postUrl);
 
         $mediaType = $parsed['type'];
@@ -92,48 +148,64 @@ class InstagramService
         ], fn ($value) => $value !== null && $value !== '');
     }
 
-    protected function fetchFromGraphApi(string $token, string $userId): ?array
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    protected function fetchManyFromGraphApi(string $token, string $userId, int $limit): array
     {
         try {
-            $response = Http::timeout(8)->get("https://graph.instagram.com/{$userId}/media", [
+            $response = Http::timeout(10)->get("https://graph.instagram.com/{$userId}/media", [
                 'fields' => 'id,caption,media_type,media_url,permalink,thumbnail_url,timestamp',
-                'limit' => 1,
+                'limit' => $limit,
                 'access_token' => $token,
             ]);
 
             if (! $response->successful()) {
-                return null;
+                return [];
             }
 
-            $item = $response->json('data.0');
+            $items = $response->json('data') ?? [];
+            $posts = [];
 
-            if (! $item) {
-                return null;
+            foreach ($items as $item) {
+                $mapped = $this->mapGraphItem($item);
+                if ($mapped) {
+                    $posts[] = $mapped;
+                }
             }
 
-            $graphType = strtolower($item['media_type'] ?? 'image');
-            $mediaType = in_array($graphType, ['video', 'reels'], true) ? 'reel' : 'post';
-            $permalink = $item['permalink'] ?? '';
-            $parsed = $permalink ? $this->parseUrl($permalink) : ['embed_url' => null, 'type' => $mediaType];
-
-            $imageUrl = in_array($graphType, ['video', 'reels'], true)
-                ? ($item['thumbnail_url'] ?? $item['media_url'])
-                : $item['media_url'];
-
-            return [
-                'image' => $imageUrl,
-                'permalink' => $permalink,
-                'caption' => $item['caption'] ?? '',
-                'media_type' => $parsed['type'] ?? $mediaType,
-                'embed_url' => $parsed['embed_url'],
-                'shortcode' => $parsed['shortcode'] ?? null,
-                'timestamp' => $item['timestamp'] ?? null,
-            ];
+            return $posts;
         } catch (\Throwable $e) {
-            Log::warning('Instagram Graph API fetch failed: ' . $e->getMessage());
+            Log::warning('Instagram Graph API feed fetch failed: ' . $e->getMessage());
 
+            return [];
+        }
+    }
+
+    protected function mapGraphItem(array $item): ?array
+    {
+        $permalink = $item['permalink'] ?? '';
+        if ($permalink === '') {
             return null;
         }
+
+        $graphType = strtolower($item['media_type'] ?? 'image');
+        $mediaType = in_array($graphType, ['video', 'reels'], true) ? 'reel' : 'post';
+        $parsed = $this->parseUrl($permalink);
+
+        $imageUrl = in_array($graphType, ['video', 'reels'], true)
+            ? ($item['thumbnail_url'] ?? $item['media_url'] ?? null)
+            : ($item['media_url'] ?? null);
+
+        return array_filter([
+            'image' => $imageUrl,
+            'permalink' => $permalink,
+            'caption' => $item['caption'] ?? '',
+            'media_type' => $parsed['type'] ?? $mediaType,
+            'embed_url' => $parsed['embed_url'],
+            'shortcode' => $parsed['shortcode'] ?? null,
+            'timestamp' => $item['timestamp'] ?? null,
+        ], fn ($value) => $value !== null && $value !== '');
     }
 
     protected function fetchFromOembed(string $postUrl): ?array

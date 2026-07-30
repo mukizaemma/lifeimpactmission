@@ -71,6 +71,7 @@ class Home extends Component
             'partners' => Partner::oldest()->get(),
             'impacts' => $impacts,
             'instagramPost' => $instagramService->getLatestPost(),
+            'instagramFeed' => $instagramService->getFeedPosts(6),
             'staff' => Team::latest()->get(),
             'about' => Background::first(),
             'mission' => About::first(),

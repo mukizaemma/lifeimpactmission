@@ -81,8 +81,8 @@
                                                     </div>
                                                     <div class="col-lg-4 col-sm-12">
                                                         <div class="form-group">
-                                                            <label>Instagram Profile URL</label>
-                                                            <input type="url" class="form-control" value="{{ $data->instagram }}" name="instagram" placeholder="https://instagram.com/...">
+                                                            <label for="instagram">Instagram Profile URL <small class="text-muted">(used for “Open Profile” in the feed viewer)</small></label>
+                                                            <input type="url" class="form-control" id="instagram" value="{{ $data->instagram }}" name="instagram" placeholder="https://www.instagram.com/youraccount/">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4 col-sm-12">
@@ -111,10 +111,9 @@
                                                     </div>
                                                     <div class="col-lg-12 col-sm-12">
                                                         <div class="form-group">
-                                                            <label for="instagram_post_url">Latest Instagram Post or Reel URL <small class="text-muted">(homepage Events &amp; Highlights)</small></label>
-                                                            <input type="url" class="form-control" id="instagram_post_url"
-                                                                value="{{ $data->instagram_post_url ?? '' }}" name="instagram_post_url"
-                                                                placeholder="https://www.instagram.com/p/... or https://www.instagram.com/reel/...">
+                                                            <label for="instagram_post_url">Instagram Post / Reel URLs for Impact Card &amp; Feed <small class="text-muted">(one URL per line — first shows on the card; all open in the on-page viewer. Use posts from your account.)</small></label>
+                                                            <textarea class="form-control" id="instagram_post_url" name="instagram_post_url" rows="4"
+                                                                placeholder="https://www.instagram.com/p/...&#10;https://www.instagram.com/reel/...&#10;https://www.instagram.com/p/...">{{ $data->instagram_post_url ?? '' }}</textarea>
                                                         </div>
                                                     </div>
                                                 </div>

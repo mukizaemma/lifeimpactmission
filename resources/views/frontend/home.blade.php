@@ -11,37 +11,13 @@
     {{-- 4. Empowering Young Mothers — 4 colored pillars --}}
     @include('frontend.includes.home-pillars')
 
-    {{-- 5. Agriculture independence band --}}
-    @include('frontend.includes.home-agriculture')
+    {{-- 5. Our Impact + Instagram spotlight --}}
+    @include('frontend.includes.home-impact')
 
-    {{-- 6. Impact numbers --}}
-    @if(isset($impacts) && $impacts->isNotEmpty())
-    <section class="ilm-impact-stats">
-        <div class="container">
-            <div class="row mb-40">
-                <div class="col-xl-12 text-center">
-                    <h2 class="ilm-section-title text-white">Lives transformed through partnership</h2>
-                    <p class="ilm-section-subtitle ilm-section-subtitle--light">Numbers that point to restored dignity and growing hope.</p>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                @foreach($impacts->take(4) as $impact)
-                    <div class="col-lg-3 col-md-6 col-sm-6 mb-30">
-                        <div class="ilm-stat-item wow tpfadeUp" data-wow-duration=".9s" data-wow-delay=".3s">
-                            <div class="ilm-stat-item__number">{{ $impact->title }}</div>
-                            <div class="ilm-stat-item__label">{{ $impact->description }}</div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
-    @endif
-
-    {{-- 7. Story --}}
+    {{-- 6. Story --}}
     @include('frontend.includes.home-story')
 
-    {{-- 8. Donate band --}}
+    {{-- 7. Donate band --}}
     <div class="tp-cta-2__area pb-15">
         <div class="tp-cta-2__bg p-relative fix" data-background="{{ !empty($about->image1) ? ilm_image_url('images', $about->image1) : asset('assets/img/cta/cta-bg.jpg') }}">
             <div class="container">
@@ -58,9 +34,9 @@
         </div>
     </div>
 
-    {{-- 9. Mothers profiles (replaces events & highlights) --}}
+    {{-- 8. Mothers profiles --}}
     @include('frontend.includes.home-mothers')
 
-    {{-- 10. Get involved --}}
+    {{-- 9. Get involved --}}
     @include('frontend.includes.bottom')
 </div>

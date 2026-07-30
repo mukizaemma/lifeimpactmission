@@ -111,7 +111,12 @@
                                 <ul>
                                     <li><a href="{{route('home')}}" wire:navigate>Home</a>
                                     </li>
-                                    <li><a href="{{route('backgroundDetails')}}" wire:navigate>Who We Are</a>
+                                    <li class="has-dropdown"><a href="{{route('backgroundDetails')}}" wire:navigate>Who We Are</a>
+                                        <ul class="submenu tp-submenu">
+                                            <li><a href="{{ route('backgroundDetails') }}" wire:navigate>About Us</a></li>
+                                            <li><a href="{{ route('impact') }}" wire:navigate>Our Impact</a></li>
+                                            <li><a href="{{ route('team') }}" wire:navigate>Our Team</a></li>
+                                        </ul>
                                     </li>
 
                                     <li class="has-dropdown"><a href="{{ route('showPrograms') }}" wire:navigate>Our Programs</a>
@@ -201,6 +206,7 @@
                                     <ul class="ilm-footer-quicklinks">
                                         <li><a href="{{ route('home') }}" wire:navigate>Home</a></li>
                                         <li><a href="{{ route('backgroundDetails') }}" wire:navigate>Who We Are</a></li>
+                                        <li><a href="{{ route('impact') }}" wire:navigate>Our Impact</a></li>
                                         <li><a href="{{ route('showPrograms') }}" wire:navigate>Our Programs</a></li>
                                         <li><a href="{{ route('mothers') }}" wire:navigate>Mothers</a></li>
                                         <li><a href="{{ route('upcomingEvents') }}" wire:navigate>Events</a></li>

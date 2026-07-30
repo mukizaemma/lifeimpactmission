@@ -5,7 +5,7 @@
 
     @include('frontend.includes.home-pillars')
 
-    @include('frontend.includes.home-agriculture')
+    @include('frontend.includes.home-impact')
 
     @include('frontend.includes.backImage')
 </div>

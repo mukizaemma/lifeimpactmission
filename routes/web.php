@@ -11,6 +11,7 @@ use App\Livewire\Frontend\Events;
 use App\Livewire\Frontend\Gallery;
 use App\Livewire\Frontend\GetInvolved;
 use App\Livewire\Frontend\Home;
+use App\Livewire\Frontend\Impact;
 use App\Livewire\Frontend\MotherShow;
 use App\Livewire\Frontend\Mothers;
 use App\Livewire\Frontend\ProgramShow;
@@ -50,6 +51,7 @@ Route::get('/mothers/{slug}', MotherShow::class)->name('mother');
 Route::get('/updates', Updates::class)->name('posts');
 Route::get('/updates/{slug}', UpdateShow::class)->name('postSingle');
 Route::get('/get-involved', GetInvolved::class)->name('getInvolved');
+Route::get('/impact', Impact::class)->name('impact');
 
 // Users Action
 Route::get('/donate',[App\Http\Controllers\HomeController::class,'donate'])->name('donate');

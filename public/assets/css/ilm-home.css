@@ -1951,78 +1951,191 @@
   }
 }
 
-/* —— Agriculture independence band —— */
-.ilm-agriculture {
+/* —— Our Impact spotlight (60% copy / 40% portrait IG) —— */
+.ilm-impact-spotlight {
   margin: 0;
-  background: #0d0b09;
+  background:
+    radial-gradient(ellipse 70% 80% at 8% 20%, rgba(184, 112, 48, 0.16) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 60% at 92% 40%, rgba(184, 112, 48, 0.12) 0%, transparent 50%),
+    linear-gradient(145deg, #0d0b09 0%, #1a1410 55%, #2c241c 100%);
+  overflow: hidden;
 }
 
-.ilm-agriculture__inner {
+.ilm-impact-spotlight__inner {
   display: grid;
-  grid-template-columns: 1.05fr 1fr;
-  min-height: 520px;
+  grid-template-columns: minmax(0, 1.5fr) minmax(280px, 1fr);
+  gap: clamp(28px, 3.5vw, 48px);
+  align-items: center;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: clamp(40px, 5.5vw, 72px) clamp(20px, 4vw, 40px);
+  min-height: 0;
 }
 
-.ilm-agriculture__copy {
-  padding: clamp(48px, 7vw, 80px) clamp(28px, 6vw, 80px);
+.ilm-impact-spotlight__copy {
+  padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background:
-    linear-gradient(145deg, #0d0b09 0%, #1a1410 55%, #2c241c 100%);
+  background: transparent;
   color: #fff;
+  max-width: none;
 }
 
-.ilm-agriculture__title {
-  font-size: clamp(1.75rem, 3.2vw, 2.6rem);
+.ilm-impact-spotlight__eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #e8c9a8;
+  margin: 0 0 12px;
+}
+
+.ilm-impact-spotlight__title {
+  font-size: clamp(1.85rem, 3vw, 2.6rem);
   font-weight: 800;
-  line-height: 1.15;
+  line-height: 1.12;
   color: #fff;
-  margin: 0 0 18px;
-  max-width: 520px;
-}
-
-.ilm-agriculture__text {
-  font-size: 16.5px;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.88);
-  margin: 0 0 22px;
-  max-width: 500px;
-}
-
-.ilm-agriculture__points {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 28px;
-}
-
-.ilm-agriculture__points li {
+  margin: 0 0 14px;
+  max-width: none;
   position: relative;
-  padding: 8px 0 8px 26px;
-  font-size: 15px;
-  color: rgba(255, 255, 255, 0.92);
+  display: inline-block;
 }
 
-.ilm-agriculture__points li::before {
+.ilm-impact-spotlight__title::after {
   content: "";
-  position: absolute;
-  left: 0;
-  top: 14px;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+  display: block;
+  width: 56px;
+  height: 3px;
+  margin-top: 12px;
   background: #b87030;
 }
 
-.ilm-agriculture__media {
-  position: relative;
-  min-height: 360px;
-  overflow: hidden;
-  background: #1a1410;
-  align-self: stretch;
+.ilm-impact-spotlight__text {
+  font-size: 16px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.88);
+  margin: 0 0 16px;
+  max-width: none;
 }
 
-.ilm-agriculture__media img {
+.ilm-impact-spotlight__points {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+  max-width: none;
+}
+
+.ilm-impact-spotlight__points li {
+  position: relative;
+  padding: 7px 0 7px 26px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.94);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ilm-impact-spotlight__points li:last-child {
+  border-bottom: 0;
+}
+
+.ilm-impact-spotlight__points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 13px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #b87030;
+  box-shadow: 0 0 0 3px rgba(184, 112, 48, 0.25);
+}
+
+.ilm-impact-spotlight__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.ilm-impact-spotlight__actions .tp-btn {
+  margin: 0;
+}
+
+.ilm-impact-spotlight__actions .ilm-btn-ghost {
+  background: transparent;
+  border: 1px solid rgba(232, 201, 168, 0.45);
+  color: #fff;
+}
+
+.ilm-impact-spotlight__actions .ilm-btn-ghost:hover {
+  border-color: #b87030;
+  background: rgba(184, 112, 48, 0.15);
+  color: #fff;
+}
+
+.ilm-impact-spotlight__media {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0;
+  background: transparent;
+  align-self: center;
+  width: 100%;
+}
+
+.ilm-impact-spotlight__frame {
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #0d0b09;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(232, 201, 168, 0.12);
+  position: relative;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  animation: ilm-impact-frame-in 0.9s ease both;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  text-align: left;
+}
+
+.ilm-impact-spotlight__frame:hover,
+.ilm-impact-spotlight__frame:focus-visible {
+  transform: translateY(-4px);
+  box-shadow:
+    0 28px 68px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(184, 112, 48, 0.45);
+  outline: none;
+}
+
+.ilm-impact-spotlight__embed {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  background: #fff;
+  pointer-events: none;
+}
+
+.ilm-impact-spotlight__thumb {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.ilm-impact-spotlight__thumb img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -2030,46 +2143,379 @@
   transition: transform 1s ease;
 }
 
-.ilm-agriculture__video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  background: #0d0b09;
+.ilm-impact-spotlight__frame:hover .ilm-impact-spotlight__thumb img {
+  transform: scale(1.04);
 }
 
-.ilm-agriculture__video iframe {
+.ilm-impact-spotlight__ig-badge {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-  display: block;
-}
-
-.ilm-agriculture:hover .ilm-agriculture__media img {
-  transform: scale(1.05);
-}
-
-.ilm-agriculture__overlay {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(90deg, rgba(26, 20, 16, 0.35) 0%, transparent 40%),
-    linear-gradient(180deg, transparent 60%, rgba(26, 20, 16, 0.25) 100%);
+  left: 14px;
+  bottom: 14px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(13, 11, 9, 0.88);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   pointer-events: none;
 }
 
+.ilm-impact-spotlight__placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 2rem;
+  text-align: center;
+  color: #fff;
+  background: linear-gradient(145deg, #1a1410 0%, #3d3228 100%);
+}
+
+.ilm-impact-spotlight__placeholder i {
+  font-size: 2.75rem;
+  color: #e8c9a8;
+}
+
+.ilm-impact-spotlight__placeholder p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 220px;
+}
+
+@keyframes ilm-impact-frame-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 @media (max-width: 991px) {
-  .ilm-agriculture__inner {
+  .ilm-impact-spotlight__inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: clamp(36px, 6vw, 56px) clamp(18px, 4vw, 28px);
+  }
+
+  .ilm-impact-spotlight__media {
+    order: -1;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .ilm-impact-spotlight__frame {
+    max-width: 340px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 575px) {
+  .ilm-impact-spotlight__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ilm-impact-spotlight__actions .tp-btn {
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+/* —— Instagram feed modal (on-page account posts) —— */
+html.ilm-ig-feed-open,
+html.ilm-ig-feed-open body {
+  overflow: hidden;
+}
+
+.ilm-ig-feed-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+
+.ilm-ig-feed-modal[hidden] {
+  display: none !important;
+}
+
+.ilm-ig-feed-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 11, 9, 0.78);
+  border: 0;
+  cursor: pointer;
+}
+
+.ilm-ig-feed-modal__panel {
+  position: relative;
+  z-index: 1;
+  width: min(1100px, 100%);
+  max-height: min(90vh, 900px);
+  display: flex;
+  flex-direction: column;
+  background: #faf6f1;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+.ilm-ig-feed-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  background: #1a1410;
+  color: #fff;
+}
+
+.ilm-ig-feed-modal__eyebrow {
+  margin: 0 0 4px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e8c9a8;
+}
+
+.ilm-ig-feed-modal__title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.ilm-ig-feed-modal__header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.ilm-ig-feed-modal__follow {
+  margin: 0;
+  padding: 10px 16px;
+  font-size: 13px;
+}
+
+.ilm-ig-feed-modal__close {
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(232, 201, 168, 0.35);
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ilm-ig-feed-modal__close:hover,
+.ilm-ig-feed-modal__close:focus-visible {
+  border-color: #b87030;
+  background: rgba(184, 112, 48, 0.2);
+  outline: none;
+}
+
+.ilm-ig-feed-modal__body {
+  overflow: auto;
+  padding: 20px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ilm-ig-feed-modal__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.ilm-ig-feed-modal__item {
+  background: #fff;
+  border: 1px solid rgba(26, 20, 16, 0.08);
+  min-height: 420px;
+  overflow: hidden;
+}
+
+.ilm-ig-feed-modal__embed {
+  width: 100%;
+  min-height: 480px;
+  height: 100%;
+  border: 0;
+  display: block;
+  background: #fff;
+}
+
+.ilm-ig-feed-modal__thumb {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+}
+
+.ilm-ig-feed-modal__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ilm-ig-feed-modal__empty {
+  text-align: center;
+  padding: 48px 20px;
+  color: #6b5e52;
+}
+
+.ilm-ig-feed-modal__empty i {
+  font-size: 2.5rem;
+  color: #b87030;
+  margin-bottom: 14px;
+}
+
+.ilm-ig-feed-modal__empty p {
+  max-width: 420px;
+  margin: 0 auto 20px;
+  line-height: 1.6;
+}
+
+@media (max-width: 991px) {
+  .ilm-ig-feed-modal__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .ilm-ig-feed-modal {
+    padding: 0;
+    align-items: stretch;
+  }
+
+  .ilm-ig-feed-modal__panel {
+    width: 100%;
+    max-height: 100%;
+    height: 100%;
+  }
+
+  .ilm-ig-feed-modal__header {
+    flex-wrap: wrap;
+  }
+
+  .ilm-ig-feed-modal__grid {
     grid-template-columns: 1fr;
   }
 
-  .ilm-agriculture__media {
-    min-height: 0;
-    order: -1;
-    aspect-ratio: 16 / 9;
+  .ilm-ig-feed-modal__item,
+  .ilm-ig-feed-modal__embed,
+  .ilm-ig-feed-modal__thumb {
+    min-height: 520px;
   }
+}
+
+/* —— Impact page —— */
+.ilm-impact-page-intro {
+  padding: 72px 0 24px;
+}
+
+.ilm-impact-page-details {
+  padding: 24px 0 72px;
+}
+
+.ilm-impact-detail {
+  height: 100%;
+  padding: 28px 28px 28px 36px;
+  background: #faf6f1;
+  border-left: 3px solid #b87030;
+  position: relative;
+}
+
+.ilm-impact-detail__mark {
+  position: absolute;
+  left: 14px;
+  top: 34px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #b87030;
+}
+
+.ilm-impact-detail__title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #1a1410;
+  margin: 0 0 10px;
+}
+
+.ilm-impact-detail__text {
+  margin: 0;
+  color: #6b5e52;
+  line-height: 1.7;
+  font-size: 15.5px;
+}
+
+.ilm-impact-page-gallery {
+  padding: 80px 0;
+  background: #f6f0e8;
+}
+
+.ilm-impact-page-cta {
+  padding: 0 0 80px;
+}
+
+.ilm-impact-page-cta__inner {
+  padding: clamp(40px, 6vw, 64px);
+  background:
+    radial-gradient(ellipse 70% 80% at 100% 0%, rgba(184, 112, 48, 0.2) 0%, transparent 50%),
+    linear-gradient(145deg, #0d0b09 0%, #1a1410 55%, #2c241c 100%);
+  color: #fff;
+}
+
+.ilm-impact-page-cta__title {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800;
+  color: #fff;
+  margin: 10px 0 14px;
+  line-height: 1.2;
+}
+
+.ilm-impact-page-cta__text {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.7;
+  max-width: 540px;
+}
+
+.ilm-impact-page-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-start;
+}
+
+.ilm-impact-page-cta__actions .ilm-btn-ghost {
+  background: transparent;
+  border: 1px solid rgba(232, 201, 168, 0.45);
+  color: #fff;
+}
+
+.ilm-impact-page-cta__actions .ilm-btn-ghost:hover {
+  border-color: #b87030;
+  background: rgba(184, 112, 48, 0.15);
+  color: #fff;
 }
 
 /* Hero warmth tweak for mockup palette */
@@ -2141,7 +2587,7 @@
   .ilm-key-card,
   .ilm-mother-tile,
   .ilm-about-home__frame,
-  .ilm-agriculture__media img {
+  .ilm-impact-spotlight__thumb img {
     will-change: transform;
   }
 }
@@ -2422,8 +2868,6 @@
   background-color: #0d0b09 !important;
 }
 
-.ilm-agriculture,
-.ilm-agriculture__copy,
 .ilm-involve__inner,
 .ilm-impact-stats {
   background:

@@ -77,6 +77,12 @@ class PageHeaderSeeder extends Seeder
                 'subtitle' => 'Practical skills, mentorship, and faith that unlock lasting change.',
             ],
             [
+                'page_key' => 'impact',
+                'label' => 'Our Impact',
+                'title' => 'Lives restored. Hope multiplied.',
+                'subtitle' => 'See how partnership turns faith into dignity for young mothers, youth, and communities across Rwanda.',
+            ],
+            [
                 'page_key' => 'mothers',
                 'label' => 'Mothers Program',
                 'title' => 'Empowered Mothers, Transformed Communities',
